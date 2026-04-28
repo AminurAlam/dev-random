@@ -1,4 +1,6 @@
 // #import "snippets/frontpage.typ": starter, index
+// #starter([])
+// #index
 
 #let starter(heading) = {
   set align(center)

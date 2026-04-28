@@ -1,5 +1,5 @@
 // #import "snippets/note.typ": *
-// #show: template
+// #show: template.with("Title")
 
 #let template(title, depth: 2, body) = {
   show table: set block(breakable: false)

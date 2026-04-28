@@ -1,6 +1,11 @@
+#import "snippets/note.typ": *
+#show: template.with("Compiler Design")
+
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 
-= difference b/w compiler and interpreter
+#pagebreak()
+
+= difference b/w compiler and interpreter [TODO]
 
 = phases of compiler
 
@@ -36,3 +41,35 @@
 
   blob((1, 4), [symbol table], height: 50pt),
 ))
+
+= parser types
+
+top down
+- recursive decent
+- LL (left to right)
+
+bottom up
+- LR (0|1)
+- Operator precedence
+
+#pagebreak()
+= check if LL
+
+== case 1: no null present
+
+#let Fi = "Fi"
+
+$S -> a | b | c$
+
+if $epsilon in Fi(a) inter Fi(b) inter Fi(c) "then it is LL"$
+
+if $epsilon in.not Fi(a) inter Fi(b) inter Fi(c) "then it is NOT LL"$
+
+== case 2: null present
+
+$S -> a | b | epsilon$
+
+if $epsilon in Fi(a) inter Fi(b) inter Fi(S) "then it is LL"$
+
+if $epsilon in.not Fi(a) inter Fi(b) inter Fi(S) "then it is NOT LL"$
+
