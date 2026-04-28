@@ -1,0 +1,10 @@
+foo
+foo123
+_
+foo_
+_foo
+_123foo
+__foo__
+FOO
+_123FOO
+123
