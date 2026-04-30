@@ -34,6 +34,9 @@
 #let argmin = $limits("argmin")_(w)$
 
 // https://sitandr.github.io/typst-examples-book/book/typstonomicon/try_catch.html
+// https://github.com/typst/typst/issues/7599#issuecomment-3670866651
+// https://github.com/typst/typst/pull/7556
+// TODO: fix always showing 404
 #let img(path, ..args) = context {
   let path-label = label(path)
   let first-time = query((context {}).func()).len() == 0
