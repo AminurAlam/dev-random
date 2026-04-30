@@ -6,4 +6,4 @@
 .*                    ECHO; printf(" Invalid");
 %%
 
-void main() { yylex(); }
+int main() { yylex(); }

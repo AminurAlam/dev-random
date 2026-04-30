@@ -1,7 +1,7 @@
 %option noyywrap
 
 %%
-[0-9] ;
+[aeiouAEIOU] ;
 . ECHO;
 %%
 

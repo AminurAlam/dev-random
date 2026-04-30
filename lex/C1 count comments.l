@@ -9,7 +9,7 @@ int n = 0;
 #.*$ { n++; ECHO; }
 %%
 
-void main() {
+int main() {
     yylex();
     printf("comments: %d\n", n);
     assert(n == 3);

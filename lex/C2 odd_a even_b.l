@@ -1,6 +1,6 @@
 %{
-    #include <assert.h>
-    int a = 0, b = 0;
+#include <assert.h>
+int a = 0, b = 0;
 %}
 
 %option noyywrap
@@ -17,4 +17,4 @@ b { b++; ECHO; }
 }
 %%
 
-void main() { yylex(); }
+int main() { yylex(); }

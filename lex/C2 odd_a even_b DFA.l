@@ -21,4 +21,4 @@
 <*>[^ab\n].*\n printf("INVALID\n"); BEGIN INITIAL;
 %%
 
-void main() { yylex(); }
+int main() { yylex(); }

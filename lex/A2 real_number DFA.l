@@ -1,23 +1,20 @@
-%s A B DEAD
+%s A B C
 %option noyywrap
 
 %%
 <INITIAL>[0-9]+ BEGIN A;
-<INITIAL>[0-9]+[.][0-9]+ BEGIN B;
-<INITIAL>[^\n] BEGIN DEAD;
-<INITIAL>\n BEGIN INITIAL; {printf("Not Accepted\n");}
+<INITIAL>[^\n] BEGIN C;
+<INITIAL>\n BEGIN INITIAL; printf("Not Accepted\n");
 
-<A>[^\n] BEGIN DEAD;
-<A>\n BEGIN INITIAL; {printf("Integer\n");}
+<A>\.[0-9]+ BEGIN B;
+<A>[^\n] BEGIN C;
+<A>\n BEGIN INITIAL; printf("Integer\n");
 
-<B>[^\n] BEGIN DEAD;
-<B>\n BEGIN INITIAL; {printf("Float\n");}
+<B>[^\n] BEGIN C;
+<B>\n BEGIN INITIAL; printf("Float\n");
 
-<DEAD>[^\n] BEGIN DEAD;
-<DEAD>\n BEGIN INITIAL; {printf("Invalid\n");}
-
-^[0-9]+$ printf("Integer");
-
+<C>[^\n] BEGIN C;
+<C>\n BEGIN INITIAL; printf("Invalid\n");
 %%
 
-void main() { yylex(); }
+int main() { yylex(); }

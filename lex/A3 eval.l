@@ -6,17 +6,14 @@ int res = 0;
 %option noyywrap
 
 %%
-^-?[0-9]+ { res = atoi(yytext); };
-"+"|"-"|"*"|"/" { op = yytext[0]; };
-[0-9]+ {
-    switch (op) {
-        case '+': res = res + atoi(yytext); break;
-        case '-': res = res - atoi(yytext); break;
-        case '*': res = res * atoi(yytext); break;
-        case '/': res = res / atoi(yytext); break;
-        default: return 1; break;
-    }
-};
+^-?[0-9]+       res = atoi(yytext);
+"+"|"-"|"*"|"/" op = yytext[0];
+[0-9]+          switch (op) {
+    case '+': res = res + atoi(yytext); break;
+    case '-': res = res - atoi(yytext); break;
+    case '*': res = res * atoi(yytext); break;
+    case '/': res = res / atoi(yytext); break;
+}
 \n {
     printf("%d\n", res);
     res = 0;
@@ -25,4 +22,4 @@ int res = 0;
 . return 1;
 %%
 
-void main() { yylex(); }
+int main() { yylex(); }

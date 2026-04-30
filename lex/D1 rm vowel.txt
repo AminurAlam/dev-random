@@ -1,0 +1,6 @@
+aeiou
+xaeioux
+xx
+AEIOU
+XAEIOUX
+XX

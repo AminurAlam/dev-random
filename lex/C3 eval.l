@@ -25,4 +25,4 @@ int res = 0;
 . return 1;
 %%
 
-void main() { yylex(); }
+int main() { yylex(); }
