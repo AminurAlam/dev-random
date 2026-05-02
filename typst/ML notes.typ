@@ -6,17 +6,23 @@
 
 #let det = math.mat.with(delim: "|", align: left)
 #let datatable = table(
-  columns: (10%, 10%, auto, auto),
-  $x_1$, $x_2$, $x_1 - dash(x_1)$, $x_2 - dash(x_2)$,
-  $a$, $p$, $a - dash(x_1)$, $p - dash(x_2)$,
-  $b$, $q$, $b - dash(x_1)$, $q - dash(x_2)$,
-  $c$, $r$, $c - dash(x_1)$, $r - dash(x_2)$,
-  $dots$, $dots$, $$, $$,
+  columns: (10%, 10%, auto, auto, auto),
+  $x_1$,
+  $x_2$,
+  $x_1 - dash(x_1)$,
+  $x_2 - dash(x_2)$,
+  $(x_1 - dash(x_1))(x_2 - dash(x_2))$,
+
+  $a$, $p$, $a - dash(x_1)$, $p - dash(x_2)$, $dots$,
+  $b$, $q$, $b - dash(x_1)$, $q - dash(x_2)$, $dots$,
+  $c$, $r$, $c - dash(x_1)$, $r - dash(x_2)$, $dots$,
+  $dots$, $dots$, $dots$, $dots$, $dots$,
 )
 
 
 
-= Info
+= INFO
+
 == Variance and Covariance
 
 #datatable
@@ -39,13 +45,14 @@ $ x = display((- b plus.minus sqrt(b^2 - 4 a c)) / (2 a)) $
 
 #pagebreak()
 
-= Classifiers
+= CLASSIFIERS
 
 == KNN
 == Naive Bayes
 == Decision Tree
 
-= Clustering
+= CLUSTERING
+
 == K-Means Clustering
 
 = PCA
@@ -78,9 +85,12 @@ $
       ) \
 $
 
+4. TODO
+
 #pagebreak()
 
-= Regression
+= REGRESSION
+
 == Linear Regression
 
 $y = a x + b$
@@ -99,3 +109,87 @@ $
          b & = "Cov"(x,y) / "Var"(x) \
          a & = dash(y) - b dash(x) \
 $
+
+#pagebreak()
+
+= FEATURE SELECTION
+
+== Filter Methods
+Filter methods evaluate the relevance of features based only on their intrinsic
+properties (like statistical characteristics), completely independent of any machine
+learning algorithm.
+
+You apply a statistical measure to assign a score to each feature. Features are
+ranked, and you select the top-performing ones or remove those that fall below a
+certain threshold before you ever touch a predictive model.
+
+eg: Pearson correlation, Chi-square test, ANOVA, Information Gain, Variance
+threshold.
+
+PROS:
+- / Fast and scalable: Because they don\'t involve training iterative models, they
+    are computationally very cheap.
+- / Algorithm agnostic: The selected features can be used with any machine learning
+    model down the line.
+- / Low risk of overfitting: They act strictly on the data\'s raw properties.
+
+CONS:
+- / Ignores feature interactions: A feature might seem useless on its own but be
+    highly predictive when combined with another feature. Filter methods usually
+    evaluate features in isolation and will miss this.
+- / Not model-optimized: The selected features aren\'t tailored to get the absolute
+    best performance out of the specific model you eventually plan to use.
+
+== Wrapper Methods
+
+Wrapper methods evaluate subsets of features by actually training and testing a
+specific machine learning model on them. The model\'s resulting performance (e.g.,
+accuracy or error rate) dictates which features are kept.
+
+It treats feature selection as a search problem. It generates a subset of features,
+trains your chosen model on them, evaluates the performance, and then decides whether
+to add or remove features before training again to see if the score improves.
+
+eg: Forward Selection (starting with 0 features and adding the best ones
+iteratively), Backward Elimination (starting with all features and removing the worst
+ones iteratively), Recursive Feature Elimination (RFE).
+
+PROS:
+- / Captures feature interactions: Because it tests features together inside an
+    actual model, it recognizes when variables work well as a team.
+- / Highly accurate: It is explicitly optimized for the specific algorithm you are
+    using, usually resulting in better final model performance.
+
+CONS:
+- / Computationally expensive: Training a new model for hundreds or thousands of
+    different feature combinations is incredibly slow and resource-heavy, making it
+    impractical for massive datasets.
+- / High risk of overfitting: Because it fine-tunes the feature subset so closely to
+    the training data and a specific model, it might capture noise and fail to
+    generalize well to unseen data.
+
+== Difference
+
+#table(
+  columns: 3,
+  [Characteristic], [Filter Methods], [Wrapper Methods],
+
+  [Evaluation basis],
+  [Statistical properties of the data],
+  [Predictive model performance],
+
+  [Model Dependence],
+  [Independent (Algorithm agnostic)],
+  [Dependent (Tied to a specific model)],
+
+  [Speed / Cost],
+  [Very fast / Computationally cheap],
+  [Very slow / Computationally expensive],
+
+  [Best used for...],
+  [High-dimensional data, initial screening],
+  [Manageable datasets, maximizing accuracy],
+
+  [Feature Interactions], [Usually ignored], [Captured effectively],
+  [Risk of Overfitting], [Low], [High],
+)
