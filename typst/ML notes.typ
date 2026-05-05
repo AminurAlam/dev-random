@@ -48,12 +48,42 @@ $ x = display((- b plus.minus sqrt(b^2 - 4 a c)) / (2 a)) $
 = CLASSIFIERS
 
 == KNN
+
++ find euclidian dist \
+  $x = sqrt((x - x_i)^2 + (y - y_i)^2)$
++ sort by dist
++ select K classes
++ take their weighted avg
++ assign that class
+
 == Naive Bayes
-== Decision Tree
+$
+  P(Y|X_1, X_2, dots, X_n) & = P(Y) product_(i=1)^n P(X_i|Y)/P(X_i) \
+  P(Y|X_1, X_2, dots, X_n) & prop P(Y) product_(i=1)^n P(X_i|Y) \
+                  P(X_i|Y) & = (P(Y|X_i) P(X_i)) / P(Y) \
+$
+
++ find $P(Y="Yes")$ and $P(Y="No")$
++ find conditional prob of $X_1, X_2, dots$
++ put values in the above formula
+
+== Decision Tree [TODO]
+
+ENTROPY:
+$ E_D_i = - display(sumin P_i log_2(P_i)) $
+
+INFORMATION GAIN:
+$ I G(X) & = display(sum_(i=1)^k (abs(D_i)/abs(D) E_D_i) - E_D) $
+
+#box(stroke: 10pt, inset: 10pt, radius: 10pt, image("assets/DT1.png"))
+
+#pagebreak()
 
 = CLUSTERING
 
-== K-Means Clustering
+== K-Means Clustering [TODO]
+
+#pagebreak()
 
 = PCA
 
@@ -74,8 +104,7 @@ $
   )
 $
 
-3. Eigen values
-
+3. eigenvalues
 
 $
   0 & = "det"(S - lambda I) \
@@ -83,9 +112,58 @@ $
         "Cov"(x_1, x_1) - lambda, "Cov"(x_1, x_2);
         "Cov"(x_2, x_1), "Cov"(x_2, x_2) - lambda
       ) \
+  0 & = a lambda^2 + b lambda + c
 $
 
-4. TODO
+calculate roots of the equation above to get $lambda_1$ and $lambda_2$
+
+4. find eigenvectors
+
+$
+          U & = mat(u_1; u_2) \
+  mat(0; 0) & = (S - lambda I) U \
+            & = mat(
+                align: #left,
+                a - lambda, b;
+                b, c - lambda
+              ) mat(u_1; u_2) \
+            & = mat(
+                align: #left,
+                (a - lambda) u_1, b u_2;
+                b u_1, (c - lambda) u_2
+              ) \
+$
+
+we will get two equations and can use any one of them to get the eigenvectors
+
+$
+  a u_1 - b u_2 & = 0 \
+          a u_1 & = b u_2 \
+          u_1/b & = u_2 / a
+$
+
+let, $u_1/b & = u_2 / a = t$
+
+$
+          u_1 & = a t, u_2 = b t \
+          u_1 & = a, u_2 = b "  " ("assuming" t = 0) \
+  therefore U & = mat(a; b)
+$
+
+5. find unit eigenvector
+
+substitute the value of lambda with the bigger one between $lambda_1$ and $lambda_2$
+
+$
+  norm(U) & = sqrt(a^2 + b^2) \
+      e_1 & = mat(a / norm(U); b / norm(U)) \
+$
+
+6. find first principal of components
+
+$
+  e_1^T mat(X_(1k) - dash(X_1); X_(2k) - dash(X_2))
+$
 
 #pagebreak()
 
@@ -193,3 +271,56 @@ CONS:
   [Feature Interactions], [Usually ignored], [Captured effectively],
   [Risk of Overfitting], [Low], [High],
 )
+
+#pagebreak()
+
+= CORRELATION BASED FILTER METHOD
+
+In machine learning, having too many features (variables) can make your model slow,
+prone to overfitting, and difficult to interpret. Feature selection is the process of
+choosing the most useful features and discarding the rest. The correlation-based
+filter method is a technique that evaluates the statistical relationship between
+features and the target variable, as well as between the features themselves,
+completely independently of any specific machine learning algorithm.
+
+It relies primarily on the Pearson Correlation Coefficient ($r$), which measures the
+linear relationship between two continuous variables. The value of $r$ ranges from -1
+to 1:
+
+- $r = 1$: Perfect positive correlation.
+- $r = - 1$: Perfect negative correlation.
+- $r = 0$: No linear correlation.
+
+== Feature-Target Correlation (Relevance)
+
+You want features that have a strong relationship with the target variable you are
+trying to predict. If a feature\'s absolute correlation with the target is close to
+0, it likely won\'t help the model much and can be filtered out.
+
+== Feature-Feature Correlation (Redundancy/Collinearity)
+
+You do not want features that are highly correlated with each other. If two features
+are highly correlated, they contain essentially the same information. Keeping both
+doesn\'t add new predictive power and can destabilize some models.
+
+== Example: Predicting House Prices
+
+Imagine we want to build a model to predict House Price (our Target variable) using
+four features:
+
+- Square Footage vs. Price: 0.85 (Very Strong)
+- Distance to Center vs. Price: 0.80 (Very Strong)
+- Number of Bedrooms vs. Price: 0.75 (Strong)
+- Age of House vs. Price: 0.60 (Moderate)
+
+Redundancy (Feature Correlation):
+
+- Square Footage vs. Number of Bedrooms: 0.90 (Highly Correlated)
+
+Because "Square Footage" and "Number of Bedrooms" move together so closely (bigger
+houses almost always have more bedrooms), they are redundant. If we set a
+collinearity threshold of 0.85, we must drop one. Since Square Footage has a higher
+correlation with Price (0.85 vs 0.75), we keep Square Footage and drop Number of
+Bedrooms.
+
+Final Selected Features: Square Footage and Distance to City Center.

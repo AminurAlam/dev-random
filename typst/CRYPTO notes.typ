@@ -217,30 +217,42 @@
 
 #pagebreak()
 
-= CRYPTANALYSIS
+= CRYPTANALYSIS [B1]
+
+== Definition
+- Cryptology has two parts: Cryptography and Cryptanalysis
+- The person is called a Cryptanalyst
+- tries to break the security
+- simulation of real attack
+- helps finding any weak point
+- To determine the weak points of a cryptographic system
+- it is important to attack the system to assess hardening
+- This attacks are called Cryptanalytic attacks.
+- The attacks rely on nature of the algorithm and also knowledge of the general
+  characteristics of the plaintext,
+
+== Types of Attacks (text based)
+
+- / Ciphertext-only attack: cryptanalyst has access to the ciphertext and attempts to
+    deduce the plaintext
+- / Known-plaintext attack: cryptanalyst has access to both the plaintext and the
+    corresponding ciphertext, and attempts to deduce the encryption key
+- / Chosen-plaintext attack: cryptanalyst can choose the plaintext to be encrypted
+    and has access to the corresponding ciphertext, and attempts to deduce the
+    encryption key
+- / Side-channel attack: The cryptanalyst exploits information about the
+    implementation of the encryption algorithm, such as timing or power consumption,
+    to deduce the encryption key
 
 == Types of Attacks (broad categories)
 
-- / Passive Attacks:
-    Attackers silently monitor or intercept data No modification of data occurs
-    Examples: Eavesdropping, traffic analysis
-- / Active Attacks:
-    Attackers modify, delete, or disrupt data Can cause serious damage to systems
-    Examples: Data modification, denial-of-service attacks
+- / Passive Attacks: Attackers silently monitor or intercept data No modification of
+    data occurs Examples: Eavesdropping, traffic analysis
+- / Active Attacks: Attackers modify, delete, or disrupt data Can cause serious
+    damage to systems Examples: Data modification, denial-of-service attacks
 
-== Types of Attacks (detailed)
+== Methods of Attacks
 
-- / Known-Plaintext Analysis (KPA): In this type of attack, some plaintext-ciphertext
-    pairs are already known. Attacker maps them in order to find the encryption key.
-    This attack is easier to use as a lot of information is already available.
-- / Chosen-Plaintext Analysis (CPA): In this type of attack, the attacker chooses
-    random plaintexts and obtains the corresponding ciphertexts and tries to find the
-    encryption key. Its very simple to implement like KPA but the success rate is
-    quite low.
-- / Ciphertext-Only Analysis (COA): In this type of attack, only some cipher-text is
-    known and the attacker tries to find the corresponding encryption key and
-    plaintext. Its the hardest to implement but is the most probable attack as only
-    ciphertext is required.
 - / Man-In-The-Middle (MITM) attack: In this type of attack, attacker intercepts the
     message/key between two communicating parties through a secured channel.
 - / Adaptive Chosen-Plaintext Analysis (ACPA): This attack is similar CPA. Here, the
@@ -421,6 +433,55 @@ value pairs with the help of a hash function into a hash table.
 - / Variable input length and fixed output length: SHA algorithm consits of a
     variable input length (meaning the length of input is dynamic) and a fixed output
     length.
+
+#pagebreak()
+
+= DoS ATTACK [B2]
+
+- malicious actor attempts to make a service unavailable to its intended users
+- like a massive traffic jam on a highway
+- servers have a process limit
+- flooding the target with an overwhelming amount of junk data or artificial requests
+- processing fake traffic uses up all of its resources
+
+== Common Types of DoS Attacks
+
+/ Volume-Based Attacks: The attacker attempts to consume all the available bandwidth
+  between the target and the larger internet. It is purely a numbers game,
+  overwhelming the system with sheer volume.
+/ Protocol Attacks: These consume actual server resources or intermediate
+  communication equipment like firewalls and load balancers. They exploit weaknesses
+  in how network connections are initiated (eg: a SYN flood, where the attacker
+  repeatedly starts a connection handshake but never finishes it, leaving the server
+  "hanging" and wasting its resources).
+/ Application Layer Attacks: These are more sophisticated and target specific
+  applications. They often mimic legitimate user behavior, such as repeatedly
+  refreshing a resource-heavy webpage or submitting complex search queries, which
+  quickly exhausts the server's backend database or processing power.
+
+== DoS vs. DDoS: What is the Difference?
+
+/ DoS: The attack originates from a single source (one computer and one internet
+  connection). These are generally easier to stop because the target's security
+  systems can simply identify and block the single IP address sending the malicious
+  traffic.
+/ DDoS: The attack is distributed across multiple sources. Attackers usually use a
+  "botnet," which is a vast network of thousands or millions of malware-infected
+  computers and smart devices (IoT) around the world. Because the attack traffic
+  comes from everywhere at once, it is much harder to distinguish from normal traffic
+  and much more difficult to block.
+
+== Why Do Attackers Do This?
+
+/ Extortion: Threatening to launch an attack or starting a small one and demanding a
+  ransom payment to stop it.
+/ Hacktivism: Taking down a website or service to make a political or social
+  statement.
+/ Business Sabotage: Disrupting a competitor's online store or services, especially
+  during a major event like a holiday sale.
+/ Smokescreen: Creating chaos to distract a company's security team while a more
+  insidious attack (like data theft or network infiltration) happens in the
+  background.
 
 #pagebreak()
 
