@@ -124,6 +124,7 @@
 == monoalphabatic vs polyalphabetic
 
 // https://www.geeksforgeeks.org/computer-networks/difference-between-monoalphabetic-cipher-and-polyalphabetic-cipher/
+
 #table(
   columns: (50%, 50%),
   align: center,
@@ -318,34 +319,87 @@ some of the ancient types of cryptography:
 
 = TYPES OF CRYPTOGRAPHIC ALGORITHMS
 
-== 1. Advanced Encryption Standard (AES)
+#table(
+  columns: 4,
+  align: (auto, auto, auto, auto),
+  [Feature], [DES], [3DES], [AES],
+  [Key Size], [56 bits], [112 or 168 bits], [128, 192, or 256 bits],
+  [Block Size], [64 bits], [64 bits], [128 bits],
+  [Security], [Broken and Insecure], [Secure but legacy], [Secure Global Standard],
+  [Speed], [Fast in hardware], [Slow], [Very fast everywhere],
+  [Status], [Deprecated], [Deprecated in 2023], [Current Standard],
+)
 
-AES (Advanced Encryption Standard) is a popular encryption algorithm which uses the
-same key for encryption and decryption It is a symmetric block cipher algorithm with
-block size of 128 bits, 192 bits or 256 bits. AES algorithm is widely regarded as the
-replacement of DES (Data encryption standard) algorithm, which we will learn more
-about later in this article.
+#pagebreak()
 
-There are many types of AES depending on the rounds:
+= DES [C1]
 
-- AES-128 uses 10 rounds
-- AES-192 uses 12 rounds
-- AES-256 uses 14 rounds
+== Characteristics
+- DES is an implementation of a Feistel Cipher
+- older encryption algorithm
+- 64-bit plaintext data -> 48-bit encrypted ciphertext
+/ Feistel Network Architecture: The algorithm divides the 64-bit data block into two
+  32-bit halves and processes them through multiple identical stages (rounds).
+/ Key: is 64bit out of which 8bits are used for parity
+/ Subkeys: A key schedule algorithm generates sixteen distinct 48-bit subkeys from
+  the original 56-bit key one for each round.
+/ Block Cipher: processes in chunks of 64bits and produces 64bit ciphertext
+/ symmetric key: both encryption and decryption are done by same key
+/ Rounds: It executes 16 identical rounds of processing for each block of data.
+/ Cipher technique: Transposition and substitution cipher is used: This algorithm
+  uses both transposition cipher and substitution cipher technique.
+/ Building block: DES technique acts as a building block for other cryptographic
+  algorithms.
+/ Avalanche Effect: A minor change in either the plaintext or the key results in a
+  drastic change in the ciphertext, making statistical analysis difficult.
+/ Easier Implementation: DES was designed for hardwares rather than software and
+  shows efficiency and fast implementation in hardwares.
+/ Obsolescence: DES is no longer considered secure for modern applications.
+/ Vulnerability: Its primary weakness is its short 56-bit key length, making it
+  highly vulnerable to brute-force attacks (exhaustively searching all $2^56$
+  possible keys).
+/ Successors: Because of these vulnerabilities, it was initially adapted into Triple
+  DES (3DES), which applies the algorithm three times, and was eventually permanently
+  superseded by the Advanced Encryption Standard (AES).
 
-The more rounds there are, the safer the encryption. This is why AES-256 is
-considered the safest encryption.
+/ Substitution and Permutation: The core encryption relies on alternating processes:
+  - S-boxes (Substitution): The non-linear component of DES that provides confusion
+    by substituting input bits with different output bits.
+  - P-boxes (Permutation): The linear component that provides diffusion by
+    rearranging the bits.
 
-#image("./assets/aes.png", width: 70%)
+== Applications
 
-=== Characteristics of AES Algorithm
+- Legacy financial systems are a big one. Older ATMs and Point-of-Sale terminals were
+  built with hardware chips that only spoke DES or 3DES. Upgrading them means
+  replacing physical machines. That takes time and money.
+- You also see it in protocol compatibility. Some industrial control systems running
+  on legacy tech still need these older cipher suites to communicate with each other.
+- Random number generators used to use DES as a mixing function, too. It effectively
+  scrambled the numbers, making them unpredictable.
 
+== Algorithm
+
+#image("assets/des.webp")
+#image("assets/des_depth.webp")
+
+#pagebreak()
+
+= AES
+
+== Characteristics
+
+- symmetric block cipher algorithm
 - / Many key sizes: Three key sizes available: 128, 192, and 256 bits
+  - AES-128 uses 10 rounds
+  - AES-192 uses 12 rounds
+  - AES-256 uses 14 rounds
 - / Security: Strong security measures to protect against threats
 - / Versatile: It is versatile because it can be used for both hardware and software
 - / Wide applications: Widely adopted in various applications, including:Google
     Cloud, Facebook and Password managers.
 
-=== Applications of AES
+== Applications
 
 - / Wireless security: AES is used in securing wireless networks, such as Wi-Fi
     networks, to ensure data confidentiality and prevent unauthorized access.
@@ -370,25 +424,13 @@ considered the safest encryption.
     external storage devices, and cloud storage. It protects sensitive data stored on
     devices or during data transfer to prevent unauthorized access.
 
-== 2. Data Encryption Standard (DES)
+== Algorithm
 
-DES is an older encryption algorithm that is used to convert 64-bit plaintext data
-into 48-bit encrypted ciphertext. It uses symmetric keys (which means same key for
-encryption and decryption). It is kind of old by today's standard but can be used as
-a basic building block for learning newer encryption algorithms.
+#image("assets/aes.png")
 
-=== Characteristics of DES
+#pagebreak()
 
-- / Same symmetric key: DES uses symmetric-key algorithm and therefore, encryption
-    and decryption can be done by single key using same algorithm.
-- / Easier Implementation: DES was designed for hardwares rather than software and
-    shows efficiency and fast implementation in hardwares.
-- / Cipher technique: Transposition and substitution cipher is used: This algorithm
-    uses both transposition cipher and substitution cipher technique.
-- / Building block: DES technique acts as a building block for other cryptographic
-    algorithms.
-
-== 3. RSA Algorithm (Rivest, Shamir, Adleman Algorithm)
+= RSA [TODO][C3,C4]
 
 So, RSA is an basic asymmetric cryptographic algorithm which uses two different keys
 for encryption. The RSA algorithm works on a block cipher concept that converts plain
@@ -398,7 +440,7 @@ RSA algorithm is an asymmetric cryptography algorithm. Asymmetric actually means
 it works on two different keys i.e. Public Key and Private Key. As the name describes
 that the Public Key is given to everyone and the Private key is kept private.
 
-=== Characteristics of RSA Algorithm
+== Characteristics
 
 - / Security: Many consider the RSA method to be highly secure and widely used for
     transmitting data
@@ -410,7 +452,9 @@ that the Public Key is given to everyone and the Private key is kept private.
 - / Key exchange: With the RSA method secure exchange can be achieved, enabling two
     parties to swap a key without transmitting it over the network.
 
-== 4. Secure Hash Algorithm (SHA)
+#pagebreak()
+
+= SHA
 
 SHA is used to generate unique fixed-length digital fingerprints of input data known
 as hashes. SHA variations such as SHA-2 and SHA-3 are commonly used to ensure data
@@ -418,7 +462,7 @@ integrity and authenticity. The tiniest change in input data drastically modifie
 hash output, indicating a loss of integrity. Hashing is the process of storing key
 value pairs with the help of a hash function into a hash table.
 
-=== Characteristics of Secure Hash Algorithm (SHA)
+== Characteristics of Secure Hash Algorithm (SHA)
 
 - / Security: The SHA 256 is highly recognized for its robust security features,
     among hashing algorithms. It effectively prevents collision attacks ensuring that
@@ -433,6 +477,152 @@ value pairs with the help of a hash function into a hash table.
 - / Variable input length and fixed output length: SHA algorithm consits of a
     variable input length (meaning the length of input is dynamic) and a fixed output
     length.
+
+#pagebreak()
+
+= IDEA [TODO][C2]
+
+== Characteristics
+
+- / Block length: The block length should prevent statistical analysis. However, the
+    complexity of developing an effective encryption algorithm seems to increase
+    exponentially with block size.
+- / Key strength: The key length should be sufficient to avoid exhaustive key
+    searches. With a length of 128 bits, IDEA appears to be secure in this area well
+    into the future.
+- / Confusion: The ciphertext should rely on the plaintext and key in a complex and
+    effective manner. The goal is to make it more difficult to determine how the
+    ciphertext statistics relate to the plaintext statistics. IDEA achieves this
+    purpose by three distinct actions, as discussed subsequently. This contrasts with
+    DES, which is based primarily on the XOR operation and small nonlinear S-boxes.
+- / Diffusion: Each plaintext bit should impact every ciphertext bit, just as each
+    key bit should influence every ciphertext bit. The dispersion of a single
+    plaintext bit over multiple ciphertext bits obscures the plaintext\'s statistical
+    structure. IDEA is highly effective in this aspect.
+
+- Introduction of a 128-bit key length, revolutionary for its time.
+- Novel combination of three algebraic groups: XOR, addition modulo $2^16$, and
+  multiplication modulo $2^16+1$.
+- Pioneering resistance to then-known cryptanalytic attacks.
+- Implementation efficiency in both software and hardware platforms.
+
+The Simplified International Data Encryption Algorithm (IDEA) is a symmetric key
+block cipher that:
+- / Plaintext block size: 16 bits (divided into 4-bit chunks)
+- / Key length: 32 bits
+- / Output: 16-bit ciphertext
+- / Processing: Four complete rounds plus one half-round
+
+== Subkey Generation Process
+
+- Initial key division into eight 4-bit subkeys.
+- Key schedule generation through left rotation.
+- Production of 28 subkeys (24 for complete rounds, 4 for half-round).
+- Systematic distribution across rounds.
+
+== Overview of Rounds and Operations
+
+Each complete round consists of:
+
+- 14 distinct steps using three core operations
+- Systematic transformation of data blocks
+- Inter-round data swapping
+- Final half-round with 4 operations
+
+== Applications and Use Cases
+
++ Secure Communications
+  - Virtual Private Networks
+  - Encrypted messaging systems
+  - Secure email protocols
++ Data Protection
+  - File encryption
+  - Database security
+  - Storage encryption
++ Financial Security
+  - Electronic payment systems
+  - Banking applications
+  - Transaction security
++ / Secure communication: IDEA can be used to encrypt data transmitted over
+    communication networks such as the internet, providing confidentiality and
+    protecting against unauthorized access. + / Financial transactions: IDEA can be
+    used to secure financial transactions such as online banking and credit card
+    transactions, helping to prevent identity theft and fraud.
++ / Electronic voting systems: IDEA can be used to encrypt votes in electronic voting
+    systems, providing secure and confidential voting.
++ / File encryption: IDEA can be used to encrypt files and folders on a computer or
+    other storage device, protecting them from unauthorized access.
++ / Password protection: IDEA can be used to encrypt passwords and other sensitive
+    information stored on a computer or network, helping to prevent unauthorized
+    access and data breaches.
+
+== Issues
+
++ / Key size: While IDEA uses a 128-bit key size, which is generally considered
+    secure, it is still theoretically possible to brute-force the key if an attacker
+    has enough computing power. This is why longer key sizes are often used in modern
+    encryption algorithms.
++ / Patents: IDEA was originally patented, which limited its availability and
+    adoption in certain countries. While the patent has since expired, this could
+    still be a consideration for some organizations.
++ / Block size: IDEA has a fixed block size of 64 bits, which can limit its
+    effectiveness in certain applications where larger block sizes are required.
++ / Implementation issues: Like any encryption algorithm, IDEA can be vulnerable to
+    implementation issues such as side-channel attacks or implementation flaws. This
+    highlights the importance of using best practices and careful implementation when
+    using any encryption algorithm.
++ / Availability: While IDEA is still considered to be a strong and effective
+    encryption algorithm, it has been largely replaced by newer algorithms such as
+    AES in modern applications. This means that support and availability of IDEA
+    implementations may become more limited over time
+
+== Mathematical Foundations
+
+Core Operations:
++ Bitwise XOR (^)
++ Addition modulo 2^4 (+)
++ Multiplication modulo (2^4+1) (\*)
+
+Key Mathematical Properties:
+- Use of algebraic groups with complementary properties
+- Exploitation of modular arithmetic for confusion
+- Implementation of systematic diffusion through operation mixing
+
+Example Implementation:
+1. Initial key expansion
+2. Plaintext division into blocks
+3. Round function application
+  - Multiplication and addition operations
+  - XOR combinations
+  - Inter-round transformations
+4. Final half-round processing
+5. Ciphertext generation
+
+== Algorithm Implementation and Round Operations
+
+This algorithm involves a series of 4 identical complete rounds and 1 half-round.
+Each complete round involves a series of 14 steps:
+
+#grid(
+  columns: 2,
+  image("assets/idea.svg"),
+  [
+    + Multiply P1 and K1
+    + Add P2and K2
+    + Add P3and K3
+    + Multiply P4 and K4
+    + XOR the results of step1 and step3
+    + XOR the results of step2 and step4
+    + Multiply the results of step5 with K5
+    + Add the results of step6 and step7
+    + Multiply the results of step8 with K6
+    + Add the results of step7 and step9
+    + XOR the results of step1 and step9
+    + XOR the results of step3 and step9
+    + XOR the results of step2 and step10
+    + XOR the results of step4 and step10
+  ],
+)
 
 #pagebreak()
 

@@ -5,27 +5,27 @@
 #pagebreak()
 
 #let det = math.mat.with(delim: "|", align: left)
-#let datatable = table(
-  columns: (10%, 10%, auto, auto, auto),
-  $x_1$,
-  $x_2$,
-  $x_1 - dash(x_1)$,
-  $x_2 - dash(x_2)$,
-  $(x_1 - dash(x_1))(x_2 - dash(x_2))$,
+#let datatable(a, b) = table(
+  columns: (10%, 10%, auto, auto, auto, auto),
+  $#a$,
+  $#b$,
+  $#a - dash(#a)$,
+  $#b - dash(#b)$,
+  $(#a - dash(#a))^2$,
+  $(#a - dash(#a))(#b - dash(#b))$,
 
-  $a$, $p$, $a - dash(x_1)$, $p - dash(x_2)$, $dots$,
-  $b$, $q$, $b - dash(x_1)$, $q - dash(x_2)$, $dots$,
-  $c$, $r$, $c - dash(x_1)$, $r - dash(x_2)$, $dots$,
-  $dots$, $dots$, $dots$, $dots$, $dots$,
+  $a$, $p$, $a - dash(#a)$, $p - dash(#b)$, $dots$, $dots$,
+  $b$, $q$, $b - dash(#a)$, $q - dash(#b)$, $dots$, $dots$,
+  $c$, $r$, $c - dash(#a)$, $r - dash(#b)$, $dots$, $dots$,
+  $dots$, $dots$, $dots$, $dots$, $dots$, $dots$,
+  $$, $$, $$, $$, $sum$, $sum$,
 )
-
-
 
 = INFO
 
 == Variance and Covariance
 
-#datatable
+#datatable($x_1$, $x_2$)
 
 $
          "Var"(x) & = 1 / (n - 1) sumin (x_(i) - dash(x))^2 \
@@ -57,14 +57,17 @@ $ x = display((- b plus.minus sqrt(b^2 - 4 a c)) / (2 a)) $
 + assign that class
 
 == Naive Bayes
+
 $
   P(Y|X_1, X_2, dots, X_n) & = P(Y) product_(i=1)^n P(X_i|Y)/P(X_i) \
   P(Y|X_1, X_2, dots, X_n) & prop P(Y) product_(i=1)^n P(X_i|Y) \
-                  P(X_i|Y) & = (P(Y|X_i) P(X_i)) / P(Y) \
 $
 
 + find $P(Y="Yes")$ and $P(Y="No")$
 + find conditional prob of $X_1, X_2, dots$
+  $
+    P(X_i|Y) & = (P(Y|X_i) P(X_i)) / P(Y) \
+  $
 + put values in the above formula
 
 == Decision Tree [TODO]
@@ -79,13 +82,88 @@ $ I G(X) & = display(sum_(i=1)^k (abs(D_i)/abs(D) E_D_i) - E_D) $
 
 #pagebreak()
 
-= CLUSTERING
+= K-MEANS CLUSTERING
 
-== K-Means Clustering [TODO]
+// https://www.geeksforgeeks.org/machine-learning/k-means-clustering-introduction/
+
+== Uses
+
+- / Data Segmentation: One of the most common uses of K-Means is segmenting data into
+    distinct groups. For example, businesses use K-Means to group customers based on
+    behavior, such as purchasing patterns or website interaction.
+- / Image Compression: K-Means can be used to reduce the complexity of images by
+    grouping similar pixels into clusters, effectively compressing the image. This is
+    useful for image storage and processing.
+- / Anomaly Detection: K-Means can be applied to detect anomalies or outliers by
+    identifying data points that do not belong to any of the clusters.
+- / Document Clustering: In natural language processing (NLP), K-Means is used to
+    group similar documents or articles together. It’s often used in applications
+    like recommendation systems or news categorization.
+- / Organizing Large Datasets: When dealing with large datasets, K-Means can help in
+    organizing the data into smaller, more manageable chunks based on similarities,
+    improving the efficiency of data analysis.
+
+== Algorithm
+
++ / Initialization: We begin by randomly selecting k cluster centroids.
++ / Assignment Step: Each data point is assigned to the nearest centroid, forming
+    clusters.
++ / Update Step: After the assignment, we recalculate the centroid of each cluster by
+    averaging the points within it.
++ / Repeat: This process repeats until the centroids no longer change or the maximum
+    number of iterations is reached.
+
+FIRST ITERATION:
+
+calculate distance from each point to every centroid you picked
+
+then assign the centroid with the shortest distance as the closest point
+
+#table(
+  columns: 5,
+  [POINT], [Cen(2,10)], [Cen(5,8)], [Cen(1,2)], [New Cluster],
+
+  $A(2,10)$, $dots$, $dots$, $dots$, $1$,
+  $A(2,5)$, $dots$, $dots$, $dots$, $3$,
+  $A(8,4)$, $dots$, $dots$, $dots$, $2$,
+  $B(5,8)$, $dots$, $dots$, $dots$, $2$,
+  $B(7,5)$, $dots$, $dots$, $dots$, $2$,
+  $B(6,4)$, $dots$, $dots$, $dots$, $2$,
+  $C(1,2)$, $dots$, $dots$, $dots$, $3$,
+  $C(4,9)$, $dots$, $dots$, $dots$, $2$,
+)
+
+find new centeroids by taking average of $x_i$ and $y_i$ from new clusters
+
+$
+  C_1 & = (2, 10) \
+  C_2 & = ((8+5+7+6+4)/5, (4+8+5+4+9)/5) \
+  C_2 & = (6, 6) \
+  C_3 & = ((2+1)/2, (5+2)/2) \
+  C_3 & = (1.5, 3.5) \
+$
+
+SECOND ITERATION with new centroids:
+
+#table(
+  columns: 5,
+  [POINT], [Cen(2,10)], [Cen(6,6)], [Cen(1.5,3.5)], [New Cluster],
+
+  $A(2,10)$, $dots$, $dots$, $dots$, $1$,
+  $A(2,5)$, $dots$, $dots$, $dots$, $3$,
+  $A(8,4)$, $dots$, $dots$, $dots$, $2$,
+  $B(5,8)$, $dots$, $dots$, $dots$, $2$,
+  $B(7,5)$, $dots$, $dots$, $dots$, $2$,
+  $B(6,4)$, $dots$, $dots$, $dots$, $2$,
+  $C(1,2)$, $dots$, $dots$, $dots$, $3$,
+  $C(4,9)$, $dots$, $dots$, $dots$, $1$,
+)
+
+repeat till needed or new centroids are same as old centroids
 
 #pagebreak()
 
-= PCA
+= PCA 1
 
 // https://www.youtube.com/watch?v=ZtS6sQUAh0c
 
@@ -93,7 +171,7 @@ $ I G(X) & = display(sum_(i=1)^k (abs(D_i)/abs(D) E_D_i) - E_D) $
 
 $display(x_i - dash(x_i))$
 
-#datatable
+#datatable($x_1$, $x_2$)
 
 2. Calculate Covariance Matrix
 
@@ -167,6 +245,66 @@ $
 
 #pagebreak()
 
+= PCA 2
+
+// https://www.youtube.com/watch?v=ZtS6sQUAh0c
+
+1. Standardize the Data
+
+$display(x_i - dash(x_i))$
+
+#datatable($x_1$, $x_2$)
+
+2. Calculate Covariance Matrix
+
+$
+  C = mat(
+    "Cov"(x_1, x_1), "Cov"(x_1, x_2);
+    "Cov"(x_2, x_1), "Cov"(x_2, x_2)
+  )
+$
+
+3. eigenvalues
+
+$
+  0 & = "det"(C - lambda I) \
+  0 & = det(
+        "Cov"(x_1, x_1) - lambda, "Cov"(x_1, x_2);
+        "Cov"(x_2, x_1), "Cov"(x_2, x_2) - lambda
+      ) \
+  0 & = a lambda^2 + b lambda + c
+$
+
+calculate roots of the equation above to get $lambda_1$ and $lambda_2$
+
+4. find eigenvectors for ($lambda_1$, $v_1$) and ($lambda_2$, $v_2$)
+
+$
+                                      C v_i & = lambda_i v_i \
+        mat(
+          "Cov"(x_1, x_1), "Cov"(x_1, x_2);
+          "Cov"(x_2, x_1), "Cov"(x_2, x_2)
+        ) mat(x_i; y_i)                     & = lambda_i mat(x_i; y_i) \
+  "Cov"(x_1, x_1) x_i + "Cov"(x_1, x_2) y_i & = lambda_i x_i "(1)" \
+  "Cov"(x_1, x_2) x_i + "Cov"(x_2, x_2) y_i & = lambda_i x_i "(2)" \
+$
+
+we will get two equations and can solve either of them to get $x_1$ or $y_1$,
+assuming $y_i$ to be 1
+
+5. find unit eigenvector
+
+$
+  v_1 & = mat(x_1; 1) \
+  v_1 & := mat(x_1 / sqrt((x_1)^2 + 1^2); 1 / sqrt((x_1)^2 + 1^2)) \
+$
+
+6. find first principal of components
+
+$ e_1^T mat(X_(1k) - dash(X_1); X_(2k) - dash(X_2)) $
+
+#pagebreak()
+
 = REGRESSION
 
 == Linear Regression
@@ -178,6 +316,8 @@ $y = a x + b$
 - / b: intercept
 
 STEPS:
+
+#datatable($x_1$, $y_1$)
 
 $
    dash(x) & = 1/n sumin x_i \
