@@ -10,19 +10,13 @@
 
 #pagebreak()
 
-= DIFFERENCES
-== active vs passive attack
-== threat vs attack
-
-#pagebreak()
-
-== Cryptography vs Cryptanalysis
+= CRYPTOGRAPHY VS CRYPTANALYSIS
 
 #table(
   columns: (20%, auto, auto),
   align: (auto, auto, auto),
-  table.header([Aspect], [Cryptography], [Cryptanalysis]),
-  table.hline(),
+  [Aspect], [Cryptography], [Cryptanalysis],
+
   [Definition],
   [Ensures secure communication through encryption],
   [Involves breaking cryptographic systems],
@@ -31,9 +25,7 @@
   [Protects data confidentiality and integrity],
   [Reveals plaintext or decryption keys],
 
-  [Process],
-  [Converts plaintext to ciphertext],
-  [Analyzes and deciphers ciphertext],
+  [Process], [Converts plaintext to ciphertext], [Analyzes and deciphers ciphertext],
 
   [Tools and Techniques],
   [Encryption algorithms, keys],
@@ -42,6 +34,7 @@
   [Goal],
   [Maintain data security and privacy],
   [Identify weaknesses and vulnerabilities],
+
   [Focus],
   [Prevents unauthorized access to plaintext],
   [Focuses on deciphering ciphertext to access plaintext],
@@ -66,104 +59,103 @@
 #table(
   columns: 2,
   align: (auto, auto),
-  table.header([AES], [DES]),
-  table.hline(),
+  [AES], [DES],
+
   [AES stands for Advanced Encryption Standard],
   [DES stands for Data Encryption Standard],
 
-  [The date of creation is 2001.], [The date of creation is 1977.],
-  [Byte-Oriented.], [Bit-Oriented.],
-  [The design rationale for AES is open.], [The design rationale for DES is closed.],
-  [It is faster than DES.], [It is slower than AES.],
-  [It is flexible.], [It is not flexible.],
-  [AES can encrypt 128 bits of plaintext.], [DES can encrypt 64 bits of plaintext.],
+  [The date of creation is 2001], [The date of creation is 1977],
+  [Byte-Oriented], [Bit-Oriented],
+  [The design rationale for AES is open], [The design rationale for DES is closed],
+  [It is faster than DES], [It is slower than AES],
+  [It is flexible], [It is not flexible],
+  [AES can encrypt 128 bits of plaintext], [DES can encrypt 64 bits of plaintext],
 
-  [Key length can be 128-bits, 192-bits, and 256-bits.],
-  [The key length is 56 bits in DES.],
+  [Key length can be 128-bits, 192-bits, and 256-bits],
+  [The key length is 56 bits in DES],
 
   [Number of rounds depends on key length: 10(128-bits), 12(192-bits), or
     14(256-bits)],
   [DES involves 16 rounds of identical operations],
 
-  [The structure is based on a substitution-permutation network.],
-  [The structure is based on a
-    #link("https://www.geeksforgeeks.org/python/feistel-cipher/")[Feistel]
-    network.],
+  [The structure is based on a substitution-permutation network],
+  [The structure is based on a Feistel network],
 
-  [The selection process for this is secret but accepted for open public comment.],
-  [The selection process for this is secret.],
+  [The selection process for this is secret but accepted for open public comment],
+  [The selection process for this is secret],
 
-  [AES is more secure than the DES cipher and is the de facto world standard.],
+  [AES is more secure than the DES cipher and is the de facto world standard],
   [DES can be broken easily as it has known vulnerabilities. 3DES(Triple DES) is a
-    variation of DES which is secure than the usual DES.],
+    variation of DES which is secure than the usual DES],
 
   [The rounds in AES are: Byte Substitution, Shift Row, Mix Column and Key Addition],
   [The rounds in DES are: Expansion, XOR operation with round key, Substitution and
     Permutation],
 
-  [It can generate Ciphertext of 128, 192, 256 bits.],
-  [It generates Ciphertext of 64 bits.],
+  [It can generate Ciphertext of 128, 192, 256 bits],
+  [It generates Ciphertext of 64 bits],
 
-  [AES cipher is derived from an aside-channel square cipher.],
-  [DES cipher is derived from Lucifer cipher.],
+  [AES cipher is derived from an aside-channel square cipher],
+  [DES cipher is derived from Lucifer cipher],
 
-  [AES was designed by Vincent Rijmen and Joan Daemen.], [DES was designed by IBM.],
+  [AES was designed by Vincent Rijmen and Joan Daemen], [DES was designed by IBM],
 
   [No known crypt-analytical attacks against AES but side channel attacks against AES
     implementations possible. Biclique attacks have better complexity than brute
-    force but still ineffective.],
+    force but still ineffective],
   [Known attacks against DES include Brute-force, Linear crypt-analysis, and
-    Differential crypt-analysis.],
+    Differential crypt-analysis],
 
-  [It is efficient with both hardware and software.],
-  [It is efficient only with hardware.],
+  [It is efficient with both hardware and software],
+  [It is efficient only with hardware],
 )
 
 #pagebreak()
 
-== monoalphabatic vs polyalphabetic
+== MONOALPHABATIC VS POLYALPHABETIC CIPHER
 
 // https://www.geeksforgeeks.org/computer-networks/difference-between-monoalphabetic-cipher-and-polyalphabetic-cipher/
 
 #table(
   columns: (50%, 50%),
   align: center,
-  table.header([Monoalphabetic Cipher], [Polyalphabetic Cipher]),
+  [MONOALPHABETIC CIPHER], [POLYALPHABETIC CIPHER],
+
   [A monoalphabetic cipher is one where each symbol in plain text is mapped to a
-    fixed symbol in cipher text.],
+    fixed symbol in cipher text],
   [Polyalphabetic cipher is any cipher based on substitution, using multiple
-    substitution alphabets.],
+    substitution alphabets],
 
   [The relationship between a character in the plain text and the characters in the
-    cipher text is one-to-one.],
+    cipher text is one-to-one],
   [The relationship between a character in the plain text and the characters in the
-    cipher text is one-to-many.],
+    cipher text is one-to-many],
 
   [Each alphabetic character of plain text is mapped onto a unique alphabetic
-    character of a cipher text.],
+    character of a cipher text],
   [Each alphabetic character of plain text can be mapped onto 'm' alphabetic
-    characters of a cipher text.],
+    characters of a cipher text],
 
   [A stream cipher is a monoalphabetic cipher if the value of key does not depend on
-    the position of the plain text character in the plain text stream.],
+    the position of the plain text character in the plain text stream],
   [A stream cipher is a polyalphabetic cipher if the value of key does depend on the
-    position of the plain text character in the plain text stream.],
+    position of the plain text character in the plain text stream],
 
   [It includes additive, multiplicative, affine and monoalphabetic substitution
-    cipher.],
+    cipher],
   [It includes autokey, Playfair, Vigenere, Hill, one-time pad, rotor, and Enigma
-    cipher.],
+    cipher],
 
-  [It is a simple substitution cipher.], [It is multiple substitutions cipher.],
+  [It is a simple substitution cipher], [It is multiple substitutions cipher],
 
   [Monoalphabetic Cipher is described as a substitution cipher in which ~the same
     fixed mappings from plain text to cipher letters across the entire text are
-    used.],
+    used],
   [Polyalphabetic Cipher is described as substitution cipher in which plain text
-    letters in different positions are enciphered using different cryptoalphabets.],
+    letters in different positions are enciphered using different cryptoalphabets],
 
-  [Monoalphabetic ciphers are not that strong as compared to polyalphabetic cipher.],
-  [Polyalphabetic ciphers are much stronger.],
+  [Monoalphabetic ciphers are not that strong as compared to polyalphabetic cipher],
+  [Polyalphabetic ciphers are much stronger],
 )
 
 #pagebreak()
@@ -480,56 +472,50 @@ value pairs with the help of a hash function into a hash table.
 
 #pagebreak()
 
-= IDEA [TODO][C2]
+= IDEA [C2]
 
 == Characteristics
 
-- / Block length: The block length should prevent statistical analysis. However, the
-    complexity of developing an effective encryption algorithm seems to increase
-    exponentially with block size.
-- / Key strength: The key length should be sufficient to avoid exhaustive key
-    searches. With a length of 128 bits, IDEA appears to be secure in this area well
-    into the future.
-- / Confusion: The ciphertext should rely on the plaintext and key in a complex and
-    effective manner. The goal is to make it more difficult to determine how the
-    ciphertext statistics relate to the plaintext statistics. IDEA achieves this
-    purpose by three distinct actions, as discussed subsequently. This contrasts with
-    DES, which is based primarily on the XOR operation and small nonlinear S-boxes.
-- / Diffusion: Each plaintext bit should impact every ciphertext bit, just as each
-    key bit should influence every ciphertext bit. The dispersion of a single
-    plaintext bit over multiple ciphertext bits obscures the plaintext\'s statistical
-    structure. IDEA is highly effective in this aspect.
+/ Symmetric-Key Cipher: IDEA uses the same 128-bit key for both the encryption and
+  decryption processes.
+/ Block Size: It operates on fixed 64-bit blocks of plaintext and ciphertext.
+/ Key Length: It utilizes a 128-bit key, making it significantly more resistant to
+  brute-force attacks compared to DES.
+/ Structure: It relies on a Lai-Massey scheme rather than the traditional Feistel
+  network used by DES.
+/ No S-Boxes: Unlike many other block ciphers, IDEA completely avoids the use of
+  Substitution boxes (S-boxes) or lookup tables.
+/ Mixed Algebraic Groups: To create confusion and diffusion, IDEA relies on
+  interleaving three distinct, mathematically "incompatible" operations on 16-bit
+  words. These operations are:
+  - Bitwise Exclusive-OR ($o p l u s$)
+  - Addition modulo $2^16$ (denoted by $b o x p l u s$)
+  - Multiplication modulo $2^16 + 1$ (denoted by $o d o t$)
+  - / Confusion: The ciphertext should rely on the plaintext and key in a complex and
+      effective manner. The goal is to make it more difficult to determine how the
+      ciphertext statistics relate to the plaintext statistics. IDEA achieves this
+      purpose by three distinct actions, as discussed subsequently. This contrasts
+      with DES, which is based primarily on the XOR operation and small nonlinear
+      S-boxes.
+  - / Diffusion: Each plaintext bit should impact every ciphertext bit, just as each
+      key bit should influence every ciphertext bit. The dispersion of a single
+      plaintext bit over multiple ciphertext bits obscures the plaintext\'s
+      statistical structure. IDEA is highly effective in this aspect.
 
-- Introduction of a 128-bit key length, revolutionary for its time.
-- Novel combination of three algebraic groups: XOR, addition modulo $2^16$, and
-  multiplication modulo $2^16+1$.
-- Pioneering resistance to then-known cryptanalytic attacks.
-- Implementation efficiency in both software and hardware platforms.
+== Applications
 
-The Simplified International Data Encryption Algorithm (IDEA) is a symmetric key
-block cipher that:
-- / Plaintext block size: 16 bits (divided into 4-bit chunks)
-- / Key length: 32 bits
-- / Output: 16-bit ciphertext
-- / Processing: Four complete rounds plus one half-round
+Because of its high security and the expiration of its patents making it completely
+free for commercial and non-commercial use, IDEA has been utilized in various fields:
 
-== Subkey Generation Process
-
-- Initial key division into eight 4-bit subkeys.
-- Key schedule generation through left rotation.
-- Production of 28 subkeys (24 for complete rounds, 4 for half-round).
-- Systematic distribution across rounds.
-
-== Overview of Rounds and Operations
-
-Each complete round consists of:
-
-- 14 distinct steps using three core operations
-- Systematic transformation of data blocks
-- Inter-round data swapping
-- Final half-round with 4 operations
-
-== Applications and Use Cases
+/ Email Privacy: IDEA was famously adopted as the default symmetric cipher in early
+  versions of Pretty Good Privacy (PGP) v2.0 to encrypt email content. It remains an
+  optional algorithm in the OpenPGP standard.
+/ Financial Services: Used to secure sensitive financial data and banking
+  transactions.
+/ Broadcasting: Employed in the encryption of audio and video data for pay-TV, cable
+  television, and secure video conferencing.
+/ Government & Military: Historically used by various organizations to secure data
+  transmission and storage due to its resistance to differential cryptanalysis.
 
 + Secure Communications
   - Virtual Private Networks
@@ -556,6 +542,76 @@ Each complete round consists of:
     information stored on a computer or network, helping to prevent unauthorized
     access and data breaches.
 
+== Algorithm
+
+CORE OPERATIONS:
++ Bitwise XOR (^)
++ Addition modulo 2^4 (+)
++ Multiplication modulo (2^4+1) (\*)
+
+=== 1. Key Generation (Key Schedule)
+
+IDEA requires 52 subkeys (each 16 bits long) to complete its process (6 keys for each
+of the 8 rounds, plus 4 keys for the final half-round).
+
++ The initial 128-bit key is divided into eight 16-bit subkeys ($K_1$ to $K_8$).
++ Once these 8 subkeys are extracted, the original 128-bit key is subjected to a
+  circular left shift of 25 bits.
++ The newly shifted 128-bit key is again divided to extract the next eight 16-bit
+  subkeys.
++ This shifting and extraction process is repeated until all 52 subkeys are
+  generated.
+
+=== 2. The Encryption Process (Rounds 1 to 8)
+
+The 64-bit plaintext block is divided into four 16-bit sub-blocks:
+$P_1, P_2, P_3, "and" P_4$. Each of the 8 rounds takes these four sub-blocks and six
+16-bit subkeys to perform the following exact sequence of 14 steps:
+
+#grid(
+  columns: 2,
+  image("assets/idea.svg"),
+  [
+    + Multiply $P_1$ and $K_1$.
+    + Add $P_2$ and $K_2$.
+    + Add $P_3$ and $K_3$.
+    + Multiply $P_4$ and $K_4$.
+    + XOR the results of Step 1 and Step 3.
+    + XOR the results of Step 2 and Step 4.
+    + Multiply the result of Step 5 by $K_5$.
+    + Add the results of Step 6 and Step 7.
+    + Multiply the result of Step 8 by $K_6$.
+    + Add the results of Step 7 and Step 9.
+    + XOR the results of Step 1 and Step 9.
+    + XOR the results of Step 3 and Step 9.
+    + XOR the results of Step 2 and Step 10.
+    + XOR the results of Step 4 and Step 10.
+  ],
+)
+
+Before passing the outputs to the next round, the middle two blocks (the results from
+steps 12 and 13) are swapped.
+
+=== 3. Output Transformation (Half-Round)
+
+After the 8th round, a final transformation is applied using the last four subkeys
+($K_49, K_50, K_51, K_52$) and the four resulting blocks from Round 8 (let's call
+them $R_1, R_2, R_3, R_4$).
+
++ Multiply $R_1$ and $K_49$.
++ Add $R_2$ and $K_50$.
++ Add $R_3$ and $K_51$.
++ Multiply $R_4$ and $K_52$.
+
+The concatenation of these four 16-bit results forms the final 64-bit ciphertext.
+
+=== Decryption
+
+The decryption process in IDEA is structurally identical to the encryption process.
+The only difference is that the subkeys are reversed and inverted (using additive
+inverses for the addition operations and multiplicative inverses for the
+multiplication operations).
+
 == Issues
 
 + / Key size: While IDEA uses a 128-bit key size, which is generally considered
@@ -575,54 +631,6 @@ Each complete round consists of:
     encryption algorithm, it has been largely replaced by newer algorithms such as
     AES in modern applications. This means that support and availability of IDEA
     implementations may become more limited over time
-
-== Mathematical Foundations
-
-Core Operations:
-+ Bitwise XOR (^)
-+ Addition modulo 2^4 (+)
-+ Multiplication modulo (2^4+1) (\*)
-
-Key Mathematical Properties:
-- Use of algebraic groups with complementary properties
-- Exploitation of modular arithmetic for confusion
-- Implementation of systematic diffusion through operation mixing
-
-Example Implementation:
-1. Initial key expansion
-2. Plaintext division into blocks
-3. Round function application
-  - Multiplication and addition operations
-  - XOR combinations
-  - Inter-round transformations
-4. Final half-round processing
-5. Ciphertext generation
-
-== Algorithm Implementation and Round Operations
-
-This algorithm involves a series of 4 identical complete rounds and 1 half-round.
-Each complete round involves a series of 14 steps:
-
-#grid(
-  columns: 2,
-  image("assets/idea.svg"),
-  [
-    + Multiply P1 and K1
-    + Add P2and K2
-    + Add P3and K3
-    + Multiply P4 and K4
-    + XOR the results of step1 and step3
-    + XOR the results of step2 and step4
-    + Multiply the results of step5 with K5
-    + Add the results of step6 and step7
-    + Multiply the results of step8 with K6
-    + Add the results of step7 and step9
-    + XOR the results of step1 and step9
-    + XOR the results of step3 and step9
-    + XOR the results of step2 and step10
-    + XOR the results of step4 and step10
-  ],
-)
 
 #pagebreak()
 
@@ -675,9 +683,498 @@ Each complete round involves a series of 14 steps:
 
 #pagebreak()
 
-= SYMMETRIC KEY CRYPTOGRAPHY [TODO]
+= STREAM AND BLOCK CIPHERS [B3,B4]
 
-Symmetrical Key Cryptography also known as conventional or single-key encryption was
-the primary method of encryption before the introduction of public key cryptography
-in the 1970s. In symmetric-key algorithms, the same keys are used for data encryption
-and decryption.
+== Definitions
+
+In cryptography, both stream ciphers and block ciphers are types of symmetric-key
+algorithms, meaning the same secret key is used for both encrypting the plaintext and
+decrypting the ciphertext. However, they handle the data in fundamentally different
+ways.
+
+/ Stream Cipher:
+  A stream cipher encrypts data continuously, one binary digit (bit) or byte at a
+  time. It works by taking a secret key and an initialization vector (IV) to generate
+  a continuous, pseudorandom sequence of bits called a keystream. This keystream is
+  then combined with the plaintext data, typically using an Exclusive-OR (XOR)
+  mathematical operation, to create the ciphertext. Because they encrypt data on the
+  fly, stream ciphers are highly efficient for real-time applications where the total
+  amount of data might not be known in advance, such as secure video or audio
+  streaming.
+  / Example: ChaCha20 (widely used in modern web traffic), RC4 (historically used but
+    now considered insecure).
+
+/ Block Cipher:
+  A block cipher breaks the plaintext data down into fixed-size chunks, or "blocks"
+  (commonly 64 or 128 bits long), and encrypts each block one at a time. If the data
+  being encrypted isn't perfectly divisible by the block size, the final block is
+  "padded" with extra bits to make it fit. Because encrypting the exact same block of
+  text with the same key will always produce the exact same ciphertext, block ciphers
+  use "modes of operation" (like CBC or GCM) to mix data from previous blocks into
+  the current one, ensuring patterns in the data are hidden.
+  / Example: AES (Advanced Encryption Standard, the global standard for secure data),
+    DES (older, insecure standard).
+
+== Differences
+
+#table(
+  columns: (16%, auto, auto),
+  [FEATURE], [STREAM CIPHER], [BLOCK CIPHER],
+
+  [Data Processing],
+  [Encrypts data continuously, 1 bit or 1 byte at a time.],
+  [Encrypts data in fixed-size blocks (e.g., 64 or 128 bits).],
+
+  [Speed],
+  [Generally faster and requires less processing power.],
+  [Slightly slower due to complex transformations on large blocks.],
+
+  [Error Propagation],
+  [A transmission error affecting one bit only corrupts that specific bit in the
+    decrypted text.],
+  [A single bit error during transmission will corrupt the entire block upon
+    decryption.],
+
+  [Memory Footprint],
+  [Low. Requires very little memory, making it great for constrained hardware.],
+  [Higher. Needs enough memory to store and process whole blocks of data at once.],
+
+  [Padding],
+  [Never requires padding since data is handled bit-by-bit.],
+  [Requires padding if the final block of data is smaller than the required block
+    size.],
+
+  [Best Use Cases],
+  [Real-time streams (video, audio, web traffic), low-hardware environments.],
+  [Encrypting files, databases, and large amounts of static data.],
+
+  [Modern Standard], [ChaCha20], [AES (Advanced Encryption Standard)],
+)
+
+#pagebreak()
+
+= SYMMETRIC AND ASYMMETRIC KEY CRYPTOGRAPHY [B5,B6]
+
+== Symmetric Key Cryptography
+
+
+Symmetric key cryptography is a method of digital encryption where the exact same
+secret key is used to both encrypt and decrypt information. Because it uses a single
+key and relatively straightforward mathematical operations, symmetric key
+cryptography is extremely fast and computationally efficient. This makes it the ideal
+choice for securing large volumes of data. Whenever you encrypt the hard drive on
+your computer, protect files in a massive database, or stream a secure video,
+symmetric encryption is usually doing the heavy lifting. The Advanced Encryption
+Standard (AES) is currently the most widely used and trusted symmetric encryption
+algorithm globally.
+
+However, the primary challenge with this method is known as the "key distribution
+problem." For two parties to communicate securely, they must first share that secret
+key. If a malicious actor intercepts this key while it is being shared over the
+internet, the entire encryption system is compromised the attacker can now read all
+the messages. Because of this vulnerability in sharing the key initially, symmetric
+cryptography is often paired with asymmetric cryptography (which uses a separate
+public and private key) to safely exchange the secret key first, before letting the
+fast, symmetric encryption take over for the rest of the conversation.
+
+/ Examples: AES, ChaCha20.
+
+== Asymmetric Key Cryptography
+
+Asymmetric key cryptography, also known as public-key cryptography, is a security
+system that uses a mathematically linked pair of keys rather than a single shared
+secret. This pair consists of a public key and a private key. Whatever is encrypted
+by one key can only be decrypted by the other.
+
+The primary advantage of this system is that it completely solves the "key
+distribution problem" that plagues symmetric cryptography. Because your public key
+can only encrypt data and cannot be used to decrypt it, you can share it openly on
+the internet, via email, or on a public directory without any risk. You never have to
+worry about securely transmitting a secret password to a stranger before talking to
+them. As long as you keep your private key absolutely secret and safely stored on
+your own device, your communications remain secure. The mathematical algorithms
+behind this, such as RSA, rely on "one-way functions" like multiplying massive prime
+numbers a process that is easy to do in one direction but virtually impossible for
+modern computers to reverse-engineer to figure out the private key.
+
+In the real world, asymmetric cryptography is the foundation of trust on the
+internet. It is what allows your web browser to securely connect to a bank or
+shopping site (the "https" protocol) without someone intercepting your data along the
+way. It is also used to create digital signatures, which prove that a file or message
+genuinely originated from you and hasn't been tampered with in transit. However,
+because the complex math makes it much slower and more computationally heavy than
+symmetric encryption, the two methods are almost always used together. Systems
+typically use asymmetric cryptography just long enough to securely introduce the two
+parties and safely exchange a fast, temporary symmetric key, which then handles the
+heavy lifting of encrypting the actual data stream.
+
+Asymmetric cryptography solves the key distribution problem by using two
+mathematically linked keys: a Public Key and a Private Key.
+
+What one key locks, only the other key can unlock.
+
+/ Examples: RSA, ECC (Elliptic Curve Cryptography).
+
+== Differences
+
+#table(
+  columns: (20%, auto, auto),
+  [FEATURE], [SYMMETRIC CRYPTOGRAPHY], [ASYMMETRIC CRYPTOGRAPHY],
+  [Number of Keys], [1: A single shared secret key], [2: one Public, one Private],
+
+  [Speed & Efficiency],
+  [*Fast* Uses simpler math],
+  [*Slow* Uses complex mathematics like prime factorization],
+
+  [Key Distribution],
+  [*Difficult* requires a secure channel to share the key initially],
+  [*Easy* the Public Key is meant to be shared openly],
+
+  [Function],
+  [The exact same key is used to both encrypt and decrypt the data],
+  [The Public key encrypts data, and only the Private key can decrypt it],
+
+  [Key Distribution],
+  [*Challenging* The secret key must be securely shared between parties before
+    communication begins If intercepted, the system is compromised],
+  [*Simple* The Public key can be freely shared with anyone, anywhere The Private key
+    simply stays hidden on the owner\'s device],
+
+  [Applications],
+  [Encrypting hard drives, securing databases, and encrypting the actual stream of
+    data in web traffic or video calls],
+  [Securely exchanging keys, creating digital signatures, and identity verification],
+
+  [Examples], [AES, ChaCha20, DES], [Diffie-Hellman, ECC, RSA],
+)
+
+= THREAT VS ATTACK [B7]
+
+== Threat
+
+A threat is the possibility of a malicious event occurring. It is a danger that
+exists, even if it hasn't happened yet and may never actually happen. Threats
+represent the "who" or "what" that could potentially harm your systems, data, or
+operations.
+
+/ Example: A known vulnerability in your software (like an unpatched bug), a newly
+  discovered strain of malware, a specific group of hackers targeting your industry,
+  or even a natural disaster that could destroy a data center.
+
+== Attack
+
+An attack is the actual execution or realization of a threat. It is a deliberate,
+active event where someone or something attempts to exploit a vulnerability, breach a
+system, steal data, or cause damage.
+
+/ Example: A hacker actively exploiting that unpatched software bug to enter your
+  network, a user downloading and running that new strain of malware, or a
+  Distributed Denial of Service (DDoS) event crashing your website.
+
+== Summary Comparison
+
+#table(
+  columns: (15%, auto, auto),
+  [FEATURE], [CYBER THREAT], [CYBER ATTACK],
+
+  [Nature],
+  [A state of being; a potential danger.],
+  [An event; an active, deliberate action.],
+
+  [Timing],
+  [Ongoing, looming, or future.],
+  [Happening currently or occurred in the past.],
+
+  [Focus],
+  [Identifying what could go wrong (Risk Assessment).],
+  [Responding to what is going wrong (Incident Response).],
+
+  [Example],
+  [Phishing emails are a common tactic used by cybercriminals.],
+  [An employee receives a phishing email, clicks the link, and their credentials are
+    stolen.],
+)
+
+#pagebreak()
+
+= SUBSTITUTION [B8]
+
+At its core, the substitution technique in cryptography is a method of encrypting
+data by replacing units of plaintext (the original message) with ciphertext (the
+hidden message), according to a fixed system or key.
+
+Instead of scrambling the order of the letters (which is called transposition), a
+substitution cipher changes the identity of the letters themselves.
+
+In a substitution cipher, every letter or group of letters is swapped out for another
+letter, number, or symbol. The rule that dictates how the swapping occurs is called
+the key. If you know the key, you can easily reverse the process to read the original
+message.
+
+== Types of Substitution Ciphers
+
+/ Monoalphabetic Substitution: Every instance of a specific letter in the plaintext
+  is replaced by the same corresponding letter in the ciphertext. For example, if "A"
+  becomes "D", then every "A" in the message will become a "D".
+/ Polyalphabetic Substitution: A more complex version where the substitution rule
+  changes throughout the message. An "A" might become a "D" the first time it
+  appears, but an "X" the second time, usually dictated by a keyword. This makes it
+  much harder to crack.
+
+== The Classic Example: The Caesar Cipher
+
+The most famous historical example is the Caesar Cipher, allegedly used by Julius
+Caesar. It is a simple monoalphabetic substitution where the alphabet is simply
+shifted by a certain number of spaces.
+
+For example, with a shift of 3:
+- A #math.arrow D
+- B #math.arrow E
+- C #math.arrow F
+- #math.dots
+- "HELLO" #math.arrow "KHOOR"
+
+#pagebreak()
+
+= TRANSPOSITION [B9]
+
+While a substitution cipher changes the identity of the letters (like swapping 'A'
+for 'D'), a transposition technique scrambles the positions of the letters. The
+letters themselves remain exactly the same they are just rearranged according to a
+specific rule.
+
+If you were to count the frequency of letters in a transposition ciphertext, it would
+perfectly match the frequency of the original language (e.g., lots of E's, T's, and
+A's in English), which is a major clue for codebreakers trying to figure out which
+type of cipher was used.
+
+In a transposition cipher, the plaintext is written out in one format (like a grid or
+a specific pattern) and then read back in a completely different format. It is
+essentially a systematic anagram. The "key" is the specific path or pattern used to
+write and read the message.
+
+TYPES:
+
+/ Columnar Transposition: The message is written out in a grid of a specific width
+  (determined by a keyword). Then, the columns are read vertically, out of order
+  (usually determined by the alphabetical order of the keyword), to create the
+  ciphertext.
+/ Reverse Cipher: The simplest transposition. The message is just written backwards.
+  "HELLO" becomes "OLLEH".
+/ Rail Fence Cipher: The message is written in a zig-zag pattern across a certain
+  number of imaginary "rails" (rows), and then read off row by row.
+
+EXAMPLE (RAIL FENCE CIPHER):
+
+Let's look at the Rail Fence Cipher using 3 rails and the message "HELLO WORLD".
+First, we typically remove the spaces: "HELLOWORLD".
+
+Write it in a zig-zag:
+
+```
+Row 1:  H . . . O . . . L .
+Row 2:  . E . L . W . R . D
+Row 3:  . . L . . . O . . .
+```
+
+ciphertext: `HOLELWRDLO`
+
+#pagebreak()
+
+= DIGITAL SIGNATURE [B10]
+
+A digital signature is the cryptographic equivalent of a handwritten signature or
+stamped seal, but it offers far more inherent security. It is a mathematical
+technique used to validate the authenticity and integrity of a digital message,
+document, or software.
+
+Digital signatures solve three major problems in digital communication:
+
+/ Authentication: It proves that the sender is who they claim to be.
+/ Integrity: It proves that the message has not been altered or tampered with in
+  transit.
+/ Non-repudiation: The sender cannot deny having sent the message later on.
+
+== Mechanism
+
+Digital signatures rely on two cryptographic concepts: Hashing (turning data into a
+unique, fixed-length string of characters) and Asymmetric Cryptography (using a
+paired Public Key and Private Key).
+
+=== Phase 1: Signing the Message (The Sender)
+
++ / Hashing: The sender passes their message or document through a mathematical
+    algorithm (a hash function). This creates a unique "digest" or hash of the
+    document. Even changing a single comma in the document will completely change the
+    hash.
++ / Encrypting (Signing): The sender then encrypts this hash using their own Private
+    Key. This encrypted hash is the digital signature.
++ / Sending: The sender transmits the original message along with the digital
+    signature.
+
+=== Phase 2: Verifying the Message (The Receiver)
+
++ / Hashing the Received Message: The receiver gets the message and generates a hash
+    from it using the same algorithm the sender used.
++ / Decrypting the Signature: The receiver takes the digital signature and decrypts
+    it using the sender's Public Key (which is available to anyone). If the
+    decryption is successful, it reveals the original hash generated by the sender.
++ / Comparing: The receiver compares their freshly generated hash (from Step 1) with
+    the decrypted hash (from Step 2).
+    - If they match exactly: The signature is valid. The message is authentic and
+      hasn't been tampered with.
+    - If they do not match: The signature is invalid. Either the message was altered
+      in transit, or it was not signed by the person who owns the private key.
+
+#pagebreak()
+
+= MESSAGE DIGEST [B11]
+
+A message digest is essentially a digital fingerprint for a piece of data. It is a
+fixed-length string of characters generated by passing data (like a text file, an
+image, or a password) through a mathematical algorithm called a cryptographic hash
+function.
+
+== Characteristics
+
++ / Deterministic (Always the Same): If you pass the exact same file or text through
+    the exact same hash function a million times, you will always get the exact same
+    message digest.
++ / The Avalanche Effect: This is a critical security feature. If you change even a
+    single bit of the original data like changing "hello" to "Hello" (capital H) the
+    resulting message digest will change so drastically that it looks completely
+    unrelated to the first one.
++ / One-Way (Irreversible): It is computationally impossible to take a message digest
+    and reverse-engineer it back into the original data. It is a one-way street. You
+    can turn a cow into a hamburger, but you can't turn a hamburger back into a cow.
++ / Collision Resistant: It should be astronomically difficult (virtually impossible)
+    to find two different files or pieces of data that result in the exact same
+    message digest. When two different inputs produce the same output, it's called a
+    "collision."
+
+== Applications
+
+/ Verifying Data Integrity: When you download a large software update, the developer
+  will often provide the file's message digest (often called a "checksum") on their
+  website. Your computer calculates the digest of the file it just downloaded. If
+  your digest matches the developer's digest, you know the file downloaded perfectly
+  and wasn't tampered with by a hacker.
+/ Storing Passwords Safely: When you create an account on a website, they don't (and
+  shouldn't!) save your actual password in their database. Instead, they run your
+  password through a hash function and store the message digest. When you log in,
+  they hash what you typed and compare it to the stored digest. This way, if the
+  database is hacked, the hackers only steal useless, irreversible digests, not the
+  actual passwords.
+/ Digital Signatures: Message digests are foundational to signing digital documents
+  and cryptocurrency transactions. They ensure that a contract hasn't been altered
+  after it was digitally signed.
+
+== Examples
+
+/ SHA256: The current industry standard, used in everything from SSL certificates to
+  Bitcoin.
+/ MD5 & SHA-1: Older algorithms that are now considered broken and obsolete because
+  computers became powerful enough to intentionally create "collisions."
+
+#pagebreak()
+
+= AUTHENTICATION [B12]
+
+Authentication is the process of verifying the identity of a user, device, or system.
+Whenever you log into an email account, unlock your phone, or use a keycard to enter
+a building, you are going through an authentication process. To truly understand
+authentication, it helps to look at the three main ways systems verify your identity,
+often called the Factors of Authentication:
+
++ / Something you know (Knowledge Factor): This is the most common and traditional
+    method. You prove who you are by providing a piece of secret information that
+    theoretically only you should know.
+    / Examples: A password, a PIN (Personal Identification Number), or answers to
+      security questions (e.g., "What was the name of your first pet?").
++ / Something you have (Possession Factor): This requires you to possess a specific
+    physical item or have access to a specific device.
+    / Examples: A physical security key (like a YubiKey), a smartphone that receives
+      a temporary code via SMS, an Authenticator app generating a time-based code, or
+      an ID badge/smartcard.
++ / Something you are (Inherence Factor): This uses your unique physical or
+    behavioral characteristics to verify your identity. This is known as biometrics.
+    / Examples: A fingerprint scan, facial recognition (like Face ID), iris scans, or
+      even voice recognition.
+
+== What is Multi-Factor Authentication (MFA)?
+
+If a system only asks for a password, it uses Single-Factor Authentication (SFA).
+Because passwords can be easily guessed, stolen, or leaked, relying solely on them is
+a major security risk.
+
+Multi-Factor Authentication (MFA) often called Two-Factor Authentication (2FA)
+requires you to provide at least two different factors before granting access.
+
+For example, when logging into your bank:
+
++ You enter your password (Something you know).
++ The bank sends a code to your phone, which you must also enter (Something you
+  have).
+
+Even if a hacker steals your password, they cannot access your account without also
+stealing your physical phone.
+
+#pagebreak()
+
+= SSL
+
+SSL (Secure Sockets Layer) is the standard security technology used to establish an
+encrypted link between a web server and a web browser. This link ensures that all
+data passed between the server and browsers remains private and integral.
+
+Whenever you see a padlock icon in your browser's address bar or a web address that
+starts with "https" (the "s" stands for secure), you are looking at SSL in action.
+
+To explain how it works, we get to put together the concepts of symmetric and
+asymmetric cryptography that we discussed earlier!
+
+== The Evolution: SSL vs.~TLS
+First, a quick technical note: SSL is actually the older, legacy term. The technology
+was updated and renamed to TLS (Transport Layer Security) over two decades ago
+because of security vulnerabilities in the original SSL. However, the term "SSL"
+stuck around in popular culture, so you will almost always hear them used
+interchangeably, or referred to as "SSL/TLS".
+
+== How It Works: The "SSL Handshake"
+SSL solves a massive problem: How do your computer and a bank's server securely agree
+on a secret code over the open, insecure internet, without anyone eavesdropping?
+
+They do this through a process called the SSL Handshake, which perfectly blends
+asymmetric and symmetric cryptography.
+
+Here is exactly what happens in milliseconds when you connect to a secure website:
+
++ / The Greeting (Client & Server Hello): Your browser says to the server, "I want to
+  connect securely. Here are the encryption rules I understand." The server replies,
+  "Great, let's use this specific set of rules."
++ / Identity Verification (The Certificate): The server sends the browser its SSL
+  Certificate. Think of this as the website's digital passport. It contains the
+  website's identity, an expiration date, and crucially, the server's Public Key
+  (Asymmetric Cryptography).
++ / The Key Exchange: Your browser checks the certificate to make sure the website is
+  who it claims to be. If it is trusted, your browser uses the server's Public Key to
+  encrypt a brand new, randomly generated Session Key. It sends this locked Session
+  Key back to the server.
++ / The Lock Opens: Because the server holds the matching Private Key, it is the only
+  entity in the world that can unlock what your browser just sent. It unlocks it and
+  retrieves the Session Key.
++ / Secure Communication (Symmetric Takeover): Both your browser and the server now
+  hold the exact same secret Session Key. They abandon the slow asymmetric keys and
+  use this single shared key (Symmetric Cryptography) to encrypt all the actual
+  data---like your passwords or credit card numbers---for the rest of your visit.
+
+== Why This Matters
+Without SSL, any computer between you and the server (like the Wi-Fi router at a
+local coffee shop or your Internet Service Provider) could intercept your data in
+"plaintext" and read exactly what you are typing. SSL provides three critical layers
+of protection:
+
+Encryption: Scrambling data so it cannot be read in transit. Authentication: Proving
+the website you are connecting to is legitimate and not a fake site set up by a
+hacker. Data Integrity: Ensuring the data is not modified or corrupted while
+traveling across the internet.

@@ -2,6 +2,7 @@
 // #show: template.with("Title")
 
 #let template(title, depth: 2, body) = {
+  set page(height: auto)
   show table: set block(breakable: false)
   show raw: set block(breakable: false)
   show par: it => block(breakable: false, it)
