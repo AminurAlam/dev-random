@@ -23,7 +23,7 @@
   body
 }
 
-#let horizontalrule = line(length: 100%)
+#let horizontalrule = line(start: (25%, 0%), end: (75%, 0%))
 
 #let st = $sin theta$
 #let ct = $cos theta$
@@ -54,3 +54,5 @@
     )
   }
 }
+
+
