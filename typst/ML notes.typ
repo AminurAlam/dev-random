@@ -18,7 +18,7 @@
   $b$, $q$, $b - dash(#a)$, $q - dash(#b)$, $dots$, $dots$,
   $c$, $r$, $c - dash(#a)$, $r - dash(#b)$, $dots$, $dots$,
   $dots$, $dots$, $dots$, $dots$, $dots$, $dots$,
-  $$, $$, $$, $$, $sum$, $sum$,
+  $sum$, $sum$, $$, $$, $sum$, $sum$,
 )
 
 = INFO
@@ -129,8 +129,18 @@ error term).
 
 == Applications
 
-- / Finance & Economics: Predicting future stock prices based on historical trends,
-    or evaluating the impact of interest rates on consumer spending.
+- / Treand Line: A trend line represents a trend, the long-term movement in time
+    series data after other components have been accounted for. It tells whether a
+    particular data set (say GDP, oil prices or stock prices) have increased or
+    decreased over the period of time.
+- / Finance: The capital asset pricing model uses linear regression for analyzing
+    risk of an investment and predicting future stock prices based on historical
+    trends
+- / Economics: it is used to predict consumption spending, investments, spending on
+    imports, labor demand, and labor supply.
+- / Environmental science: land use, infectious diseases, and air pollution. For
+    example, linear regression can be used to predict the changing effects of car
+    pollution.
 - / Real Estate: Estimating the price of a house based on features like square
     footage, number of bedrooms, and age of the property.
 - / Retail & Marketing: Forecasting future sales based on advertising spend,
@@ -154,6 +164,7 @@ error term).
 - / Less Overfitting: On smaller datasets with fewer dimensions, it is generally less
     prone to overfitting compared to complex, non-linear models (especially when
     combined with regularization techniques like Ridge or Lasso).
+- / Wide Availability: in ML libraries and software.
 
 == Disadvantages
 
@@ -163,13 +174,14 @@ error term).
 - / Sensitivity to Outliers: Because it relies on minimizing squared errors, a single
     extreme outlier can drastically pull the line of best fit in the wrong direction,
     ruining the model's accuracy.
-- / Multicollinearity Issues: If your independent variables are highly correlated
-    with each other (e.g., trying to predict house prices using both "square footage"
-    and "number of rooms"), it confuses the model and makes the coefficients unstable
-    and hard to interpret.
+- / Sensitive to multicollinearity: If your independent variables are highly
+    correlated with each other (e.g., trying to predict house prices using both
+    "square footage" and "number of rooms"), it confuses the model and makes the
+    coefficients unstable and hard to interpret.
 - / Assumes Independence: It assumes that the data points are independent of each
     other, making it less effective for sequential data like time-series (without
     specific modifications).
+- / Complex Relationships: are hard to model in LR.
 
 == Numerical
 
@@ -209,15 +221,19 @@ its closest neighbors to make prediction.
 
 / Recommendation Systems: Suggesting products, movies, or music based on what similar
   users (your "neighbors") have liked or purchased.
+/ Spam Detection: Identifies spam emails by comparing new emails to known spam and
+  non-spam examples.
+/ Customer Segmentation: Grouping customers into distinct categories for targeted
+  marketing based on similar purchasing behaviors.
 / Healthcare & Medicine: Predicting the likelihood of a patient having a specific
   disease by comparing their symptoms, age, and test results to historical records of
   similar patients.
 / Finance: Assessing credit risk or predicting loan defaults by comparing a new
   applicant's financial profile to past customers with similar profiles.
-/ Pattern & Image Recognition: Identifying handwriting or classifying images by
+/ Pattern/Image Recognition: Identifying handwriting or classifying images by
   comparing the pixel data of a new image to a database of known images.
-/ Customer Segmentation: Grouping customers into distinct categories for targeted
-  marketing based on similar purchasing behaviors.
+/ Speech Recognition: Matches spoken words to known patterns to convert them into
+  text.
 
 == Advantages
 
@@ -356,10 +372,24 @@ $
 
 + find $P(Y="Yes")$ and $P(Y="No")$
 + find conditional prob of $X_1, X_2, dots$
+  #table(
+    columns: 3,
+    [Feature], $P(X_i|"Yes")$, $P(X_i|"No")$,
+    $X_1 = dots$, $1 slash 4$, $2 slash 6$,
+    $X_2 = dots$, $3 slash 4$, $1 slash 6$,
+    $dots$, $dots$, $dots$,
+  )
++ put values in the given formula
   $
-    P(X_i|Y) & = (P(Y|X_i) P(X_i)) / P(Y) \
+    P("Yes"|X_1, X_2, dots) & = P("Yes") P(X_1|"Yes") P(X_2|"Yes") dots \
+                            & = 4/10 times 1/4 times 3/4 times dots \
+                            & = dots \
+     P("No"|X_1, X_2, dots) & = P("No") P(X_1|"No") P(X_2|"No") dots \
+                            & = 6/10 times 2/6 times 1/6 times dots \
+                            & = dots \
   $
-+ put values in the above formula
++ Compare $P("Yes"|X_1, X_2, dots)$ with $P("Yes"|X_1, X_2, dots)$ \
+  and the bigger value wins
 
 #pagebreak()
 
