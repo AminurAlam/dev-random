@@ -1,12 +1,52 @@
 #import "snippets/note.typ": *
 #show: template.with("Crypto")
+#set heading(numbering: "1.")
 
-= TODO
-- Substitution Techniques
-- Transposition Techniques
-- Encryption & Decryption
-- Symmetric & Asymmetric key Cryptography
-- Key Range & Key Size
+#pagebreak()
+
+= Que
+
+- [x] RSA ALGORITHM
+- [x] BLOCK CIPHER AND STREAM CIPHER
+- [x] SSL PROTOCOL
+
+- [x] DES ALGORITHM
+- [x] IDEA ALGORITHM
+- [ ] EXPLAIN CYBER SECURITY MECHANISM NETWORK, WEB, CLOUD AND WIRELESS SECURITY.
+
+== B
+01. [x] Define Cryptanalysis. (from 2025) @B1
+02. [x] What is DoS attack? (from 2024) @B2
+03. [x] Define stream cipher. (from 2024) @B3
+04. [x] Define block cipher. (from 2025) @B4
+05. [x] Explain symmetric key cryptography. @B5
+06. [x] Explain asymmetric key cryptography. @B6
+07. [x] Difference between threats and attacks. (from 2024) @B7
+08. [x] Explain substitution technique. @B8
+09. [x] Explain transposition technique. (from 2025) @B9
+10. [x] Define Digital Signature. @B10
+11. [x] Explain Message Digest. @B11
+12. [x] What is authentication? @B12
+13. [x] Types of authentication methods. @B13
+14. [x] Explain SSL briefly. @B14
+15. [ ] What is cybercrime?
+
+== C
+1. [x] DES algorithm with diagram. (2024) @C1
+2. [x] IDEA algorithm in detail. (2025) @C2
+3. [x] RSA algorithm with example. (2024 & 2025) @C3
+4. [x] RSA encryption/decryption (numerical). (2024) @C4
+5. [ ] Digital Signature with diagram. (2025) // @C5
+6. [x] types of attacks (active & passive). (2024/2025) @C6
+7. [x] SSL/TLS protocol. (2024) @C7
+8. [ ] Man-in-the-Middle attack. (2025)
+9. [ ] IPsec ESP format. (2024)
+10. [ ] Kerberos protocol. (2025)
+11. [ ] DMZ network with diagram. (2024)
+12. [ ] firewall types (packet & proxy). (2025)
+13. [ ] cybercrime tools (SQL injection, spyware, key logger).
+14. [ ] authentication techniques (password, token, biometric).
+15. [ ] network, cloud, and web security.
 
 #pagebreak()
 
@@ -210,7 +250,7 @@
 
 #pagebreak()
 
-= CRYPTANALYSIS [B1]
+= CRYPTANALYSIS <B1>
 
 == Definition
 - Cryptology has two parts: Cryptography and Cryptanalysis
@@ -237,12 +277,72 @@
     implementation of the encryption algorithm, such as timing or power consumption,
     to deduce the encryption key
 
-== Types of Attacks (broad categories)
+== Types of Attacks (Active and Passive) <C6>
 
-- / Passive Attacks: Attackers silently monitor or intercept data No modification of
-    data occurs Examples: Eavesdropping, traffic analysis
-- / Active Attacks: Attackers modify, delete, or disrupt data Can cause serious
-    damage to systems Examples: Data modification, denial-of-service attacks
+=== Passive Attacks
+
+In a passive attack, the hacker's goal is strictly to obtain information. They do not
+alter data, inject malicious code, or disrupt the system's normal operation.
+
+Because they leave no footprint and don't trigger system alerts (since everything
+continues to function normally), passive attacks are notoriously difficult to detect.
+
+/ Primary Goal: Data theft, espionage, or reconnaissance.
+/ Common Examples:
+/ Eavesdropping / Packet Sniffing: Intercepting unencrypted network traffic to steal
+  passwords, emails, or financial data.
+/ Traffic Analysis: Even if the data is encrypted, attackers can monitor the
+  frequency, size, and destination of data packets to guess what is happening (e.g.,
+  detecting a sudden spike in traffic between a CEO and a merger & acquisition firm).
+/ Best Defense: Since detection is so hard, defense relies on prevention, primarily
+  through strong encryption (like HTTPS, VPNs, and end-to-end encryption). If an
+  attacker intercepts encrypted data, they cannot read it.
+
+== Active Attacks
+
+In an active attack, the hacker attempts to alter system resources, modify data, or
+affect the operation of a network.
+
+Because they actively change things or flood systems with traffic, they usually leave
+a digital trail (like error logs, modified files, or crashed servers), making them
+easier to detect than passive attacks.
+
+/ Primary Goal: Disruption, extortion, unauthorized access, or data corruption.
+/ Common Examples:
+/ Denial of Service (DoS) / DDoS: Flooding a server with fake traffic so legitimate
+  users cannot access it.
+/ Man-in-the-Middle (MitM) Attacks: Intercepting a conversation between two parties
+  and actively altering the messages before passing them along.
+/ Malware & Ransomware: Injecting malicious code to lock files, steal data, or
+  destroy system architecture.
+/ Spoofing: Impersonating a legitimate device or user to gain access to a network.
+/ Best Defense: A combination of prevention and active detection. This includes
+  Firewalls, Intrusion Detection Systems (IDS), Multi-Factor Authentication (MFA),
+  and endpoint antivirus software.
+
+== Quick Comparison
+
+#table(
+  columns: (13.79%, 37.07%, 49.14%),
+  align: (auto, auto, auto),
+  table.header([Feature], [Passive Attacks], [Active Attacks]),
+  table.hline(),
+  [Objective],
+  [Steal information or monitor activity.],
+  [Disrupt, modify, or destroy systems/data.],
+  [Impact on System],
+  [None. Normal operations continue.],
+  [High. Systems may crash, slow down, or show altered data.],
+  [Detectability],
+  [Very difficult (leaves almost no trace).],
+  [Easier (creates anomalies, logs, and disruptions).],
+  [Primary Defense],
+  [Encryption (make the data unreadable).],
+  [Firewalls & IDS (block and detect intruders).],
+  [Analogy],
+  [Reading someone's mail through an envelope.],
+  [Tearing up the mail or writing a fake letter.],
+)
 
 == Methods of Attacks
 
@@ -324,7 +424,7 @@ some of the ancient types of cryptography:
 
 #pagebreak()
 
-= DES [C1]
+= DES #emoji.star <C1>
 
 == Characteristics
 - DES is an implementation of a Feistel Cipher
@@ -422,27 +522,92 @@ some of the ancient types of cryptography:
 
 #pagebreak()
 
-= RSA [TODO][C3,C4]
+= RSA #emoji.star
 
-So, RSA is an basic asymmetric cryptographic algorithm which uses two different keys
-for encryption. The RSA algorithm works on a block cipher concept that converts plain
-text into cipher text and vice versa.
+/ Asymmetric Cryptography: RSA uses a pair of mathematical keys. A public key (which
+  can be shared with anyone) is used to encrypt data, and a matching private key
+  (kept strictly secret) is used to decrypt it.
+/ Mathematical Foundation: Its security relies heavily on the "Integer Factorization
+  Problem." It is very easy for a computer to multiply two large prime numbers
+  together, but it is incredibly difficult and time-consuming to take that resulting
+  massive number and figure out what the original two prime numbers were.
+/ Block Cipher: RSA encrypts data in distinct chunks (blocks) rather than as a
+  continuous stream of bits.
+/ Key Length: Because computing power constantly increases, RSA requires very large
+  key sizes to remain secure. Today, 2048-bit or 4096-bit keys are the standard.
 
-RSA algorithm is an asymmetric cryptography algorithm. Asymmetric actually means that
-it works on two different keys i.e. Public Key and Private Key. As the name describes
-that the Public Key is given to everyone and the Private key is kept private.
+== Applications
 
-== Characteristics
+/ Key Exchange (Hybrid Encryption): Because RSA is slow, it is rarely used to encrypt
+  massive files directly. Instead, it is used to securely transmit a much faster
+  "symmetric key" (like AES) between two computers. Once both computers have the
+  symmetric key, they use that for the heavy lifting. This is how the "S" in HTTPS
+  works (TLS/SSL protocols).
+/ Digital Signatures: RSA can operate in reverse to verify identity. If you encrypt a
+  document's fingerprint (hash) with your private key, anyone can use your public key
+  to decrypt it. If it works, it proves absolutely that you (and only you) sent the
+  message and that it hasn't been tampered with.
+/ Secure Email: Protocols like PGP (Pretty Good Privacy) rely on RSA to encrypt
+  emails and verify the sender's identity.
+/ Network Security: RSA is widely used in establishing Secure Shell (SSH) connections
+  and Virtual Private Networks (VPNs) to authenticate servers and users.
 
-- / Security: Many consider the RSA method to be highly secure and widely used for
-    transmitting data
-- / Fast Speed: The RSA approach is known for its speed. Can be implemented swiftly
-    when cryptography needs arise.
-- / Different keys: In the RSA technique two separate keys are utilized for
-    encrypting and decrypting data. The public key is used to encrypt the information
-    while the private key is employed for decryption.
-- / Key exchange: With the RSA method secure exchange can be achieved, enabling two
-    parties to swap a key without transmitting it over the network.
+== Advantages
+
+/ Security: RSA algorithm is considered to be very secure and is widely used for
+  secure data transmission.
+/ Solves the Key Distribution Problem: In symmetric encryption, two parties must
+  figure out how to securely share a secret key before they can talk. RSA eliminates
+  this, you can broadcast your public key to the world without risking your security.
+/ Dual Functionality: It is highly versatile, providing both data confidentiality
+  (through encryption) and non-repudiation/authenticity (through digital signatures).
+/ Time-Tested Reliability: Having been introduced in 1977, RSA has been subjected to
+  decades of intense cryptanalysis. When implemented correctly with large keys, it
+  remains highly secure against modern classical computers.
+
+== Disadvantages
+
+/ Extremely Slow: The complex mathematics (exponentiation with massive numbers) makes
+  RSA 100 to 1,000 times slower than symmetric algorithms like AES.
+/ Resource Intensive: Generating keys and encrypting/decrypting data requires
+  significant CPU power and memory. This makes RSA less ideal for low-power devices,
+  like smart cards or tiny Internet of Things (IoT) sensors.
+/ Vulnerability to side-channel attacks: RSA algorithm is vulnerable to side-channel
+  attacks, which means an attacker can use information leaked through side channels
+  such as power consumption, electromagnetic radiation, and timing analysis to
+  extract the private key.
+/ Large key size: RSA algorithm requires large key sizes to be secure, which means
+  that it requires more computational resources and storage space.
+/ Strict Implementation Rules: Standard, "textbook" RSA is vulnerable to specific
+  mathematical attacks. It must be implemented using complex padding schemes (like
+  RSA-OAEP) to ensure attackers cannot manipulate the ciphertext.
+/ Complexity: The RSA algorithm is a sophisticated mathematical technique that some
+  individuals may find challenging to comprehend and use.
+/ The Quantum Threat: RSA is highly vulnerable to future quantum computers. A
+  sufficiently powerful quantum computer running "Shor's Algorithm" could factor the
+  underlying prime numbers in minutes, instantly breaking the encryption.
+
+== Example [TODO] <C3>
+
+== RSA Numerical <C4>
+
+// https://engineering.purdue.edu/kak/compsec/NewLectures/Lecture12.pdf
+
+The computational steps for key generation are
+1. Generate two different primes $p$ and $q$
+2. Calculate the modulus \
+  $n = p × q$
+3. Calculate the totient \
+  $phi.alt(n) = (p − 1) × (q − 1)$
+4. Select for public exponent an integer e such that \
+  $1 < e < phi.alt(n)$ and $gcd(phi.alt(n), e) = 1$
+5. Calculate for the private exponent a value for d such that \
+  $(d times e) mod (phi.alt(n)) = 1$ \
+6. Public Key = $[e, n]$
+7. Private Key = $[d, n]$
+
+- ENCRYPTION: $C = M^e mod phi.alt(n)$
+- DECRYPTION: $M = C^d mod phi.alt(n)$
 
 #pagebreak()
 
@@ -454,7 +619,7 @@ integrity and authenticity. The tiniest change in input data drastically modifie
 hash output, indicating a loss of integrity. Hashing is the process of storing key
 value pairs with the help of a hash function into a hash table.
 
-== Characteristics of Secure Hash Algorithm (SHA)
+== Characteristics
 
 - / Security: The SHA 256 is highly recognized for its robust security features,
     among hashing algorithms. It effectively prevents collision attacks ensuring that
@@ -472,7 +637,7 @@ value pairs with the help of a hash function into a hash table.
 
 #pagebreak()
 
-= IDEA [C2]
+= IDEA #emoji.star <C2>
 
 == Characteristics
 
@@ -634,7 +799,7 @@ multiplication operations).
 
 #pagebreak()
 
-= DoS ATTACK [B2]
+= DoS ATTACK <B2>
 
 - malicious actor attempts to make a service unavailable to its intended users
 - like a massive traffic jam on a highway
@@ -683,37 +848,29 @@ multiplication operations).
 
 #pagebreak()
 
-= STREAM AND BLOCK CIPHERS [B3,B4]
+= STREAM AND BLOCK CIPHERS #emoji.star
 
-== Definitions
+== Stream Cipher <B3>
+A stream cipher encrypts data continuously, one binary digit (bit) or byte at a time.
+It works by taking a secret key and an initialization vector (IV) to generate a
+continuous, pseudorandom sequence of bits called a keystream. This keystream is then
+combined with the plaintext data, typically using an Exclusive-OR (XOR) mathematical
+operation, to create the ciphertext. Because they encrypt data on the fly, stream
+ciphers are highly efficient for real-time applications where the total amount of
+data might not be known in advance, such as secure video or audio streaming.
+/ Example: ChaCha20 (widely used in modern web traffic), RC4 (historically used but
+  now considered insecure).
 
-In cryptography, both stream ciphers and block ciphers are types of symmetric-key
-algorithms, meaning the same secret key is used for both encrypting the plaintext and
-decrypting the ciphertext. However, they handle the data in fundamentally different
-ways.
-
-/ Stream Cipher:
-  A stream cipher encrypts data continuously, one binary digit (bit) or byte at a
-  time. It works by taking a secret key and an initialization vector (IV) to generate
-  a continuous, pseudorandom sequence of bits called a keystream. This keystream is
-  then combined with the plaintext data, typically using an Exclusive-OR (XOR)
-  mathematical operation, to create the ciphertext. Because they encrypt data on the
-  fly, stream ciphers are highly efficient for real-time applications where the total
-  amount of data might not be known in advance, such as secure video or audio
-  streaming.
-  / Example: ChaCha20 (widely used in modern web traffic), RC4 (historically used but
-    now considered insecure).
-
-/ Block Cipher:
-  A block cipher breaks the plaintext data down into fixed-size chunks, or "blocks"
-  (commonly 64 or 128 bits long), and encrypts each block one at a time. If the data
-  being encrypted isn't perfectly divisible by the block size, the final block is
-  "padded" with extra bits to make it fit. Because encrypting the exact same block of
-  text with the same key will always produce the exact same ciphertext, block ciphers
-  use "modes of operation" (like CBC or GCM) to mix data from previous blocks into
-  the current one, ensuring patterns in the data are hidden.
-  / Example: AES (Advanced Encryption Standard, the global standard for secure data),
-    DES (older, insecure standard).
+== Block Cipher <B4>
+A block cipher breaks the plaintext data down into fixed-size chunks, or "blocks"
+(commonly 64 or 128 bits long), and encrypts each block one at a time. If the data
+being encrypted isn't perfectly divisible by the block size, the final block is
+"padded" with extra bits to make it fit. Because encrypting the exact same block of
+text with the same key will always produce the exact same ciphertext, block ciphers
+use "modes of operation" (like CBC or GCM) to mix data from previous blocks into the
+current one, ensuring patterns in the data are hidden.
+/ Example: AES (Advanced Encryption Standard, the global standard for secure data),
+  DES (older, insecure standard).
 
 == Differences
 
@@ -753,10 +910,9 @@ ways.
 
 #pagebreak()
 
-= SYMMETRIC AND ASYMMETRIC KEY CRYPTOGRAPHY [B5,B6]
+= SYMMETRIC AND ASYMMETRIC KEY CRYPTOGRAPHY
 
-== Symmetric Key Cryptography
-
+== Symmetric Key Cryptography <B5>
 
 Symmetric key cryptography is a method of digital encryption where the exact same
 secret key is used to both encrypt and decrypt information. Because it uses a single
@@ -779,7 +935,7 @@ fast, symmetric encryption take over for the rest of the conversation.
 
 / Examples: AES, ChaCha20.
 
-== Asymmetric Key Cryptography
+== Asymmetric Key Cryptography <B6>
 
 Asymmetric key cryptography, also known as public-key cryptography, is a security
 system that uses a mathematically linked pair of keys rather than a single shared
@@ -848,7 +1004,7 @@ What one key locks, only the other key can unlock.
   [Examples], [AES, ChaCha20, DES], [Diffie-Hellman, ECC, RSA],
 )
 
-= THREAT VS ATTACK [B7]
+= THREAT VS ATTACK <B7>
 
 == Threat
 
@@ -897,7 +1053,7 @@ system, steal data, or cause damage.
 
 #pagebreak()
 
-= SUBSTITUTION [B8]
+= SUBSTITUTION <B8>
 
 At its core, the substitution technique in cryptography is a method of encrypting
 data by replacing units of plaintext (the original message) with ciphertext (the
@@ -936,7 +1092,7 @@ For example, with a shift of 3:
 
 #pagebreak()
 
-= TRANSPOSITION [B9]
+= TRANSPOSITION <B9>
 
 While a substitution cipher changes the identity of the letters (like swapping 'A'
 for 'D'), a transposition technique scrambles the positions of the letters. The
@@ -981,7 +1137,7 @@ ciphertext: `HOLELWRDLO`
 
 #pagebreak()
 
-= DIGITAL SIGNATURE [B10]
+= DIGITAL SIGNATURE <B10>
 
 A digital signature is the cryptographic equivalent of a handwritten signature or
 stamped seal, but it offers far more inherent security. It is a mathematical
@@ -1028,7 +1184,7 @@ paired Public Key and Private Key).
 
 #pagebreak()
 
-= MESSAGE DIGEST [B11]
+= MESSAGE DIGEST <B11>
 
 A message digest is essentially a digital fingerprint for a piece of data. It is a
 fixed-length string of characters generated by passing data (like a text file, an
@@ -1078,7 +1234,7 @@ function.
 
 #pagebreak()
 
-= AUTHENTICATION [B12]
+= AUTHENTICATION <B12>
 
 Authentication is the process of verifying the identity of a user, device, or system.
 Whenever you log into an email account, unlock your phone, or use a keycard to enter
@@ -1101,6 +1257,59 @@ often called the Factors of Authentication:
     / Examples: A fingerprint scan, facial recognition (like Face ID), iris scans, or
       even voice recognition.
 
+== Types <B13>
+
+/ Password-Based Authentication: This is the oldest and most familiar method, relying
+  entirely on the "knowledge factor." You enter a username and a secret string of
+  characters.
+  / Pros: Easy to implement and widely understood by users.
+  / Cons: It is the weakest form of security. Passwords are easily forgotten, reused
+    across multiple sites, guessed by automated software (brute-force attacks), or
+    stolen via phishing.
+
+/ Multi-Factor (MFA) and Two-Factor (2FA) Authentication: As mentioned earlier, MFA
+  requires two or more methods from different categories to grant access.
+  / SMS/Email Codes: You receive a one-time passcode (OTP) via text or email. (Note:
+    SMS is becoming less secure due to tactics like SIM-swapping).
+  / Authenticator Apps: Apps like Google Authenticator or Authy generate a new code
+    every 30 seconds . These are much more secure than SMS because they aren't tied
+    to your phone number.
+
+/ Biometric Authentication: This method relies on the "inherence factor" by scanning
+  your unique physical characteristics.
+  / How it works: Fingerprint scanners, facial recognition (like Apple's Face ID),
+    iris scanners, and voice recognition .
+  / Pros: Highly convenient for the user (no passwords to remember) and very
+    difficult for a remote hacker to steal or replicate.
+
+/ Single Sign-On (SSO): SSO allows a user to log in with one single set of
+  credentials and gain access to multiple different applications or websites.
+  / How it works: When you click "Log in with Google" or "Log in with Apple" on a new
+    website, that is a form of SSO. In the corporate world, companies use providers
+    like Okta or Microsoft Entra so employees only have to log in once in the morning
+    to access their email, HR software, and project management tools.
+  / Pros: Reduces "password fatigue" and makes it easier for IT teams to manage
+    access.
+
+/ Hardware Token Authentication: This is a highly secure method relying on a physical
+  possession factor.
+  / How it works: You carry a physical device, like a USB security key (e.g., a
+    YubiKey) or a smart card. To log in, you must plug the key into your computer or
+    tap it against your phone via NFC.
+  / Pros: Practically immune to phishing. Even if a hacker steals your password and
+    tricks you into clicking a fake login link, they cannot access your account
+    because they do not have your physical key.
+
+/ Passwordless Authentication (The Future): The cybersecurity industry is actively
+  trying to kill the password entirely because it is the weakest link. Passwordless
+  methods include:
+  / Magic Links: You enter your email, and the system sends you a unique link that
+    logs you in automatically when clicked.
+  / Passkeys: A relatively new standard backed by Apple, Google, and Microsoft.
+    Instead of a password, your device creates a hidden cryptographic key. To log in,
+    you just use your device's built-in biometrics (like your fingerprint or FaceID)
+    to unlock that key.
+
 == What is Multi-Factor Authentication (MFA)?
 
 If a system only asks for a password, it uses Single-Factor Authentication (SFA).
@@ -1121,54 +1330,40 @@ stealing your physical phone.
 
 #pagebreak()
 
-= SSL
+= SSL #emoji.star <B14>
 
-SSL (Secure Sockets Layer) is the standard security technology used to establish an
-encrypted link between a web server and a web browser. This link ensures that all
-data passed between the server and browsers remains private and integral.
+SSL, or Secure Sockets Layer, is an encryption-based Internet security protocol. It
+was first developed by Netscape in 1995 for the purpose of ensuring privacy,
+authentication, and data integrity in Internet communications. SSL is the predecessor
+to the modern TLS encryption used today.
 
 Whenever you see a padlock icon in your browser's address bar or a web address that
 starts with "https" (the "s" stands for secure), you are looking at SSL in action.
 
-To explain how it works, we get to put together the concepts of symmetric and
-asymmetric cryptography that we discussed earlier!
+- In order to provide a high degree of privacy, SSL encrypts data that is transmitted
+  across the web. This means that anyone who tries to intercept this data will only
+  see a garbled mix of characters that is nearly impossible to decrypt.
+- SSL initiates an authentication process called a handshake between two
+  communicating devices to ensure that both devices are really who they claim to be.
+- SSL also digitally signs data in order to provide data integrity, verifying that
+  the data is not tampered with before reaching its intended recipient.
 
-== The Evolution: SSL vs.~TLS
-First, a quick technical note: SSL is actually the older, legacy term. The technology
-was updated and renamed to TLS (Transport Layer Security) over two decades ago
-because of security vulnerabilities in the original SSL. However, the term "SSL"
-stuck around in popular culture, so you will almost always hear them used
-interchangeably, or referred to as "SSL/TLS".
+Originally, data on the Web was transmitted in plaintext that anyone could read if
+they intercepted the message. For example, if a consumer visited a shopping website,
+placed an order, and entered their credit card number on the website, that credit
+card number would travel across the Internet unconcealed.
 
-== How It Works: The "SSL Handshake"
-SSL solves a massive problem: How do your computer and a bank's server securely agree
-on a secret code over the open, insecure internet, without anyone eavesdropping?
+SSL was created to correct this problem and protect user privacy. By encrypting any
+data that goes between a user and a web server, SSL ensures that anyone who
+intercepts the data can only see a scrambled mess of characters. The consumer's
+credit card number is now safe, only visible to the shopping website where they
+entered it.
 
-They do this through a process called the SSL Handshake, which perfectly blends
-asymmetric and symmetric cryptography.
+SSL also stops certain kinds of cyber attacks: It authenticates web servers, which is
+important because attackers will often try to set up fake websites to trick users and
+steal data. It also prevents attackers from tampering with data in transit, like a
+tamper-proof seal on a medicine container.
 
-Here is exactly what happens in milliseconds when you connect to a secure website:
-
-+ / The Greeting (Client & Server Hello): Your browser says to the server, "I want to
-  connect securely. Here are the encryption rules I understand." The server replies,
-  "Great, let's use this specific set of rules."
-+ / Identity Verification (The Certificate): The server sends the browser its SSL
-  Certificate. Think of this as the website's digital passport. It contains the
-  website's identity, an expiration date, and crucially, the server's Public Key
-  (Asymmetric Cryptography).
-+ / The Key Exchange: Your browser checks the certificate to make sure the website is
-  who it claims to be. If it is trusted, your browser uses the server's Public Key to
-  encrypt a brand new, randomly generated Session Key. It sends this locked Session
-  Key back to the server.
-+ / The Lock Opens: Because the server holds the matching Private Key, it is the only
-  entity in the world that can unlock what your browser just sent. It unlocks it and
-  retrieves the Session Key.
-+ / Secure Communication (Symmetric Takeover): Both your browser and the server now
-  hold the exact same secret Session Key. They abandon the slow asymmetric keys and
-  use this single shared key (Symmetric Cryptography) to encrypt all the actual
-  data---like your passwords or credit card numbers---for the rest of your visit.
-
-== Why This Matters
 Without SSL, any computer between you and the server (like the Wi-Fi router at a
 local coffee shop or your Internet Service Provider) could intercept your data in
 "plaintext" and read exactly what you are typing. SSL provides three critical layers
@@ -1178,3 +1373,119 @@ Encryption: Scrambling data so it cannot be read in transit. Authentication: Pro
 the website you are connecting to is legitimate and not a fake site set up by a
 hacker. Data Integrity: Ensuring the data is not modified or corrupted while
 traveling across the internet.
+
+
+== The Evolution: SSL vs. TLS
+
+SSL is the direct predecessor of another protocol called TLS (Transport Layer
+Security). In 1999 the Internet Engineering Task Force (IETF) proposed an update to
+SSL. Since this update was being developed by the IETF and Netscape was no longer
+involved, the name was changed to TLS. The differences between the final version of
+SSL (3.0) and the first version of TLS are not drastic; the name change was applied
+to signify the change in ownership.
+
+Since they are so closely related, the two terms are often used interchangeably and
+confused. Some people still use SSL to refer to TLS, others use the term "SSL/TLS
+encryption" because SSL still has so much name recognition.
+
+== SSL Handshake
+
+SSL solves a massive problem: How do your computer and a bank's server securely agree
+on a secret code over the open, insecure internet, without anyone eavesdropping? They
+do this through a process called the SSL Handshake, which perfectly blends asymmetric
+and symmetric cryptography.
+
++ / The Greeting (Client & Server Hello): Your browser says to the server, "I want to
+    connect securely. Here are the encryption rules I understand." The server
+    replies, "Great, let's use this specific set of rules."
++ / Identity Verification (The Certificate): The server sends the browser its SSL
+    Certificate. Think of this as the website's digital passport. It contains the
+    website's identity, an expiration date, and crucially, the server's Public Key
+    (Asymmetric Cryptography).
++ / The Key Exchange: Your browser checks the certificate to make sure the website is
+    who it claims to be. If it is trusted, your browser uses the server's Public Key
+    to encrypt a brand new, randomly generated Session Key. It sends this locked
+    Session Key back to the server.
++ / The Lock Opens: Because the server holds the matching Private Key, it is the only
+    entity in the world that can unlock what your browser just sent. It unlocks it
+    and retrieves the Session Key.
++ / Secure Communication (Symmetric Takeover): Both your browser and the server now
+    hold the exact same secret Session Key. They abandon the slow asymmetric keys and
+    use this single shared key (Symmetric Cryptography) to encrypt all the actual
+    data like your passwords or credit card numbers for the rest of your visit.
+
+#image("assets/ssl_hs.webp")
+
+== Types of SSL certificates
+
+One certificate can apply to a single website or several websites, depending on the
+type:
+
+- / Single-domain: A single-domain SSL certificate applies to only one domain (a
+    "domain" is the name of a website, like www.cloudflare.com).
+- / Wildcard: Like a single-domain certificate, a wildcard SSL certificate applies to
+    only one domain. However, it also includes that domain's subdomains. For example,
+    a wildcard certificate could cover www.cloudflare.com, blog.cloudflare.com, and
+    developers.cloudflare.com, while a single-domain certificate could only cover the
+    first.
+- / Multi-domain: As the name indicates, multi-domain SSL certificates can apply to
+    multiple unrelated domains.
+
+SSL certificates also come with different validation levels. A validation level is
+like a background check, and the level changes depending on the thoroughness of the
+check.
+
+- / Domain Validation: This is the least-stringent level of validation, and the
+    cheapest. All a business has to do is prove they control the domain.
+- / Organization Validation: This is a more hands-on process: The CA directly
+    contacts the person or business requesting the certificate. These certificates
+    are more trustworthy for users.
+- / Extended Validation: This requires a full background check of an organization
+    before the SSL certificate can be issued.
+
+#pagebreak()
+
+= TLS [TODO] <C7>
+
+Transport Layer Security (TLS) is a protocol which enables a client to communicate
+securely with a server across an untrusted network. Most notably it's used to secure
+HTTP connections on the web: the resulting protocol is called HTTPS. TLS secures a
+network connection in three ways:
+
+/ Encryption: the data exchanged between client and server is encrypted while in
+  transit, so it can't be read by any attackers.
+/ Integrity: an attacker can't secretly modify data (without detection) while it is
+  in transit between client and server.
+/ Authentication: client and server are each able to prove to the other party that
+  they are the entity they claim to be. On the web, servers usually authenticate
+  themselves to clients, but clients don't usually authenticate themselves to
+  servers.
+
+In particular, HTTPS is the defense against a manipulator in the middle (MITM)
+attack, in which the attacker inserts themselves between the user's browser and the
+server they are connecting to, and can read and modify the traffic exchanged.
+Browsers consider pages delivered over HTTPS as providing a secure context. Many
+powerful web APIs are only available to code running in a secure context. All
+websites should serve all their pages and subresources over HTTPS, and implement
+server authentication.
+
+== TLS handshake
+
+When a client connects to a server using TLS, an initial handshake sets the security
+parameters for the protocol:
+
+/ Client and server agree on which version of TLS to use: The current version of TLS
+  is 1.3 and this is the most widely-used version. TLS 1.2 is still used by some
+  websites, and TLS 1.1 and 1.0 should no longer be used.
+/ Client and server agree on the cipher suite that they will use: this defines the
+  algorithms that they will use for key agreement, authentication, encryption, and
+  message authentication.
+/ Optionally, client and server authenticate each other: Client authentication, in
+  which the client proves who they are to the server, is rare on the web outside some
+  specialized applications. However, server authentication, in which the server
+  proves who they are to the client, is a fundamental part of web security.
+/ Client and server agree on a secret key: that they will use to encrypt and decrypt
+  messages.
+
+After the handshake, client and server use the secret key to encrypt and decrypt any
+messages, including HTTP headers as well as bodies.
