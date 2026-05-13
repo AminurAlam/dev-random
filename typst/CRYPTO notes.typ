@@ -289,11 +289,12 @@ continues to function normally), passive attacks are notoriously difficult to de
 
 / Primary Goal: Data theft, espionage, or reconnaissance.
 / Common Examples:
-/ Eavesdropping / Packet Sniffing: Intercepting unencrypted network traffic to steal
-  passwords, emails, or financial data.
-/ Traffic Analysis: Even if the data is encrypted, attackers can monitor the
-  frequency, size, and destination of data packets to guess what is happening (e.g.,
-  detecting a sudden spike in traffic between a CEO and a merger & acquisition firm).
+  / Eavesdropping / Packet Sniffing: Intercepting unencrypted network traffic to
+    steal passwords, emails, or financial data.
+  / Traffic Analysis: Even if the data is encrypted, attackers can monitor the
+    frequency, size, and destination of data packets to guess what is happening
+    (e.g., detecting a sudden spike in traffic between a CEO and a merger &
+    acquisition firm).
 / Best Defense: Since detection is so hard, defense relies on prevention, primarily
   through strong encryption (like HTTPS, VPNs, and end-to-end encryption). If an
   attacker intercepts encrypted data, they cannot read it.
@@ -309,36 +310,40 @@ easier to detect than passive attacks.
 
 / Primary Goal: Disruption, extortion, unauthorized access, or data corruption.
 / Common Examples:
-/ Denial of Service (DoS) / DDoS: Flooding a server with fake traffic so legitimate
-  users cannot access it.
-/ Man-in-the-Middle (MitM) Attacks: Intercepting a conversation between two parties
-  and actively altering the messages before passing them along.
-/ Malware & Ransomware: Injecting malicious code to lock files, steal data, or
-  destroy system architecture.
-/ Spoofing: Impersonating a legitimate device or user to gain access to a network.
+  / Denial of Service (DoS) / DDoS: Flooding a server with fake traffic so legitimate
+    users cannot access it.
+  / Man-in-the-Middle (MitM) Attacks: Intercepting a conversation between two parties
+    and actively altering the messages before passing them along.
+  / Malware & Ransomware: Injecting malicious code to lock files, steal data, or
+    destroy system architecture.
+  / Spoofing: Impersonating a legitimate device or user to gain access to a network.
 / Best Defense: A combination of prevention and active detection. This includes
   Firewalls, Intrusion Detection Systems (IDS), Multi-Factor Authentication (MFA),
   and endpoint antivirus software.
 
-== Quick Comparison
+== Difference between (Active and Passive)
 
 #table(
-  columns: (13.79%, 37.07%, 49.14%),
-  align: (auto, auto, auto),
-  table.header([Feature], [Passive Attacks], [Active Attacks]),
-  table.hline(),
+  columns: (17%, auto, auto),
+
+  [Feature], [Passive Attacks], [Active Attacks],
+
   [Objective],
   [Steal information or monitor activity.],
   [Disrupt, modify, or destroy systems/data.],
+
   [Impact on System],
   [None. Normal operations continue.],
   [High. Systems may crash, slow down, or show altered data.],
+
   [Detectability],
   [Very difficult (leaves almost no trace).],
   [Easier (creates anomalies, logs, and disruptions).],
+
   [Primary Defense],
   [Encryption (make the data unreadable).],
   [Firewalls & IDS (block and detect intruders).],
+
   [Analogy],
   [Reading someone's mail through an envelope.],
   [Tearing up the mail or writing a fake letter.],
@@ -412,14 +417,15 @@ some of the ancient types of cryptography:
 = TYPES OF CRYPTOGRAPHIC ALGORITHMS
 
 #table(
-  columns: 4,
+  columns: 6,
   align: (auto, auto, auto, auto),
-  [Feature], [DES], [3DES], [AES],
-  [Key Size], [56 bits], [112 or 168 bits], [128, 192, or 256 bits],
-  [Block Size], [64 bits], [64 bits], [128 bits],
-  [Security], [Broken and Insecure], [Secure but legacy], [Secure Global Standard],
-  [Speed], [Fast in hardware], [Slow], [Very fast everywhere],
-  [Status], [Deprecated], [Deprecated in 2023], [Current Standard],
+  [Feature], [DES], [3DES], [AES], [RSA], [IDEA],
+  [Key Size], $64-8=56$, [112 or 168], [128, 192, or 256], [2048, 4096], [128],
+  [Block Size], [64], [64], [128], [], [64],
+  [Theory], [Feistel], [Feistel], [], [Prime], [Lai-Massey],
+  [Security], [Insecure], [Secure but legacy], [Secure], [Secure], [],
+  [Speed], [Fast in hardware], [Slow], [Very], [Slow], [],
+  [Status], [Deprecated], [Deprecated], [Current Standard], [Current Standard], [],
 )
 
 #pagebreak()
@@ -653,9 +659,9 @@ value pairs with the help of a hash function into a hash table.
 / Mixed Algebraic Groups: To create confusion and diffusion, IDEA relies on
   interleaving three distinct, mathematically "incompatible" operations on 16-bit
   words. These operations are:
-  - Bitwise Exclusive-OR ($o p l u s$)
-  - Addition modulo $2^16$ (denoted by $b o x p l u s$)
-  - Multiplication modulo $2^16 + 1$ (denoted by $o d o t$)
+  - Bitwise Exclusive-OR ($xor$)
+  - Addition modulo $2^16$ (denoted by $plus.square$)
+  - Multiplication modulo $2^16 + 1$ (denoted by $dot.o$)
   - / Confusion: The ciphertext should rely on the plaintext and key in a complex and
       effective manner. The goal is to make it more difficult to determine how the
       ciphertext statistics relate to the plaintext statistics. IDEA achieves this
@@ -1442,6 +1448,57 @@ check.
     are more trustworthy for users.
 - / Extended Validation: This requires a full background check of an organization
     before the SSL certificate can be issued.
+
+#pagebreak()
+
+= CYBERCRIME <B15>
+
+In the field of cybersecurity, cybercrime refers to any illegal activity that either
+targets or uses a computer, a computer network, or a networked device.
+
+If cybersecurity is the shield, cybercrime is the weapon. Cybersecurity professionals
+spend their time building defenses, monitoring networks, and responding to incidents
+specifically to stop cybercriminals from successfully executing these crimes.
+
+== Crimes that Target Computers
+
+In these attacks, the criminal's goal is to damage, disable, or gain unauthorized
+access to a system or network.
+
+/ Malware Attacks: Infecting systems with malicious software, such as viruses or
+  spyware, to corrupt data or steal information.
+/ Ransomware: A specific, highly damaging type of malware that locks a victim's data
+  using encryption. The cybercriminal then demands a ransom (usually in
+  cryptocurrency) to unlock it.
+/ Denial-of-Service (DoS) and DDoS Attacks: Overwhelming a website, server, or
+  network with a flood of fake traffic so that legitimate users cannot access it.
+
+== Crimes that Use Computers as a Tool
+
+In these instances, the computer is used to facilitate a more "traditional" crime,
+but on a massive, digital scale.
+
+/ Phishing and Social Engineering: Sending fraudulent emails or messages that appear
+  to be from a trusted source (like a bank) to trick victims into handing over
+  passwords, credit card numbers, or other sensitive data.
+/ Identity Theft and Fraud: Stealing personal information from databases to open
+  credit accounts, steal funds, or commit tax fraud in someone else's name.
+/ Cyberstalking and Harassment: Using electronic communications to repeatedly harass,
+  threaten, or extort an individual or organization.
+/ Corporate Espionage: Hacking into a rival company's network to steal intellectual
+  property, trade secrets, or confidential business strategies.
+
+== The Cybercrime Ecosystem
+
+Cybercrime is no longer just a lone hacker in a basement it is a highly organized,
+multi-billion-dollar global industry. Some cybercriminal groups operate like
+corporations, complete with customer service departments for their ransomware victims
+and "Cybercrime-as-a-Service" (CaaS) models, where they rent out their hacking tools
+to less-technical criminals.
+
+Are you interested in learning more about how a specific type of cybercrime works
+(like ransomware or phishing), or would you prefer to focus on the defensive
+strategies used to stop them?
 
 #pagebreak()
 
