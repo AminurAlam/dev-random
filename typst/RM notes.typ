@@ -628,6 +628,260 @@ fundamental goal remains the same: moving from the unknown to the known.
 
 #pagebreak()
 
-= QUANTITATIVE & QUALITATIVE
+= SAMPLING
 
-See @qq
+Sampling is the process of selecting observations that will be analyzed for research
+purposes. To put it another way, sampling has to do with selecting some subset of
+one’s group of interest and drawing conclusions from that subset. Sampling is an
+integral part of any research project. The question is not if you will sample, but
+how you will sample. The answer to that question usually is dependent on the methods
+you use and the objectives of the study. Sampling can apply to people or objects, and
+is most important when these people or objects (your units of analysis) are
+heterogeneous (have different characteristics). If people (or objects) are
+homogeneous, or the same in terms of a specific characteristic of study, any sample
+will do, since everyone you sampled would be the same on that characteristic.
+However, when there is diversity or heterogeneity, sampling becomes highly relevant
+to the study, since a researcher will want to ensure that his/her sample reflects
+that variability in the population. How we sample and whom we sample shapes the sorts
+of conclusions we are able to draw.
+
+== Population vs Sample
+
+If you had all the money and resources in the world, you could potentially sample the
+whole population. However, money and resources usually limit sampling, and
+furthermore all members of a population may not actually be identifiable in a way
+that allows you to sample. As a result, researchers take a sample, or a subgroup of
+people (or objects) from the population and study that instead of the population. In
+social scientific research, the population is the cluster of people, events, things,
+or other phenomena in which you are most interested. It is often the “who” or “what”
+that you want to be able to say something about at the end of your study. Populations
+in research may be rather large, such as “the Canadian people,” but typically they
+are more focused than that. For example, a large study, for which the population of
+interest really is the Canadian people, will likely specify which Canadian people,
+such as adults over the age of 18 or citizens or legal residents.
+
+To summarize, we use sampling when the population is large and we simply do not have
+the time, financial support, and/or ability (i.e. lack of laboratory equipment) to
+reach the entire population.
+
+#image("assets/pop_sapmling.png", width: 80%)
+
+#table(
+  columns: 2,
+  [Population], [Sample],
+  [Resumes submitted to security firms in Canada for security guard positions.],
+  [120 resumes for security guard positions submitted to Canada's three largest
+    security firms in the year 2019, being 40 resumes from each firm.],
+
+  [Canadian residents who tested positive for COVID-19 and were hospitalized, but now
+    test negative],
+  [300 Canadian residents who tested positive for COVID-19 and were hospitalized, but
+    now test negative in the provinces of British Columbia and Quebec.],
+
+  [Undergraduate students currently enrolled at colleges across Canada],
+  [750 undergraduate students, taken from across 13 colleges, being one college from
+    each of the country's 10 provinces and 3 territories.],
+
+  [Individuals who are in employed, in management positions at firehalls in the
+    province of Nova Scotia.],
+  [30 managers from Nova Scotia's two largest firehalls, 15 from each, in the
+    province of Nova Scotia.],
+)
+
+#pagebreak()
+
+= SAMPLING TECHNIQUES
+
+#table(
+  columns: (23%, auto, auto),
+  [BASIS OF COMPARISON], [PROBABILITY SAMPLING], [NON-PROBABILITY SAMPLING],
+
+  [Definition],
+  [A sampling technique that is used with subjects of the population have an equal
+    chance of being selected as part of a representative sample. Referred to as
+    random sampling.],
+  [A sampling technique that is used with subjects of the population when it is not
+    known which individual will be selected as part of the sample. Referred to as
+    non-random sampling.],
+
+  [Sampling methods],
+  [Simple random sampling; systematic sampling; stratified sampling; cluster
+    sampling],
+  [Purposive sampling; snowball sampling; quota sampling; convenience sampling],
+
+  [How participants are selected], [Random sampling], [Arbitrarily or logically],
+  [Opportunity for participants to be selected], [Fixed and known], [Not known],
+  [Research], [Conclusive findings], [Exploratory findings],
+  [Inference or interpretation], [Statistical], [Analytical],
+  [Hypothesis], [Tested], [Developed],
+  [Type of research], [Quantitative], [Quantitative and qualitative],
+)
+
+#pagebreak()
+
+= SAMPLING TECHNIQUES: Probability Sampling
+
+Probability sampling involves random selection, meaning every member of the
+population has a known, non-zero chance of being selected. This approach minimizes
+bias and is essential if you want to make accurate statistical inferences about the
+broader population.
+
+There are a variety of probability samples that researchers may use. For our
+purposes, we will focus on four: simple random samples, systematic samples,
+stratified samples, and cluster samples.
+
+== Simple Random Sampling
+- everyone has rendom chance
+- Best for: Populations that are relatively small, geographically concentrated, and
+  where a complete list of members already exists.
+- It is highly representative and easy to analyze.
+- Obtaining a complete list of a large population is often practically impossible or
+  very expensive.
+
+== Systematic Sampling
+- You list every member and then select every nth individual. It's similar to simple
+  random sampling but often easier to conduct.
+- you calculate your "skip interval" (k) by dividing your total population size by
+  your desired sample size
+- Best for: Large populations where a list is available, but you want a faster, more
+  organized way to sample than simple random sampling
+- It is easier to execute manually than SRS
+- if there is a hidden pattern in your list that lines up with your skip interval
+  your sample will be heavily biased
+
+== Stratified Sampling
+- The population is divided into distinct subgroups (called strata) that share
+  similar characteristics (e.g., gender, age group, income level).
+- ensures that specific subgroups within a population are adequately represented in
+  your final sample
+- In cases such as this, where the sampling frame is cyclical, it would be better to
+  use a stratified sampling technique.
+
+== Cluster Sampling
+- Instead of selecting individuals, cluster sampling selects entire groups
+  (clusters). It is primarily used for logistical efficiency, especially over large
+  geographic areas.
+- How it works: You divide the population into naturally occurring groups or
+  clusters. Rather than sampling individuals from all clusters, you randomly select a
+  few entire clusters. Then, you survey every single individual within those chosen
+  clusters.
+- Best for: Very large, geographically dispersed populations where creating a
+  complete list of individuals is impossible, but a list of clusters (like schools or
+  zip codes) is available.
+- It is significantly cheaper and more time-efficient for field research.
+- The trade-off is higher sampling error; if the clusters you randomly select happen
+  to be unrepresentative of the whole, your data will be skewed.
+
+- The population is divided into subgroups (clusters), but instead of sampling
+  individuals from each cluster, you randomly select entire clusters. Every member of
+  the chosen clusters is included in the study.
+
+#image("assets/cluster.webp")
+
+#table(
+  columns: 2,
+  [SAMPLES TYPE], [DESCRIPTION],
+  [Simple Frame], [Researcher randomly selects elements from sampling.],
+  [Systematic Frame], [Researcher Selects every Kth element from sampling.],
+  [Stratified Frame],
+  [Researcher creates sub-groups then randomly selects from each.],
+
+  [Cluster],
+  [Researcher randomly selects clusters then randomly selects elements from
+    clusters.],
+)
+
+#pagebreak()
+
+= SAMPLING TECHNIQUES: Non-Probability Sampling
+
+Non-probability sampling relies on non-random criteria, such as the researcher's
+judgment or the convenience of finding participants. It is generally easier, faster,
+and cheaper, but it carries a high risk of bias, meaning you usually cannot reliably
+generalize the findings to the entire population. This type is often used in
+exploratory or qualitative research.
+
+A non-probabilistic sampling technique is the method of choice when the population is
+not created equal and some participants are more desirable in advancing the research
+project's objectives. Non-probability sampling techniques are the best approach for
+qualitative research. Because the researcher seeks a strategically chosen sample,
+generalizability is more of a theoretical or conceptual issue, and it is not possible
+to generalize back to the population.
+
+== Convenience Sampling
+- Just as the name suggests, this method involves selecting participants who are
+  simply the easiest to reach.
+- How it works: The researcher gathers data from the people who are immediately
+  available or physically closest to them.
+- Best for: Pilot testing a survey to see if the questions make sense, or conducting
+  initial exploratory research when time and funds are almost zero.
+- It is the fastest and cheapest method available.
+- it is heavily biased.
+
+== Voluntary Response Sampling
+- Like convenience sampling, this method is based on ease of access, but the driving
+  force comes from the participants rather than the researcher.
+- How it works: The researcher puts out a call for volunteers (e.g., via social
+  media, a poster, or an email broadcast), and people choose whether or not to
+  participate.
+- Best for: Gathering opinions on public platforms where you want to gauge the
+  sentiment of highly engaged individuals.
+- It is easy to administer and inexpensive.
+- The major flaw is self-selection bias. Usually, only people with very strong
+  opinions (often negative) will take the time to volunteer, meaning the silent,
+  moderate majority is completely ignored.
+
+== Purposive (Judgmental) Sampling
+- In this method, the researcher relies on their own expertise to handpick
+  participants who are most relevant to the study's specific goals.
+- How it works: You establish strict criteria for who can participate based on the
+  needs of your research, and you actively seek out individuals who fit that exact
+  profile.
+- Best for: Qualitative research investigating a highly specific, niche group or
+  phenomenon where a random sample would likely yield too few relevant participants.
+- It guarantees that your sample is highly relevant to your research question.
+- However, it relies entirely on the researcher's judgment, which can introduce
+  personal bias.
+
+== Quota Sampling
+- Quota sampling might look like stratified probability sampling at first glance, but
+  it lacks the crucial element of random selection.
+- How it works: You divide the population into subgroups based on specific traits
+  (e.g., 60% female, 40% male). Then, you use convenience sampling to fill those
+  quotas. You stand on a street corner and interview the first 60 women and 40 men
+  you see, then stop.
+- Best for: Situations where you want your sample to visually reflect the demographic
+  breakdown of the population, but you don't have the time or a complete population
+  list to do true random stratified sampling.
+- It ensures that specific groups are represented in the numbers you want.
+- But because you filled those quotas using convenience (the first people you ran
+  into), the sample is still fundamentally biased and not mathematically
+  representative.
+
+== Snowball Sampling
+- This method is used when the target population is hidden, hard to reach, or
+  naturally distrustful of outsiders.
+- How it works: You find one or two initial participants who meet your criteria.
+  After surveying them, you ask them to refer you to other people they know who also
+  fit the criteria. The sample grows like a snowball rolling down a hill.
+- Best for: Studying marginalized groups, illicit networks (e.g., drug dealers), or
+  people with rare conditions who have their own private support networks.
+- It is often the only way to access hidden populations.
+- The downside is that the sample will be highly homogenous because people tend to
+  refer others who are very much like themselves, leading to network bias.
+
+#pagebreak()
+
+= SAMPLING ERROR
+
+Sampling error is the degree to which your sample deviates from the population’s
+characteristics. It is a statistical calculation of the difference between results
+from a sample and the actual parameters of a population. It is important to ensure
+that there is a minimum of sampling error (your sample needs to match the diversity
+of the population as closely as possible.) Sampling error comes from two main sources
+: systemic error and random error.
+
+Random error is due to chance, while systemic error means that there is some bias in
+the selection of the sample that makes particular individuals more likely to be
+selected than others. Here is an example to more fully explain the difference between
+a random and systemic error.

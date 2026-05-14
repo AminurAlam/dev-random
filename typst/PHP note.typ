@@ -128,8 +128,7 @@ setcookie("user_theme", "", time() - 3600, "/");
 
 #table(
   columns: 3,
-  align: (left, left, left),
-  table.header([Feature], [Cookies], [Sessions]),
+  [Feature], [Cookies], [Sessions],
 
   [Storage Location], [client-side], [server-side],
 
@@ -199,6 +198,8 @@ setcookie(
   JavaScript. It has been suggested that this setting can effectively help to reduce
   identity theft through XSS attacks (although it is not supported by all browsers),
   but that claim is often disputed. true or false
+
+#pagebreak()
 
 = SQL COMMANDS
 
@@ -366,3 +367,498 @@ accessing and modifying the database simultaneously without causing data corrupt
   [Data fetching is slower for the large amount of data],
   [Data fetching is fast because of relational approach],
 )
+
+#pagebreak()
+
+= PHP MYSQL CONNECTION
+
+Connecting PHP to a MySQL database is a foundational step in building dynamic web
+applications. Today, the old `mysql_connect()` function is deprecated and removed.
+Instead, there are two modern, secure ways to make this connection:
+
+/ PDO (PHP Data Objects): Highly recommended because it works with multiple database
+  systems (MySQL, PostgreSQL, SQLite, etc.) and provides excellent security features.
+/ MySQLi (MySQL Improved): A solid choice if you are certain your project will only
+  ever use a MySQL database.
+
+Before writing any code, you need four pieces of information about your MySQL server:
+
+/ Hostname: Usually `localhost` or `127.0.0.1` if you are developing on your own
+  computer using software like XAMPP, MAMP, or WAMP.
+/ Username: The default local user is often `root`.
+/ Password: The default local password is often blank (`""`) or `root`, depending on
+  your setup.
+/ Database Name: The name of the specific database you want to connect to (e.g.,
+  `my_app_db`).
+
+== Method A: Connecting via PDO (Recommended)
+
+PDO uses a Data Source Name (DSN) to define the connection parameters and wraps the
+connection attempt in a `try...catch` block to handle errors gracefully.
+
+```php
+<?php
+// 1. Define credentials
+$host = '127.0.0.1';
+$db   = 'my_app_db';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4'; // Highly recommended for proper character encoding
+
+// 2. Create the DSN (Data Source Name)
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+// 3. Set PDO options for better error handling and security
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Throw exceptions on errors
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Fetch data as associative arrays
+    PDO::ATTR_EMULATE_PREPARES => false, // Use real prepared statements
+];
+
+// 4. Attempt the connection
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+    echo "Connected successfully using PDO!";
+} catch (PDOException $e) {
+    // If it fails, catch the error and display it
+    echo "Connection failed: " . $e->getMessage();
+    // In a real app, you might log this error instead of showing it to the user
+}
+?>
+```
+
+== Method B: Connecting via MySQLi (Object-Oriented)
+
+```php
+<?php
+// 1. Define credentials
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "my_app_db";
+
+// 2. Create the connection instance
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// 3. Check the connection for errors
+if ($conn->connect_error) {
+    // Stop script execution and print the error
+    die("Connection failed: " . $conn->connect_error);
+}
+
+echo "Connected successfully using MySQLi!";
+?>
+```
+
+== Step 2: Running Queries (A Quick Example)
+
+Once connected, you will likely want to interact with your data. Here is a quick look
+at how you would fetch data safely using the PDO connection we created above.
+
+Notice the use of a prepared statement (`$stmt->prepare()`). This is crucial for
+protecting your database against SQL Injection attacks.
+
+```php
+<?php
+// Assuming $pdo is already connected...
+
+// The ID we want to search for (usually comes from user input, like $_GET['id'])
+$userId = 1;
+
+// Prepare the SQL query with a placeholder (?)
+$stmt = $pdo->prepare("SELECT username, email FROM users WHERE id = ?");
+
+// Execute the query, passing the variable in an array to fill the placeholder
+$stmt->execute([$userId]);
+
+// Fetch the result
+$user = $stmt->fetch();
+
+if ($user) {
+    echo "User found: " . $user['username'] . " (" . $user['email'] . ")";
+} else {
+    echo "No user found with that ID.";
+}
+?>
+```
+
+== 🔒 Best Practice for Real Applications
+
+Never hardcode your database credentials directly into the files where you write your
+queries.
+
+Instead, create a separate file (e.g., `db_connect.php`) containing only the
+connection code. Then, use `require_once 'db_connect.php';` at the top of any other
+PHP file that needs database access. This keeps your code organized and allows you to
+easily change passwords in one central location if needed.
+
+#pagebreak()
+
+= JOIN
+
+In relational databases like MySQL, data is often broken down into multiple tables to
+reduce redundancy and improve data integrity (a process called normalization).
+However, when you need to view or analyze that data, you often need to stitch it back
+together.
+
+This is exactly what a JOIN operation does. It is a method used to combine rows from
+two or more tables based on a related column between them.
+
+To understand how different joins work, let's use a simple example with two tables:
+`Employees` and `Departments`.
+
+Table 1: Employees
+
+#table(
+  columns: 3,
+  [EmpID], [Name], [DeptID],
+  [1], [Alice], [10],
+  [2], [Bob], [20],
+  [3], [Charlie], [NULL],
+)
+
+Table 2: Departments
+
+#table(
+  columns: 2,
+  [DeptID], [DeptName],
+  [10], [HR],
+  [20], [IT],
+  [30], [Sales],
+)
+
+(Note: The Sales department currently has no employees.)
+
+== INNER JOIN
+
+The `INNER JOIN` is the most common type of join. It returns only the records that
+have matching values in both tables. If a row in the first table doesn't have a
+corresponding match in the second table, it is completely excluded from the result.
+
+The Concept: Give me only the employees who belong to a department, AND only the
+departments that have employees.
+
+Example Query:
+
+```sql
+SELECT Employees.Name, Departments.DeptName
+FROM Employees
+INNER JOIN Departments ON Employees.DeptID = Departments.DeptID;
+```
+
+Result:
+
+#table(
+  columns: 2,
+  [Name], [DeptName],
+  [Alice], [HR],
+  [Bob], [IT],
+)
+
+Notice that Charlie (no department) and Sales (no employees) are completely missing
+from the results.
+
+== LEFT JOIN (or LEFT OUTER JOIN)
+
+The `LEFT JOIN` returns all records from the left table (the one mentioned first in
+the query), and the matched records from the right table. If there is no match in the
+right table, the result will still show the left table's data, but with `NULL` values
+for the right table's columns.
+
+The Concept: Give me a list of all employees, regardless of whether they have been
+assigned to a department yet. If they have a department, show it.
+
+Example Query:
+
+```sql
+SELECT Employees.Name, Departments.DeptName
+FROM Employees
+LEFT JOIN Departments ON Employees.DeptID = Departments.DeptID;
+```
+
+Result:
+
+#table(
+  columns: 2,
+  [Name], [DeptName],
+  [Alice], [HR],
+  [Bob], [IT],
+  [Charlie], [NULL],
+)
+
+Notice that Charlie is included because he is in the "Left" table (`Employees`), but
+his department is `NULL`.
+
+== RIGHT JOIN (or RIGHT OUTER JOIN)
+
+The `RIGHT JOIN` is the exact opposite of the `LEFT JOIN`. It returns all records
+from the right table, and the matched records from the left table. If there is no
+match in the left table, the left side will contain `NULL` values.
+
+The Concept: Give me a list of all departments, regardless of whether they have any
+employees in them. If they have employees, list them.
+
+Example Query:
+
+```sql
+SELECT Employees.Name, Departments.DeptName
+FROM Employees
+RIGHT JOIN Departments ON Employees.DeptID = Departments.DeptID;
+```
+
+Result:
+
+#table(
+  columns: 2,
+  [Name], [DeptName],
+  [Alice], [HR],
+  [Bob], [IT],
+  [NULL], [Sales],
+)
+
+Notice that the Sales department is included because it is in the "Right" table
+(`Departments`), but the employee name is `NULL` because nobody works there.
+
+#pagebreak()
+
+= TABLES, KEYS, AND RELATIONSHIPS
+
+A Relational Database Management System (RDBMS) organizes data into structured,
+predictable formats. Instead of throwing all your data into one massive, messy
+spreadsheet, an RDBMS breaks it down into distinct, logical pieces and then connects
+them.
+
+The three core building blocks that make this possible are Tables, Keys, and
+Relationships.
+
+== Tables (The Storage Containers)
+
+A table is the fundamental structure of an RDBMS. It is designed to hold data about
+one specific type of entity (like a Customer, a Product, or an Order).
+
+A table is made up of:
+
+/ Columns (Attributes/Fields): These define the properties of the data. For example,
+  a `Students` table might have columns for `FirstName`, `LastName`, and `Email`.
+/ Rows (Records/Tuples): These represent a single, individual entry of data. One row
+  in the `Students` table represents one specific student.
+
+Example: `Students` Table
+
+#table(
+  columns: 4,
+  [StudentID], [FirstName], [LastName], [Email],
+  [1], [Jane], [Doe], [jane\@example.com],
+  [2], [John], [Smith], [john\@example.com],
+)
+
+== Keys (The Identifiers & Links)
+
+Keys are special columns (or combinations of columns) that ensure data is unique and
+allow tables to "talk" to each other.
+
+/ Primary Key (PK): A column that uniquely identifies every row in a table. It cannot
+  be `NULL` (empty), and no two rows can have the same Primary Key. In the table
+  above, `StudentID` is the Primary Key.
+/ Foreign Key (FK): A column in one table that references the Primary Key of another
+  table. This is what creates the link (relationship) between the two tables.
+
+Example of a Foreign Key: Imagine an `Orders` table. To know which student placed an
+order, we add a `StudentID` column to the `Orders` table. Because `StudentID` points
+back to the Primary Key of the `Students` table, it acts as a Foreign Key.
+
+== Relationships (The Connections)
+
+Relationships define how the data in one table is associated with the data in
+another. There are three main types:
+
+=== A. One-to-One (1:1)
+
+One record in Table A is related to exactly one record in Table B. This is rare, as
+this data is often just combined into a single table, but it's useful for security
+(e.g., storing sensitive data separately).
+
+/ Example: A `User` table and a `User_Security_Details` table (storing password
+  hashes and recovery emails).
+/ How it's built: The Primary Key of Table A is used as both the Primary Key and
+  Foreign Key in Table B.
+
+=== B. One-to-Many (1:N)
+
+The most common relationship. One record in Table A can be related to multiple
+records in Table B.
+
+/ Example: A `Department` has many `Employees`, but an `Employee` belongs to only one
+  `Department`.
+/ How it's built: Place the Primary Key of the "One" side (Department) as a Foreign
+  Key in the "Many" side (Employees).
+
+=== C. Many-to-Many (M:N)
+
+Multiple records in Table A can relate to multiple records in Table B. Relational
+databases cannot handle this directly, so it requires a workaround.
+
+/ Example: `Students` and `Courses`. One student can take many courses, and one
+  course has many students.
+/ How it's built: You must create a third table called a Junction Table (or
+  Associative Table). This new table holds the Foreign Keys from both main tables.
+  For example, an `Enrollments` table would contain `StudentID` and `CourseID`.
+
+#pagebreak()
+
+= FILE HANDLING
+
+
+File handling is a crucial part of web development. It allows your PHP applications
+to read configurations, save logs, generate reports, or process user-uploaded
+documents.
+
+PHP provides several built-in functions to handle files. These can generally be
+grouped into two categories: Simple (One-liner) Functions and Stream-based (Pointer)
+Functions.
+
+== Important: File Modes
+
+When opening files using the stream-based approach, you must tell PHP #emph[how] you
+intend to interact with the file. These are called "modes". Here are the most common
+ones:
+
+#figure(
+  align(center)[#table(
+    columns: (3.08%, 50%, 16.92%, 30%),
+    align: (auto, auto, auto, auto),
+    table.header(
+      [Mode], [Description], [File Pointer Starts At], [What if file doesn't exist?]
+    ),
+    table.hline(),
+    [`r`], [Read only.], [Beginning], [Returns `FALSE` (Error).],
+    [`w`],
+    [Write only. Erases the contents of the file or creates a new one.],
+    [Beginning],
+    [Creates a new file.],
+    [`a`],
+    [Append. Writes data to the end of the file.],
+    [End],
+    [Creates a new file.],
+    [`x`],
+    [Create & Write. Exclusive write.],
+    [Beginning],
+    [Returns `FALSE` if file already exists.],
+  )],
+  kind: table,
+)
+
+== Method 1: The Simple "One-Liner" Approach
+
+For many everyday tasks where files aren't massively huge (like reading a small text
+file or saving a simple string), PHP offers convenient functions that open, process,
+and close the file all in one go.
+
+=== 1. Reading an entire file: `file_get_contents()`
+<reading-an-entire-file-file_get_contents>
+This is the easiest way to read a file's contents into a string variable.
+
+```php
+<?php
+$filename = "greeting.txt";
+
+// Always check if the file exists first to avoid fatal errors!
+if (file_exists($filename)) {
+    $content = file_get_contents($filename);
+    echo "File content: " . $content;
+} else {
+    echo "Error: The file does not exist.";
+}
+?>
+```
+
+=== 2. Writing to a file: `file_put_contents()`
+<writing-to-a-file-file_put_contents>
+This function writes a string to a file. By default, it acts like the `w` mode
+(erasing existing content). You can pass a special flag to make it act like the `a`
+mode (appending).
+
+```php
+<?php
+$logFile = "activity.log";
+$message = "User logged in at " . date("Y-m-d H:i:s") . "n";
+
+// Write to the file.
+// The FILE_APPEND flag tells PHP to add to the end, not overwrite.
+// LOCK_EX prevents others from writing to the file at the exact same time.
+file_put_contents($logFile, $message, FILE_APPEND | LOCK_EX);
+
+echo "Log updated successfully!";
+?>
+```
+
+== Method 2: The Stream/Pointer Approach
+
+If you are dealing with very large files (where loading the whole thing into memory
+with `file_get_contents` would crash your server) or if you need precise control over
+reading line-by-line, you should use the stream approach.
+
+This involves three steps: Open, Process, and Close.
+
+=== 1. Reading a file line-by-line
+
+```php
+<?php
+$filename = "large_dataset.csv";
+
+// 1. OPEN: Open the file in 'r' (read) mode
+$fileHandle = fopen($filename, "r");
+
+if ($fileHandle) {
+    // 2. PROCESS: Loop through the file until the End Of File (feof)
+    while (!feof($fileHandle)) {
+        // Read a single line
+        $line = fgets($fileHandle);
+        echo $line . "<br>";
+    }
+
+    // 3. CLOSE: Always close the file to free up server resources
+    fclose($fileHandle);
+} else {
+    echo "Failed to open the file.";
+}
+?>
+```
+
+=== 2. Writing data to a file using streams
+
+```php
+<?php
+$filename = "new_file.txt";
+
+// 1. OPEN: Open in 'w' (write) mode. This will create it if it doesn't exist.
+$fileHandle = fopen($filename, "w");
+
+if ($fileHandle) {
+    $text1 = "Hello Worldn";
+    $text2 = "This is a new line of text.n";
+
+    // 2. PROCESS: Write the data
+    fwrite($fileHandle, $text1);
+    fwrite($fileHandle, $text2);
+
+    // 3. CLOSE: Close the connection
+    fclose($fileHandle);
+
+    echo "File written successfully!";
+} else {
+    echo "Could not open file for writing. Check your permissions.";
+}
+?>
+```
+
+== Best Practices and Common Pitfalls
+
++ / File Permissions: If your `file_put_contents()` or `fopen(..., 'w')` is failing,
+  90% of the time it is because the web server (like Apache or Nginx) does not have
+  the correct permissions to write to that specific folder on your server.
++ / Resource Leaks: If you use `fopen()`, you must use `fclose()`. Leaving files open
+  unnecessarily consumes server memory and can eventually crash your PHP process.
++ / Sanitize Filenames: If a user is uploading a file or passing a filename via a URL
+  parameter, never trust it directly. Always sanitize it to prevent Directory
+  Traversal attacks (e.g., a user trying to access `../../../../etc/passwd`).
