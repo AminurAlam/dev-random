@@ -1,45 +1,8 @@
 #import "snippets/note.typ": *
 #import "snippets/infobox.typ": infobox
 #show: template.with("Research Methodology")
-#set heading(numbering: "1.")
 
 // https://pressbooks.bccampus.ca/jibcresearchmethods/
-/*
-= Explain the Motivation in Research with suitable examples.
-
-In academic and scientific inquiry, the Research Motivation is the "why" behind the
-study. It’s the driving force that explains why the problem is worth solving and why
-the researcher decided to invest time and resources into it.
-
-Think of it as the bridge between a broad problem and your specific solution. Without
-a clear motivation, research can feel like a solution looking for a problem.
-
-== Core Components of Research Motivation
-
-1. / The Knowledge Gap: Identifying what we don't know yet. Existing literature might
-    be outdated, contradictory, or simply missing data on a specific niche.
-2. / Practical Necessity: A real-world problem that needs fixing—such as a disease,
-    an inefficient manufacturing process, or a social inequality.
-3. / Theoretical Advancement: The desire to challenge an existing theory or expand a
-    framework to see if it holds true under different conditions.
-4. / Personal or Professional Interest: While less formal, a researcher’s unique
-    perspective or passion often fuels the persistence needed for long-term study.
-
-== Example: Developing Biodegradable Plastics
-
-1. / The Problem Statement:
-    Global plastic pollution is at an all-time high, with microplastics entering the
-    food chain. Current "bioplastics" made from corn require land that could be used
-    for food crops.
-
-2. / The Research Motivation (The "Why"):
-  - / Environmental Necessity: Traditional plastics take 500+ years to decompose.
-      There is an urgent need for materials that degrade in weeks, not centuries.
-  - / Economic Efficiency: Corn-based plastics are expensive and compete with food
-      security. Seaweed grows rapidly without fertilizers or fresh water.
-  - / The Knowledge Gap: While we know seaweed contains polymers, we don't yet have a
-      cost-effective way to make them as durable as synthetic plastic for industrial
-      use.
 
 #pagebreak()
 
@@ -111,10 +74,6 @@ below:
 
 #pagebreak()
 
-*/
-
-#pagebreak()
-
 = RESEARCH & RESEARCH METHODOLOGY
 
 == Research
@@ -171,7 +130,7 @@ CHARACTERISTICS:
 
 #pagebreak()
 
-= QUANTITATIVE & QUALITATIVE RESEARCH <qq>
+= QUANTITATIVE & QUALITATIVE RESEARCH
 
 / Quantitative Research:
   Focuses on testing theories by examining the relationship among variables. These
@@ -473,7 +432,7 @@ Non-sampling errors are human, systemic, or methodological mistakes made during 
 research process. These are the errors that occur outside of the mathematical bounds
 of drawing a random sample.
 
-Unlike sampling error, non-sampling error creates bias---meaning it systematically
+Unlike sampling error, non-sampling error creates bias meaning it systematically
 pushes your data in the wrong direction, rather than just causing random mathematical
 static.
 
@@ -688,6 +647,124 @@ reach the entire population.
     province of Nova Scotia.],
 )
 
+== Factors affecting sampling
+
+=== Characteristics of the Population
+
+/ Homogeneity vs. Heterogeneity: If your target population is highly homogeneous
+  (everyone shares very similar traits), a small sample can accurately represent the
+  whole. If the population is highly heterogeneous (diverse), you will need a larger
+  sample and likely a technique like stratified sampling to ensure all variations are
+  captured.
+/ Population Size: For small, finite populations, the total size dictates your sample
+  size. However, for extremely large or infinite populations, the total size matters
+  less than the variability within it.
+/ Accessibility: How easy is it to locate and contact your subjects? Hard-to-reach
+  populations often force researchers to use specific techniques like snowball
+  sampling, regardless of other preferences.
+
+=== Statistical Requirements
+
+/ Desired Margin of Error (Precision): This is the acceptable range of deviation from
+  the true population value (often expressed as a percentage, like $p m 3$). If you
+  need highly precise results (a small margin of error), you must pull a larger
+  sample.
+/ Confidence Level: This indicates how certain you want to be that your sample
+  accurately reflects the population (commonly set at 90%, 95%, or 99%). Aiming for a
+  99% confidence level requires a significantly larger sample size than a 95% level.
+/ Expected Variance: If you anticipate a wide spread of responses or data points
+  (high standard deviation), you will need a larger sample to accurately measure and
+  account for that volatility.
+
+=== Practical Constraints
+
+/ Budget and Funding: Gathering data is expensive. Costs can include compensation for
+  participants, travel, software, and labor. Financial limits often dictate a hard
+  cap on sample size or force a shift from probability to non-probability sampling.
+/ Time Availability: Strict deadlines may prohibit complex, randomized sampling. If a
+  researcher is under intense time pressure, they are more likely to rely on
+  convenience sampling (polling whoever is immediately available).
+/ Equipment and Personnel: If your research involves specialized equipment (like an
+  MRI machine) or highly trained interviewers, your sample size will be constrained
+  by how many subjects you can realistically process with those resources.
+
+=== Methodological Choices
+
+/ Nature of the Study: Exploratory or qualitative studies (like focus groups or
+  in-depth interviews) rely on small, purposefully chosen samples to gain deep
+  insights. Conclusive or quantitative studies require large, randomized samples to
+  prove statistical significance.
+/ Subgroup Analysis: If you plan to break your data down to compare different
+  demographics (e.g., comparing responses by age, gender, and income bracket), your
+  overall sample must be large enough to ensure that every individual subgroup has
+  enough people in it to be statistically valid.
+/ Anticipated Response Rate/Attrition: Researchers almost never get a 100%
+  participation rate. You must factor in non-response (people refusing to
+  participate) and attrition (people dropping out halfway through). If you need 100
+  people and expect a 20% response rate, you must initially sample 500 people.
+
+== Sampling Error
+
+Sampling error is the degree to which your sample deviates from the population’s
+characteristics. It is a statistical calculation of the difference between results
+from a sample and the actual parameters of a population. It is important to ensure
+that there is a minimum of sampling error (your sample needs to match the diversity
+of the population as closely as possible.) Sampling error comes from two main sources
+: systemic error and random error.
+
+Random error is due to chance, while systemic error means that there is some bias in
+the selection of the sample that makes particular individuals more likely to be
+selected than others. Here is an example to more fully explain the difference between
+a random and systemic error.
+
+== Sampling Frame
+
+In research, a sampling frame is the actual, tangible list or source material from
+which you draw your sample.
+
+While your target population is the theoretical group of people or things you want to
+study, the sampling frame is the specific, accessible list you use to actually find
+and contact them.
+
+The Three Levels of Sampling are:
+
+/ Target Population (The Who): Everyone you want your research to apply to.
+  / Example: All registered voters in your city.
+
+/ Sampling Frame (The Where): The specific list you will use to select people.
+  / Example: The official voter registration database maintained by the city clerk as
+    of January 1st.
+
+/ The Sample (The Actual Participants): The specific individuals selected from the
+  sampling frame who actually participate in your study.
+  / Example: The 500 people from the database you randomly select and call.
+
+Examples of Sampling Frames:
+
+/ Studying employee satisfaction at a company: The sampling frame is the HR
+  department's payroll list.
+/ Studying local businesses: The sampling frame might be the local Chamber of
+  Commerce directory or a list of business licenses issued by the city.
+/ Studying bird populations in a forest: The sampling frame might be a physical map
+  of the forest, divided into a grid of 1-square-mile blocks, where you randomly
+  select blocks to observe.
+
+The quality of your research heavily depends on how well your sampling frame matches
+your target population. If they don't match, you run into coverage error, which can
+severely bias your results.
+
+/ Undercoverage: This happens when your sampling frame misses part of the target
+  population. For example, if you want to survey "all adults in a city," but your
+  sampling frame is a list of landline telephone numbers, you will completely miss
+  younger adults who only use cell phones.
+/ Overcoverage: This happens when your sampling frame includes people who aren't in
+  your target population. If your frame for "active college students" is a university
+  database that accidentally still includes recent alumni, your frame has
+  overcoverage.
+
+A perfect sampling frame is rare in the real world, so researchers often have to work
+with the best list available and acknowledge its limitations.
+
 #pagebreak()
 
 = SAMPLING TECHNIQUES
@@ -731,7 +808,7 @@ purposes, we will focus on four: simple random samples, systematic samples,
 stratified samples, and cluster samples.
 
 == Simple Random Sampling
-- everyone has rendom chance
+- everyone has random chance
 - Best for: Populations that are relatively small, geographically concentrated, and
   where a complete list of members already exists.
 - It is highly representative and easy to analyze.
@@ -872,16 +949,369 @@ to generalize back to the population.
 
 #pagebreak()
 
-= SAMPLING ERROR
+= TEST
 
-Sampling error is the degree to which your sample deviates from the population’s
-characteristics. It is a statistical calculation of the difference between results
-from a sample and the actual parameters of a population. It is important to ensure
-that there is a minimum of sampling error (your sample needs to match the diversity
-of the population as closely as possible.) Sampling error comes from two main sources
-: systemic error and random error.
+In statistical testing, the z-test, t-test, and chi-squared test are fundamental
+tools used to determine if the results of an experiment or observation are
+statistically significant, or if they likely occurred just by random chance.
 
-Random error is due to chance, while systemic error means that there is some bias in
-the selection of the sample that makes particular individuals more likely to be
-selected than others. Here is an example to more fully explain the difference between
-a random and systemic error.
+They are used in different scenarios depending on the type of data you have, your
+sample size, and what you know about the overall population.
+
+Here is a breakdown of each test:
+
+== Z-Test
+
+A z-test is a parametric statistical test used to compare population means. It
+determines whether two population means are different, or if a single sample mean is
+significantly different from a known population mean.
+
+/ When to use it:
+  - Your sample size is large (typically $n g e 30$).
+  - The population standard deviation ($s i g m a$) is known.
+  - The data follows a normal distribution (though with large samples, the Central
+    Limit Theorem usually makes this less critical).
+/ How it works: It calculates a "z-score," which tells you how many standard
+  deviations your sample mean is away from the population mean.
+/ Example: You want to know if the average height of adult men in your specific city
+  is significantly different from the known national average. You measure 100 men
+  (large sample) and you already have the national standard deviation.
+
+== T-Test (Student's t-test)
+
+A t-test is very similar to a z-test it also compares means but it is designed
+specifically to handle smaller samples and situations where you don't have all the
+information about the entire population.
+
+/ When to use it:
+  - Your sample size is small (typically $n < 30$).
+  - The population standard deviation ($s i g m a$) is unknown, so you must estimate
+    it using the standard deviation of your sample ($s$).
+  - The data is approximately normally distributed.
+/ Types of t-tests:
+  / One-sample t-test: Compares one sample mean to a known standard (like a z-test,
+    but for small samples).
+  / Independent two-sample t-test: Compares the means of two distinct, unrelated
+    groups (e.g., comparing the test scores of Class A vs.~Class B).
+  / Paired t-test: Compares means from the same group at different times (e.g.,
+    measuring blood pressure before and after a medication).
+/ Example: You test a new tutoring method on a class of 15 students and want to know
+  if their final scores are significantly better than the historical average for that
+  class. Because $n < 30$ and you only have the variance of those 15 students, you
+  use a t-test.
+
+== Chi-Squared Test ($c h i^2$)
+
+While z-tests and t-tests deal with continuous data (like height, weight, or test
+scores) and means, the chi-squared test deals with categorical data (data grouped
+into distinct categories, like eye color, yes/no responses, or car brands). It
+compares the observed frequencies in your data to the frequencies you would expect to
+see by chance.
+
+/ When to use it:
+  - You are analyzing categorical (count) data, not means or averages.
+  - You want to see if two categorical variables are related, or if a sample matches
+    an expected distribution.
+/ Types of Chi-Squared tests:
+  / Test of Independence: Determines if there is a significant association between
+    two categorical variables. (e.g., Is there a relationship between gender and
+    political party affiliation?)
+  / Goodness of Fit Test: Determines if your observed data fits a specific expected
+    distribution. (e.g., If you roll a die 60 times, do the numbers 1-6 come up
+    roughly 10 times each as expected, or is the die loaded?)
+/ Example: You survey 200 people to see if there is a relationship between whether
+  they own a dog (Yes/No) and whether they live in a house or an apartment
+  (House/Apartment). Because both variables are categorical, you use a chi-squared
+  test of independence.
+
+== Summary Comparison
+
+#table(
+  columns: (15%, auto, auto, auto),
+  [Feature], [Z-Test], [T-Test], [Chi-Squared ($c h i^2$) Test],
+
+  [Data Type],
+  [Continuous (measuring means)],
+  [Continuous (measuring means)],
+  [Categorical (counting frequencies)],
+
+  [Sample Size],
+  [Large ($n >= 30$)],
+  [Small ($n < 30$)],
+  [Variable (needs minimum expected counts per category)],
+
+  [Population Variance], [Known], [Unknown (estimated from sample)], [N/A],
+  [Typical Use Case],
+  [Comparing means with large, well-documented populations.],
+  [Comparing means in experiments or clinical trials.],
+  [Testing relationships between groups or checking if data fits a model.],
+)
+
+#pagebreak()
+
+= ANOVA
+
+ANOVA, which stands for Analysis of Variance, is a statistical test used to determine
+if there are any statistically significant differences between the means of three or
+more independent groups.
+
+You can think of it as the next step up from a t-test. While a t-test compares the
+means of two groups, ANOVA is used when you have three or more groups.
+
+== Why Not Just Use Multiple T-Tests?
+
+If you have three groups (A, B, and C), you might wonder why you can't just run three
+separate t-tests (A vs. B, A vs. C, and B vs. C).
+
+The problem is the Type I error rate (false positives). Every time you run a t-test
+(usually with a 5% margin of error), there is a small chance you will find a
+difference just by random luck. If you run multiple tests on the same data, those
+chances compound, making it highly likely you will accidentally find a "fake"
+significant result. ANOVA solves this by evaluating all the groups simultaneously in
+a single test, keeping your error rate at a strict 5%.
+
+== How It Works: The "Variance" in ANOVA
+
+Despite its name, ANOVA is used to compare means (averages). It does this by looking
+at the variance (how spread out the data is) in two specific ways:
+
+- / Between-Group Variance: How much do the averages of the different groups differ
+    from each other? (e.g., Is the average score of Group A drastically different
+    from the average score of Group B?)
+- / Within-Group Variance: How much do the individual data points within a single
+    group differ from their own group average? (e.g., Are the scores in Group A all
+    very close to the Group A average, or are they wildly scattered?)
+
+ANOVA calculates the F-statistic, which is a ratio of the between-group variance
+divided by the within-group variance.
+
+- / If the F-statistic is high: it means the groups are far apart from each other
+    compared to how spread out they are internally. This indicates a statistically
+    significant difference.
+- / If the F-statistic is low: the groups overlap too much to say they are truly
+    different.
+
+== Types of ANOVA
+
+Depending on how your study is designed, you will use different versions of the test:
+
+/ One-Way ANOVA: Used when you have one independent variable with three or more
+  categories (groups).
+  / Example: You want to know if three different diets (Keto, Vegan, Mediterranean)
+    lead to different amounts of weight loss. "Diet type" is your single independent
+    variable.
+/ Two-Way ANOVA: Used when you have two independent variables. It not only tests both
+  variables but also checks if they interact with each other.
+  / Example: You want to know how diet type (Keto, Vegan, Mediterranean) AND exercise
+    level (Low, High) affect weight loss.
+/ Repeated Measures ANOVA: The equivalent of a paired t-test for three or more
+  groups. It is used when the same subjects are measured multiple times under
+  different conditions.
+  / Example: Measuring the blood pressure of the same group of patients before taking
+    a drug, one hour after, and 24 hours after.
+
+== The Post-Hoc Test
+
+There is one major catch with ANOVA: It is an "omnibus" test.
+
+If your ANOVA results are statistically significant, it tells you that at least one
+group is different from the others. However, it does not tell you which groups are
+different. (e.g., It tells you the three diets don't have the same result, but it
+doesn't tell you if Keto is better than Vegan).
+
+To find out exactly where the differences lie, you must run a secondary test after
+the ANOVA, known as a Post-Hoc test (like Tukey's HSD or Bonferroni), which safely
+compares the individual groups against each other without inflating the error rate.
+
+#pagebreak()
+
+= MOTIVATION IN RESEARCH
+
+In academic and scientific inquiry, the Research Motivation is the "why" behind the
+study. It’s the driving force that explains why the problem is worth solving and why
+the researcher decided to invest time and resources into it.
+
+Think of it as the bridge between a broad problem and your specific solution. Without
+a clear motivation, research can feel like a solution looking for a problem.
+
+The motivations for conducting research are vast and deeply personal, but they
+generally fall into a few main categories: intrinsic passion, the desire for impact,
+and professional or economic goals.
+
+== The Drive to Know (Intrinsic Motivations)
+
+/ Intellectual Curiosity: A fundamental, undeniable desire to understand how things
+  work, why phenomena occur, or how systems interact. It is the pursuit of knowledge
+  for the sake of knowledge.
+/ The Thrill of Discovery: There is a unique satisfaction in uncovering something
+  entirely new, solving a complex puzzle, or connecting dots that no one else has
+  seen before.
+/ Creative Expression: Designing an elegant experiment or formulating a
+  groundbreaking theory can be a highly creative and fulfilling process.
+
+== The Desire for Impact (Societal Motivations)
+
+/ Solving Practical Problems: Applying research to overcome tangible challenges, such
+  as developing vaccines, engineering sustainable energy solutions, or improving
+  agricultural yields.
+/ Informing Policy: Social science and public health research are often motivated by
+  the need to provide data-driven evidence to lawmakers, helping shape better social
+  systems and laws.
+/ Altruism and Service: A deep-seated desire to serve society, alleviate suffering,
+  or improve the quality of life for future generations.
+
+== Professional and Economic Drivers (Extrinsic Motivations)
+
+/ Career Advancement: In academia, conducting and publishing research is the primary
+  currency. It is essential for earning advanced degrees (like a Ph.D.), getting
+  hired as a professor, and achieving tenure.
+/ Financial Incentives: In the private sector, Research and Development (R&D) is
+  driven by the goal of creating profitable new products, securing patents, and
+  gaining a competitive edge in the market.
+/ Prestige and Recognition: Establishing a respected reputation, winning awards, and
+  securing competitive grants are powerful motivators within the scientific and
+  academic communities.
+
+#pagebreak()
+
+= VARIABLES IN RESEARCH
+
+In research, a variable is simply any characteristic, number, or quantity that can be
+measured, manipulated, or controlled. You can think of variables as the building
+blocks of an experiment or study they are the things that change (vary) and the
+things you measure to see how they change.
+
+== The Independent Variable (The "Cause")
+
+This is the variable that the researcher intentionally manipulates, changes, or
+selects to see if it has an effect on something else. It is "independent" because its
+value does not depend on the other variables in your study.
+
+/ Example: If you are testing whether a new fertilizer helps plants grow faster, the
+  amount of fertilizer is the independent variable. You control how much each plant
+  gets.
+
+== The Dependent Variable (The "Effect")
+
+This is the variable being tested and measured in the experiment. It is "dependent"
+because its value depends on changes made to the independent variable.
+
+/ Example: In the plant study, the height of the plants is the dependent variable.
+  You measure the height to see how it was affected by the fertilizer.
+
+== Controlled Variables (The "Constants")
+
+To ensure that your experiment is fair and that only the independent variable is
+affecting the dependent variable, you have to keep everything else exactly the same.
+These are your controlled variables.
+
+/ Example: In the plant study, controlled variables would include the amount of
+  sunlight, the type of soil, the amount of water, and the species of plant. If you
+  didn't control these, you wouldn't know if the fertilizer caused the growth or if
+  it was just extra sunlight.
+
+== Other Important Types of Variables
+
+Depending on the complexity of the research, you might also run into these:
+
+/ Extraneous Variables: These are extra variables that you didn't account for, which
+  might accidentally influence the dependent variable and mess up your results.
+  (e.g., An unexpected drop in temperature in the greenhouse during your plant
+  study).
+/ Confounding Variables: A specific type of extraneous variable that is linked to
+  both the independent and dependent variables, making it hard to tell what actually
+  caused the effect. (e.g., If you find that people who drink a lot of coffee have
+  higher rates of heart disease, a confounding variable might be smoking often, heavy
+  coffee drinkers also smoke, and smoking causes heart disease).
+
+== Data Types: Categorical vs.~Continuous
+
+Variables are also categorized by the type of data they represent:
+
+/ Categorical (Qualitative) Variables: These represent groupings or categories. They
+  don't have a numerical value. (e.g., Eye color, plant species, blood type, or
+  yes/no survey answers).
+/ Continuous (Quantitative) Variables: These represent numbers and can usually be
+  measured on a scale. (e.g., Height, weight, temperature, or test scores).
+
+Are you currently trying to identify the variables for a specific experiment or study
+you are designing?
+
+#pagebreak()
+
+= LIMITATIONS OF HYPOTHESES TESTING
+
+Hypothesis testing is a cornerstone of scientific and statistical research, but it is
+not a flawless system. While it provides a structured way to make decisions based on
+data, it has several significant limitations and is often widely misunderstood.
+
+Here are the primary limitations of hypothesis testing:
+
+== It Does Not Prove Anything Absolutely
+
+Hypothesis testing deals in probabilities, not certainties. It cannot prove that a
+hypothesis is true or false. Instead, it only tells you how likely it is to observe
+your data if the null hypothesis were true. This is why researchers say they "fail to
+reject the null hypothesis" rather than "accept the null hypothesis." Absence of
+evidence is not evidence of absence.
+
+== Statistical vs.~Practical Significance
+
+A result can be "statistically significant" without being practically meaningful.
+
+/ The Sample Size Problem: If your sample size is massive, even a microscopic,
+  irrelevant difference will trigger a statistically significant result (e.g., a
+  weight loss drug that helps you lose 0.01 pounds might be statistically significant
+  with 100,000 participants, but it is practically useless). Hypothesis testing does
+  not tell you the magnitude or importance of an effect.
+
+== The Arbitrary p-value Threshold
+
+The standard threshold for significance ($p < 0.05$) is entirely arbitrary. It was
+established by convention, not mathematical law. This creates a dangerous
+"black-and-white" mentality where a result of $p = 0.049$ is celebrated as a
+breakthrough, while $p = 0.051$ is dismissed as a failure, even though the actual
+difference in the data is negligible.
+
+== Inherent Risk of Errors (Type I and Type II)
+
+Because hypothesis testing relies on probability, you will inevitably make errors
+over time:
+
+/ Type I Error (False Positive): Rejecting the null hypothesis when it is actually
+  true. (e.g., Concluding a drug works when it actually doesn't).
+/ Type II Error (False Negative): Failing to reject the null hypothesis when it is
+  actually false. (e.g., Concluding a drug doesn't work when it actually does). There
+  is a constant trade-off: if you make your criteria stricter to avoid False
+  Positives, you automatically increase your risk of False Negatives.
+
+== Vulnerability to P-Hacking and Multiple Comparisons
+
+If you run enough tests, you are guaranteed to find a "statistically significant"
+result purely by chance. If a researcher tests 20 different variables using the
+standard 5% significance level, they are highly likely to find at least one false
+positive. This leads to "p-hacking"---manipulating data or running endless tests
+until a significant p-value is found, which severely undermines the integrity of the
+research.
+
+== Reliance on Strict Assumptions
+
+Most hypothesis tests (like t-tests or ANOVAs) require the data to meet strict
+mathematical assumptions, such as:
+
+- The data follows a normal distribution (a bell curve).
+- The samples are completely independent of each other.
+- Variances are equal. In the real world, data is rarely this perfect. If the
+  assumptions are violated, the results of the hypothesis test can be completely
+  invalid.
+
+== It Ignores Prior Probability
+
+Traditional (frequentist) hypothesis testing only looks at the current data and
+ignores the probability that the hypothesis was true before the experiment started.
+For example, a mathematically sound hypothesis test might conclude that a person
+possesses psychic abilities, but common sense (and Bayesian statistics) dictates that
+the prior probability of magic is extremely low, making the result highly likely to
+be a statistical fluke.
+
+#pagebreak()
