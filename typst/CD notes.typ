@@ -1,11 +1,14 @@
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "@preview/tdtr:0.5.5": *
 #import "snippets/note.typ": *
 #show: template.with("Compiler Design")
 
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#let sink(n) = node-attr(sink: n)
 
 #pagebreak()
 
 = DIFFERENCE
+
 == compiler and interpreter [TODO]
 
 #table(
@@ -99,18 +102,52 @@ structure
 = PARSER
 
 == Types
-- universal parsers
-- top down (left to right, leftmost derivation)
-  - backtracking
-  - predictive / non-backtracking
-    - recursive decent
-    - LL
-- bottom up (left to right, rightmost derivation)
-  - LR (0|1)
-    - simple LR
-    - canonical LR
-    - look ahead LR
-  - Operator precedence
+
+#tidy-tree-graph(
+  spacing: (-20pt, 20pt),
+  draw-edge: tidy-tree-draws.horizontal-vertical-draw-edge,
+)[
+  - PARSERS
+    - top down \ (left to right, leftmost derivation)
+      - backtracking
+      - predictive (non-backtracking)
+        - recursive decent
+        - LL
+    - bottom up \ (left to right, rightmost derivation)
+      - LR (0|1)
+        - simple LR \
+          canonical LR \
+          look ahead LR
+      - Operator precedence
+]
+
+#tidy-tree-graph(
+  draw-node: (stroke: none),
+  draw-edge: (
+    tidy-tree-draws.south-north-draw-edge,
+    (marks: "-"),
+  ),
+)[
+  - S
+    - NP
+      - Det
+        - The #sink(2)
+      - Adj
+        - big #sink(2)
+      - N
+        - dog #sink(2)
+    - VP
+      - V
+        - barked #sink(2)
+      - PP
+        - P
+          - at #sink(1)
+        - NP
+          - Det
+            - the
+          - N
+            - mailman
+]
 
 == check if LL
 

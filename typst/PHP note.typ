@@ -1,6 +1,5 @@
 #import "snippets/note.typ": *
-#import "snippets/infobox.typ": infobox
-#show: template.with("Machine Learning")
+#show: template.with("PHP and MySql")
 
 #pagebreak()
 

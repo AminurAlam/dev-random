@@ -1,5 +1,4 @@
 #import "snippets/note.typ": *
-#import "snippets/infobox.typ": infobox
 #show: template.with("Research Methodology")
 
 // https://pressbooks.bccampus.ca/jibcresearchmethods/
@@ -1234,9 +1233,6 @@ Variables are also categorized by the type of data they represent:
 / Continuous (Quantitative) Variables: These represent numbers and can usually be
   measured on a scale. (e.g., Height, weight, temperature, or test scores).
 
-Are you currently trying to identify the variables for a specific experiment or study
-you are designing?
-
 #pagebreak()
 
 = LIMITATIONS OF HYPOTHESES TESTING
@@ -1313,5 +1309,3 @@ For example, a mathematically sound hypothesis test might conclude that a person
 possesses psychic abilities, but common sense (and Bayesian statistics) dictates that
 the prior probability of magic is extremely low, making the result highly likely to
 be a statistical fluke.
-
-#pagebreak()

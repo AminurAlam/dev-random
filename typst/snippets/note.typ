@@ -3,9 +3,10 @@
 
 #let template(title, depth: 2, body) = {
   set page(height: auto)
-  show table: set block(breakable: false)
-  show raw: set block(breakable: false)
-  show par: it => block(breakable: false, it)
+  // not needed since we dont break on pages
+  // show table: set block(breakable: false)
+  // show raw: set block(breakable: false)
+  // show par: it => block(breakable: false, it)
 
   set page(margin: 25pt)
   set par(justify: false)
@@ -54,5 +55,3 @@
     )
   }
 }
-
-

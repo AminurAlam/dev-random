@@ -1,52 +1,5 @@
 #import "snippets/note.typ": *
 #show: template.with("Crypto")
-#set heading(numbering: "1.")
-
-#pagebreak()
-
-= Que
-
-- [x] RSA ALGORITHM
-- [x] BLOCK CIPHER AND STREAM CIPHER
-- [x] SSL PROTOCOL
-
-- [x] DES ALGORITHM
-- [x] IDEA ALGORITHM
-- [ ] EXPLAIN CYBER SECURITY MECHANISM NETWORK, WEB, CLOUD AND WIRELESS SECURITY.
-
-== B
-01. [x] Define Cryptanalysis. (from 2025) @B1
-02. [x] What is DoS attack? (from 2024) @B2
-03. [x] Define stream cipher. (from 2024) @B3
-04. [x] Define block cipher. (from 2025) @B4
-05. [x] Explain symmetric key cryptography. @B5
-06. [x] Explain asymmetric key cryptography. @B6
-07. [x] Difference between threats and attacks. (from 2024) @B7
-08. [x] Explain substitution technique. @B8
-09. [x] Explain transposition technique. (from 2025) @B9
-10. [x] Define Digital Signature. @B10
-11. [x] Explain Message Digest. @B11
-12. [x] What is authentication? @B12
-13. [x] Types of authentication methods. @B13
-14. [x] Explain SSL briefly. @B14
-15. [ ] What is cybercrime?
-
-== C
-1. [x] DES algorithm with diagram. (2024) @C1
-2. [x] IDEA algorithm in detail. (2025) @C2
-3. [x] RSA algorithm with example. (2024 & 2025) @C3
-4. [x] RSA encryption/decryption (numerical). (2024) @C4
-5. [ ] Digital Signature with diagram. (2025) // @C5
-6. [x] types of attacks (active & passive). (2024/2025) @C6
-7. [x] SSL/TLS protocol. (2024) @C7
-8. [ ] Man-in-the-Middle attack. (2025)
-9. [ ] IPsec ESP format. (2024)
-10. [ ] Kerberos protocol. (2025)
-11. [ ] DMZ network with diagram. (2024)
-12. [ ] firewall types (packet & proxy). (2025)
-13. [ ] cybercrime tools (SQL injection, spyware, key logger).
-14. [ ] authentication techniques (password, token, biometric).
-15. [ ] network, cloud, and web security.
 
 #pagebreak()
 
