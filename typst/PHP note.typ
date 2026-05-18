@@ -722,29 +722,21 @@ When opening files using the stream-based approach, you must tell PHP #emph[how]
 intend to interact with the file. These are called "modes". Here are the most common
 ones:
 
-#figure(
-  align(center)[#table(
-    columns: (3.08%, 50%, 16.92%, 30%),
-    align: (auto, auto, auto, auto),
-    table.header(
-      [Mode], [Description], [File Pointer Starts At], [What if file doesn't exist?]
-    ),
-    table.hline(),
-    [`r`], [Read only.], [Beginning], [Returns `FALSE` (Error).],
-    [`w`],
-    [Write only. Erases the contents of the file or creates a new one.],
-    [Beginning],
-    [Creates a new file.],
-    [`a`],
-    [Append. Writes data to the end of the file.],
-    [End],
-    [Creates a new file.],
-    [`x`],
-    [Create & Write. Exclusive write.],
-    [Beginning],
-    [Returns `FALSE` if file already exists.],
-  )],
-  kind: table,
+#table(
+  columns: (auto, auto, auto, auto),
+
+  [Mode], [Description], [Pointer Start], [What if file doesn't exist?],
+  [`r`], [Read only.], [Beginning], [Returns `FALSE` (Error).],
+  [`w`],
+  [Write only. Erases the contents of the file or creates a new one.],
+  [Beginning],
+  [Creates a new file.],
+
+  [`a`], [Append. Writes data to the end of the file.], [End], [Creates a new file.],
+  [`x`],
+  [Create & Write. Exclusive write.],
+  [Beginning],
+  [Returns `FALSE` if file already exists.],
 )
 
 == Method 1: The Simple "One-Liner" Approach

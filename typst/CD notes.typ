@@ -5,27 +5,66 @@
 
 #let sink(n) = node-attr(sink: n)
 
+#pagebreak()
+
 + [x] BOTTOM UP PARSING
 + [x] TOP DOWN PARSING
 + [ ] CONSTRUCT LR(0)
-+ [ ] SLR PARSING TABLE
++ [x] SLR PARSING TABLE
 + [x] CODE OPTIMIZATION TECHNIQUE
 + [x] LOOP CODE OPTIMIZATION TECHNIQUE
-+ [ ] INTERMEDIATE CODE GENERATION
++ [x] INTERMEDIATE CODE GENERATION
 + [ ] QUADRUPLE AND TRIPLE
-+ [ ] LL(1) PARSING TABLE
-+ [ ] COMPUTE FIRST AND FOLLOW
-+ [ ] CONVERT NFA TO DFA
++ [x] LL(1) PARSING TABLE
++ [x] COMPUTE FIRST AND FOLLOW
++ [x] CONVERT NFA TO DFA
 + [ ] SYNTAX DIRECTED TRANSLATIONS
-+ [ ] ERROR HANDLING TECHNIQUES IN CD
-+ [ ] LEXICAL ANALYZER
-+ [ ] EXPLAIN PHASES OF COMPILER WITH DIAGRAM
++ [x] ERROR HANDLING TECHNIQUES IN CD
++ [x] LEXICAL ANALYZER
++ [x] EXPLAIN PHASES OF COMPILER WITH DIAGRAM
 
 #pagebreak()
 
 = DIFFERENCE
 
-== compiler and interpreter [TODO]
+== Top-down vs Bottom-up Parsers [TODO]
+
+#table(
+  columns: (19%, auto, auto),
+  [FEATURE], [TOP-DOWN PARSING], [BOTTOM-UP PARSING],
+  [Tree Construction],
+  [Builds the parse tree from the root down to the leaves.],
+  [Builds the parse tree from the leaves up to the root.],
+
+  [Derivation Strategy],
+  [Finds the Leftmost Derivation of the input string.],
+  [Finds the Rightmost Derivation in reverse.],
+
+  [Core Mechanism],
+  [Predictive: Uses lookahead tokens to guess the correct rule to expand.],
+  [Shift-Reduce: Pushes tokens to a stack and reduces them when they match a rule.],
+
+  [Left Recursion],
+  [Cannot handle left-recursive grammars. (Requires elimination).],
+  [Can easily handle left-recursive grammars.],
+
+  [Common Prefixes],
+  [Struggles with common prefixes. (Requires Left Factoring).],
+  [Handles common prefixes naturally without modification.],
+
+  [Power & Scope],
+  [Less powerful. Parses a smaller subset of context-free grammars (LL grammars).],
+  [More powerful. Parses a much wider range of context-free grammars (LR grammars).],
+
+  [Implementation],
+  [Easy to write by hand (e.g., Recursive Descent parsers).],
+  [Extremely difficult to write by hand; usually relies on parser generators (e.g.,
+    YACC, Bison).],
+
+  [Examples], [Recursive Descent, LL(1).], [LR(0), SLR(1), LALR(1), CLR(1).],
+)
+
+== Compiler vs Interpreter
 
 #table(
   columns: 2,
@@ -76,12 +115,13 @@
   align(center, label),
   width: 40mm,
   stroke: 1pt,
+  inset: 8pt,
   corner-radius: 5pt,
   ..args,
 )
 
 #figure(diagram(
-  spacing: 5pt,
+  spacing: 15pt,
   cell-size: (80mm, 20mm),
   edge-stroke: 1pt,
 
@@ -108,10 +148,122 @@
 
 = LEX
 
-structure
-- declerations
-- translation rules
-- auxiliary procedures
+Lexical Analysis is the very first phase of the compiler. Also known as a scanner or
+lexer, its primary job is to read the raw source code (a stream of characters) and
+group them into meaningful, logical units called tokens.
+
+You can think of the lexical analyzer as the "reader" of the compiler. Just as you
+read English by grouping individual letters into words before trying to understand
+the grammar of a sentence, the compiler groups characters into tokens before passing
+them to the parser (Syntax Analyzer) to check the grammar.
+
+== Terminology
+
+/ Lexeme: The actual sequence of characters in the source code. It is the raw text.
+  (e.g., `int`, `counter`, `=`, `100`).
+/ Token: The categorical label or internal representation given to a lexeme by the
+  compiler. It is usually represented as a pair: `<Token Attribute Name, Value>`.
+  (e.g., `<KEYWORD>`, `<IDENTIFIER>`, `<pointer_to_symbol_table>`).
+/ Pattern: The rule that describes how a sequence of characters can form a specific
+  token. Patterns are almost always defined using Regular Expressions (Regex). (e.g.,
+  The pattern for an identifier might be `[a-zA-Z_][a-zA-Z0-9_]*`).
+
+== Example
+
+Consider the following simple line of C-like code: `int count = 100 + bonus;`
+
+The lexical analyzer reads this character by character (`i`, `n`, `t`, ` `, `c`…) and
+generates a stream of tokens:
+
+#table(
+  columns: (15%, 20%, 50%),
+  [Lexeme], [Token Type], [Description],
+  [`int`], [`KEYWORD`], [Reserved word denoting an integer type],
+  [`count`], [`IDENTIFIER`], [A user-defined name],
+  [`=`], [`ASSIGN_OP`], [Assignment operator],
+  [`100`], [`NUMBER`], [An integer literal/constant],
+  [`+`], [`ADD_OP`], [Addition operator],
+  [`bonus`], [`IDENTIFIER`], [Another user-defined name],
+  [`;`], [`PUNCTUATION`], [Statement terminator],
+)
+
+== Roles and Responsibilities
+
+Aside from generating tokens, the lexer handles several crucial "housekeeping" tasks
+for the compiler:
+
++ / Stripping Whitespace and Comments: The lexer completely removes spaces, tabs,
+    newline characters, and all programmer comments (e.g., `//` or `/* */`). These
+    are irrelevant to the parser and would only complicate the grammar.
++ / Correlating Errors with Line Numbers: Because the lexer reads the code
+    line-by-line and character-by-character, it keeps track of the current line
+    number and column number. When the parser or semantic analyzer finds an error
+    later, they ask the lexer for the line number to provide a helpful error message.
++ / Interacting with the Symbol Table: When the lexer discovers a new identifier
+    (like a variable or function name), it inserts it into the Symbol Table---a
+    central database used by all phases of the compiler to store information about
+    the program's variables.
++ / Macro Expansion (Sometimes): In languages like C, a preprocessor usually handles
+    macros (`#define`), but in some compiler architectures, the lexical analyzer
+    expands these macros as it reads the code.
+
+== Workings
+
+Lexical analyzers are built upon the mathematical foundation of Finite Automata
+(State Machines).
+
++ / Regular Expressions: The compiler designer defines the patterns for all valid
+    tokens using regular expressions.
++ / Deterministic Finite Automaton (DFA): The regex patterns are converted into a
+    DFA. The DFA is a state machine that reads characters one by one. As it
+    transitions through states, it checks if the characters form a valid pattern.
++ / Longest Match Rule: If a lexer is reading the string `counter`, it doesn't stop
+    at `count` (which might be a valid word or keyword). It keeps reading until it
+    hits a space or an operator to find the longest possible string that matches a
+    valid pattern.
+
+== Errors Handling
+
+A lexical error occurs when the lexer encounters a sequence of characters that does
+not match any defined pattern in the language.
+
+Examples of Lexical Errors:
+
+- An illegal character not supported by the language (e.g., using `@` or `$` in a
+  standard C program outside of a string).
+- An unclosed string literal (e.g., `String s = "Hello;` where the closing quote is
+  missing).
+- A variable name that breaks the rules (e.g., `int 2ndPlace;` because identifiers
+  typically cannot start with a number).
+
+Recovery: The most common error recovery strategy for a lexer is the "Panic Mode"
+approach for characters: it simply deletes the offending, unrecognizable character,
+issues an error message (e.g., "Stray '\@' in program"), and continues reading the
+next character to find the next valid token.
+
+== Seperation from Parsing
+
+You might wonder why the compiler doesn't just parse the raw characters directly.
+Dividing lexical analysis and syntax analysis into two separate phases is a
+fundamental design principle for several reasons:
+
+/ Simplicity of Design: It makes the parser's job much easier. The parser's grammar
+  rules can be written in terms of high-level tokens (like `IDENTIFIER` or `NUMBER`)
+  rather than worrying about complex character-level spacing, comments, and line
+  breaks.
+/ Efficiency: Reading a file character-by-character from a hard drive is incredibly
+  slow. The lexer utilizes highly optimized, specialized buffering techniques to read
+  chunks of source code into memory quickly. Isolating this I/O work makes the whole
+  compiler much faster.
+/ Portability: Different operating systems have different ways of representing
+  special characters (like Carriage Return `r` vs Line Feed `n` for a new line). The
+  lexer normalizes these differences, allowing the parser to remain completely
+  platform-independent.
+
+Today, developers rarely write lexical analyzers completely from scratch. They use
+Lexer Generators (like Lex in UNIX, or its modern open-source equivalent Flex). The
+developer simply feeds a text file containing Regular Expressions to Flex, and Flex
+automatically writes the highly optimized C code for the DFA state machine.
 
 #pagebreak()
 
@@ -194,11 +346,26 @@ structure
             - mailman
 ]
 
-== check if LL
+== LL parsing table
+
+- find first and follow
+- make tables of rules by terminals
+- number each production
+- for each production
+  - find its first
+  - if its #math.epsilon find the follow of LHS
+  - enter that production number in that column
+
+== SLR parsing table
+
+#image("assets/lr0.png")
+
+== Check if LL
 
 1. / case 1: no null present
 
 #let Fi = "First"
+#let Fo = "Follow"
 
 $S -> a | b | c$
 
@@ -210,9 +377,9 @@ if $epsilon in.not Fi(a) inter Fi(b) inter Fi(c) "then it is NOT LL"$
 
 $S -> a | b | epsilon$
 
-if $epsilon in Fi(a) inter Fi(b) inter Fi(S) "then it is LL"$
+if $epsilon in Fi(a) inter Fi(b) inter Fo(S) "then it is LL"$
 
-if $epsilon in.not Fi(a) inter Fi(b) inter Fi(S) "then it is NOT LL"$
+if $epsilon in.not Fi(a) inter Fi(b) inter Fo(S) "then it is NOT LL"$
 
 #pagebreak()
 
@@ -230,7 +397,7 @@ string.
 Here is a detailed breakdown of how top-down parsing works, its variants, and its
 limitations.
 
-== The Core Mechanism: Leftmost Derivation
+== Leftmost Derivation
 
 In top-down parsing, the parser always looks at the leftmost non-terminal in the
 current string and replaces it using one of the grammar's production rules.
@@ -254,7 +421,7 @@ If the input string is $a d c$, the top-down parser does the following:
 + / Success:
   The parse tree is complete.
 
-== Types of Top-Down Parsers
+== Types
 
 === A. Recursive Descent Parsing (with Backtracking)
 
@@ -349,7 +516,7 @@ derivation in reverse.
 Here is a detailed breakdown of how bottom-up parsing works, its core mechanisms, and
 its different variants.
 
-== The Core Mechanism: Shift-Reduce Parsing
+== Shift-Reduce Parsing
 
 The most common implementation of bottom-up parsing is Shift-Reduce parsing. It uses
 a data structure called a stack to hold grammar symbols and an input buffer to hold
@@ -359,12 +526,12 @@ The parser performs four primary actions:
 
 + / Shift: Move the next input token from the input buffer onto the stack.
 + / Reduce: If a sequence of symbols at the top of the stack matches the right-hand
-  side of a production rule (called a handle), replace those symbols with the
-  non-terminal on the left-hand side of that rule.
+    side of a production rule (called a handle), replace those symbols with the
+    non-terminal on the left-hand side of that rule.
 + / Accept: The parsing is successfully completed when the input buffer is empty, and
-  the stack contains only the starting non-terminal symbol.
+    the stack contains only the starting non-terminal symbol.
 + / Error: A syntax error is discovered if the parser cannot perform a valid shift or
-  reduce action.
+    reduce action.
 
 === An Example Trace
 
@@ -379,9 +546,7 @@ We use `$` to represent the end of the input and the bottom of the stack.
 
 #table(
   columns: 4,
-  align: (auto, auto, auto, auto),
-  table.header([Step], [Stack], [Input Buffer], [Action]),
-  table.hline(),
+  [Step], [Stack], [Input Buffer], [Action],
   [1], [\$], [id + id \* id\$], [Shift (move id to stack)],
   [2], [\$ id], [+ id \* id\$], [Reduce by E→id],
   [3], [\$ E], [+ id \* id\$], [Shift (move + to stack)],
@@ -395,7 +560,7 @@ We use `$` to represent the end of the input and the bottom of the stack.
   [11], [\$ E], [\$], [Accept],
 )
 
-== The Shift-Reduce Conflicts
+== Shift-Reduce Conflicts
 
 Because shift-reduce parsing relies on making decisions at every step, it can
 sometimes run into ambiguities where it doesn't know which action to take. These are
@@ -409,7 +574,7 @@ known as conflicts:
   stack match the right-hand side of more than one production rule, and it doesn't
   know which non-terminal to reduce it to.
 
-== Types of Bottom-Up Parsers (LR Parsers)
+== Types
 
 To resolve these conflicts without backtracking, compilers use table-driven LR
 Parsers. LR stands for Left-to-right scanning, Rightmost derivation in reverse.
@@ -418,7 +583,7 @@ LR parsers are distinguished by how they build their parsing tables (specificall
 how much lookahead they use to make decisions). They are generally ordered from least
 powerful (but smallest tables) to most powerful (but largest tables):
 
-=== A. LR(0) Parser
+=== A. LR(0)
 
 - The simplest LR parser.
 - 0 means it uses zero lookahead tokens. It makes decisions based only on the current
@@ -426,7 +591,7 @@ powerful (but smallest tables) to most powerful (but largest tables):
 - Very restrictive; it cannot handle grammars with shift/reduce or reduce/reduce
   conflicts.
 
-=== B. SLR(1) Parser (Simple LR)
+=== B. SLR(1) (Simple LR)
 
 - An upgrade to LR(0) that uses 1 lookahead token.
 - It tries to resolve conflicts by looking at the "Follow set" of a non-terminal. It
@@ -434,7 +599,7 @@ powerful (but smallest tables) to most powerful (but largest tables):
   legally follow that non-terminal.
 - Easy to implement but still cannot handle complex grammars.
 
-=== C. LALR(1) Parser (Look-Ahead LR)
+=== C. LALR(1) (Look-Ahead LR)
 
 - The industry standard for bottom-up parsing. Tools like YACC (Yet Another
   Compiler-Compiler) and Bison generate LALR(1) parsers.
@@ -442,7 +607,7 @@ powerful (but smallest tables) to most powerful (but largest tables):
   and manageable, while retaining almost all of its predictive power.
 - Strikes the perfect balance between table size and parsing power.
 
-=== D. CLR(1) Parser (Canonical LR)
+=== D. CLR(1) (Canonical LR)
 
 - The most powerful LR parser.
 - It uses a very precise 1-token lookahead mechanism baked directly into every state
@@ -451,20 +616,6 @@ powerful (but smallest tables) to most powerful (but largest tables):
   enormous parsing table with too many states, making it impractical for most
   real-world compilers.
 
-== Summary: Top-Down vs. Bottom-Up
-
-While top-down parsers (like LL(1)) are intuitive and easy to write by hand
-(Recursive Descent), they struggle with left recursion and require the grammar to be
-heavily modified.
-
-Bottom-up parsers (like LALR(1)) are incredibly powerful. They can easily handle
-left-recursive grammars, can parse a much wider variety of languages, and detect
-syntax errors at the exact moment they occur. However, because building their parsing
-tables is a complex mathematical process, they are almost never written by hand;
-instead, developers use parser generator tools to create them.
-
-Would you like to dive into how tools like YACC/Bison are used to automatically
-generate these parsers in practice?
 
 #pagebreak()
 
@@ -740,74 +891,225 @@ hurt performance based on the specific hardware.
 
 = INTERMEDIATE CODE GENERATION
 
-Intermediate Code Generation is the fourth phase of a standard compiler. It takes the
-deeply analyzed, tree-like structure of your source code (usually an Abstract Syntax
-Tree) and translates it into a new, lower-level language called an Intermediate
-Representation (IR).
+Intermediate Code Generation is a critical phase in compiler design. It acts as the
+bridge between the high-level source code you write and the low-level machine code
+that your computer's processor actually executes.
 
-Think of it as a universal translator or a "bridge" language. It is no longer the
-high-level language you wrote (like C++, Java, or Python), but it isn't quite the raw
-binary machine code that a specific CPU (like x86 or ARM) understands, either.
+After a compiler checks your code for syntax and semantic errors, it translates the
+code into a form called Intermediate Representation (IR).
 
-== Why do compilers use Intermediate Code?
+== Why Do Compilers Use Intermediate Code?
 
-You might wonder: If the ultimate goal is to get machine code, why not just translate
-the source code directly to machine code and skip the middleman?
+You might wonder why a compiler does not just translate source code (like C++ or
+Java) directly into machine code (like x86 or ARM). Using an intermediate step
+provides several massive advantages:
 
-Compilers use intermediate code for two reasons:
+/ Machine Independence (Portability): The IR is entirely independent of the target
+  hardware. This allows the compiler to be split into a Front-End (which translates
+  the source code to IR) and a Back-End (which translates the IR to machine code).
+  Because of this, you do not need to write a completely new compiler for every
+  combination of language and hardware. You just write a new back-end for a new
+  processor.
+/ Easier Optimization: It is incredibly difficult to optimize high-level source code
+  or raw machine code. IR is designed specifically to make code optimization
+  algorithms (like removing dead code or unrolling loops) much easier to apply.
+/ Re-usability: A single IR can be used by multiple languages. For example, LLVM IR
+  is used by C, C++, Rust, and Swift to generate optimized machine code.
 
-/ The "M \* N" vs. "M + N" Problem: (Retargetability) Imagine you have 3 programming
-  languages (C, Python, Rust) and you want them to run on 3 different computer
-  architectures (x86, ARM, MIPS).
-  - If you translate directly, you have to write a completely separate compiler for
-    every combination: C-to-x86, C-to-ARM, Rust-to-MIPS, etc. ($3 * 3 = 9$
-    compilers).
-  - With an IR, you write one "Front-End" for each language that translates it to the
-    universal IR, and one "Back-End" for each architecture that translates the IR
-    into machine code. ($3 + 3 = 6$ components). This is the secret sauce behind
-    modern compiler frameworks like LLVM. You can invent a brand new programming
-    language, write a front-end that translates it to LLVM IR, and suddenly your
-    language can run on almost any computer hardware in the world.
+== Levels of Intermediate Representation
 
-/ Universal Optimization: Remember the compiler optimizations we talked about (like
-  constant folding and loop unrolling)? If you do those optimizations on the
-  Intermediate Representation, you only have to write the optimization logic once.
-  Every language that compiles down to that IR gets the performance boost for free!
+Intermediate code generally falls into two categories based on how closely it
+resembles the final machine code:
 
-== What does Intermediate Code look like?
++ / High-Level IR: This is closer to the original source code. It retains things like
+    variables, arrays, and hierarchical structures.
+    / Abstract Syntax Trees (AST): A tree representation of the source code's
+      structure.
+    / Directed Acyclic Graphs (DAG): Similar to an AST, but it identifies and merges
+      common sub-expressions so the compiler does not compute the same thing twice.
++ / Low-Level IR: This is much closer to machine code. It flattens the program out
+    into a linear sequence of simple instructions, removing complex structures like
+    `for` loops and `if/else` statements in favor of simple jumps (like `goto`).
+    / Three-Address Code (TAC): The most common low-level IR.
 
-IR can take several forms, including graph-based structures (like Directed Acyclic
-Graphs), but the most famous and widely used form is Three-Address Code (TAC).
+== Deep Dive: Three-Address Code (TAC)
 
-In TAC, complex mathematical expressions are broken down into a sequence of simple
+In Three-Address Code, complex expressions are broken down into a series of simple
 instructions. The fundamental rule of TAC is that each instruction can have at most
-three "addresses" (two operands and one result), and at most one operator. The
-compiler generates temporary variables (usually named `t1`, `t2`, etc.) to hold the
-intermediate steps.
+three operands (typically two sources and one destination) and only one operator.
 
-Here is an example of how your source code transforms into TAC:
+To achieve this, the compiler creates temporary variables (usually labeled `t1`,
+`t2`, `t3`, etc.) to store the results of intermediate steps.
 
-Your Source Code:
+=== Example Translation
 
-```c
-x = a + b  c;
-```
+Consider the following high-level mathematical expression: `a = b * -c + b * -c`
 
-Three-Address Code (IR):
+The compiler cannot compute this all at once. It breaks it down into TAC like this:
 
 ```js
-t1 = b  c   // Calculate the multiplication first and store in temp 1
-t2 = a + t1 // Add 'a' to the result of the multiplication
-x = t2      // Assign the final result to x
+t1 = -c          // Compute the unary minus
+t2 = b * t1      // Compute the first multiplication
+t3 = -c          // Compute the second unary minus
+t4 = b * t3      // Compute the second multiplication
+t5 = t2 + t4     // Add the two products together
+a = t5           // Assign the final result to 'a'
 ```
 
-It breaks everything down into bite-sized, sequential steps, making it incredibly
-easy for the back-end of the compiler to map these temporary variables to actual CPU
-registers and generate the final assembly code.
+Note: A smart compiler using a Directed Acyclic Graph (DAG) before generating TAC
+would recognize that `b * -c` is computed twice and optimize it out, saving
+instructions!
 
-Since you've now looked at parsing, optimization, and intermediate code generation,
-are you studying the full lifecycle of a compiler, or is there a specific phase you
-are trying to implement yourself?
+=== Managing Control Flow in TAC
+
+High-level languages use `if`, `while`, and `for` loops to control the flow of a
+program. TAC flattens these using conditional and unconditional jumps (similar to
+assembly language).
+
+Source Code:
+
+```c
+if (x > y) {
+    z = x;
+} else {
+    z = y;
+}
+```
+
+Three-Address Code Translation:
+
+```text
+      if x > y goto L1
+      goto L2
+L1:   z = x
+      goto L3
+L2:   z = y
+L3:   ... (next instruction)
+```
+
+== How is TAC stored in Memory?
+
+As we explored previously, the compiler needs a data structure to store these TAC
+instructions in memory so it can optimize them. The three standard implementations
+are:
+
+/ Quadruples: Stores the operator, two arguments, and an explicit temporary result
+  variable.
+/ Triples: Stores the operator and two arguments, using the index of previous
+  instructions instead of temporary variables.
+/ Indirect Triples: Uses an array of pointers to point to triples, combining the
+  space-saving of triples with the optimization flexibility of quadruples.
+
+#pagebreak()
+
+= INTERMEDIATE REPRESENTATION
+
+In compiler design, Intermediate Representation (IR) is the data structure or code
+used internally by a compiler to represent source code while translating it into
+machine code.
+
+One of the most common forms of IR is Three-Address Code (TAC), where a single
+instruction generally has at most three operands (two inputs and one output).
+Quadruples and triples are the two primary ways compilers implement and store
+Three-Address Code in memory.
+
+Here is a breakdown of how they work, using the expression `x = (a + b) * c` as an
+example.
+
+== The Baseline: Three-Address Code (TAC)
+
+Before looking at quadruples and triples, here is what the expression
+`x = (a + b) * c` looks like in standard TAC. The compiler generates temporary
+variables (`t1`, `t2`) to hold intermediate values:
+
+```py
+t1 = a + b
+t2 = t1  c
+x = t2
+```
+
+== Quadruples
+
+A quadruple is a record structure with exactly four fields. It explicitly stores the
+temporary variables created during translation.
+
+The four fields are:
+
++ / Op: The operator (e.g., `+`, `-`, `*`,`=`).
++ / Arg1: The first operand.
++ / Arg2: The second operand (can be empty).
++ / Result: The variable or temporary name where the result is stored.
+
+Example using Quadruples: For our TAC above, the quadruples table looks like this:
+
+#table(
+  columns: (10%, 10%, 10%, 10%),
+  [Op], [Arg1], [Arg2], [Result],
+  [+], [a], [b], [t1],
+  [\*], [t1], [c], [t2],
+  [=], [t2], [], [x],
+)
+
+Pros & Cons:
+
+/ Pro: Highly flexible for optimization. Because the results are explicitly named
+  (`t1`, `t2`), you can easily reorder or move these instructions around during the
+  code optimization phase without breaking references.
+/ Con: Takes up more memory because it requires storing the names of all the
+  temporary variables.
+
+== Triples
+
+A triple is a record structure with only three fields. Instead of creating explicit
+temporary variables to store results, a triple refers to the index (or position) of
+the statement that computed the value.
+
+The three fields are:
+
++ / Op: The operator.
++ / Arg1: The first operand (or a reference to a previous triple).
++ / Arg2: The second operand (or a reference to a previous triple).
+
+Example using Triples: For the same expression, the triples table looks like this:
+
+#table(
+  columns: (10%, 10%, 10%, 10%),
+  [Index], [Op], [Arg1], [Arg2],
+  [(0)], [+], [a], [b],
+  [(1)], [\*], [(0)], [c],
+  [(2)], [=], [x], [(1)],
+)
+
+Note: In index (1), `(0)` refers to the result of the operation at index 0.
+
+Pros & Cons:
+
+/ Pro: Saves memory. By eliminating the `Result` field and the need to generate
+  temporary variable names, the compiler uses less space.
+/ Con: Difficult to optimize. If the optimizer wants to move instruction `(0)` to a
+  different part of the code, it has to find and update every single subsequent
+  instruction that referenced `(0)`.
+
+== Summary Comparison
+
+#table(
+  columns: (20%, auto, auto),
+  [Feature], [Quadruples], [Triples],
+  [Number of Fields], [4 (Op, Arg1, Arg2, Result)], [3 (Op, Arg1, Arg2)],
+  [Temporary Variables],
+  [Uses explicit names (`t1`, `t2`)],
+  [Uses statement pointers (`(0)`, `(1)`)],
+
+  [Memory Usage], [Higher], [Lower],
+  [Code Optimization],
+  [Easy (instructions are self-contained)],
+  [Difficult (moving instructions breaks index pointers)],
+
+  [Indirect Triples],
+  [N/A],
+  [A variation exists that uses an array of pointers to triples, making optimization
+    easier while saving space.],
+)
 
 #pagebreak()
 
@@ -821,24 +1123,98 @@ with an explicit stack to keep track of where we are in the parse.
 
 #pagebreak()
 
-= SYNTAX ANALYSIS
+= ERROR HANDLING
 
-== Error
+In compiler design, error handling is a crucial component that ensures the compiler
+doesn't just crash when it encounters invalid code, but instead provides helpful
+feedback to the programmer. A robust error handler has three main goals: detect the
+error, report it clearly (with line and column numbers), and recover quickly enough
+to detect subsequent errors without generating an avalanche of false "cascading"
+errors.
 
-- Missing parenthesis
-- extraneous-insertion error
-- replacement errors
-- transcription error
-- insertion error
+Errors can occur at various stages of compilation, but the most complex and
+standardized error handling techniques are implemented during the Syntax Analysis
+(Parsing) phase.
 
-== Recovery
+Here is a detailed breakdown of the primary error recovery techniques used in
+compiler design.
 
-- / panic mode: discards inputs from beginning to hopefully remove error
-- / exhaustive error recovery: examine every possibility then deciding appropriate
-    recovery
-- / systematic methods:
-  - suspend normal parsing
-  - try changing input buffer or stack contents
-  - resume parsing from the new configuration
+== Panic Mode Recovery
+
+This is the simplest, most common, and most effective error recovery strategy used by
+most modern compilers.
+
+/ How it works: When the parser discovers an error, it enters "panic mode." It simply
+  discards input tokens one by one until it finds a designated synchronizing token.
+/ Synchronizing Tokens: These are clear delimiters in the language that indicate the
+  end of a statement or block, such as a semicolon (`;`), a closing brace (`}`), or
+  keywords like `end` or `catch`.
+/ Pros: It is incredibly easy to implement and guarantees that the parser will not
+  fall into an infinite loop during recovery.
+/ Cons: It skips over a substantial amount of code. Any other legitimate syntax
+  errors present in the skipped tokens will go undetected in that compilation pass.
+
+== Phrase-Level Recovery
+
+Phrase-level recovery attempts to perform a localized correction on the remaining
+input so the parser can continue.
+
+/ How it works: When an error is detected, the parser looks at the immediate upcoming
+  tokens and applies a local correction. This might involve replacing a comma with a
+  semicolon, inserting a missing parenthesis, or deleting an extraneous token.
+/ Example: If the parser sees `x = a + * b;`, it might delete the `*` and report
+  "extraneous '\*' removed." If it sees `printf("Hello")`, it might insert a missing
+  semicolon at the end.
+/ Pros: It allows the parser to save and analyze more code than panic mode, catching
+  more errors in a single pass.
+/ Cons: It is harder to implement. If the local correction is poorly chosen, it can
+  trick the parser into an infinite loop or cause a cascade of confusing,
+  false-positive errors down the line.
+
+== Error Productions
+
+This technique relies on the compiler writer anticipating the most common mistakes
+programmers make and explicitly building them into the language's grammar.
+
+/ How it works: The grammar is augmented with special "error production" rules. If
+  the parser utilizes one of these rules, it knows exactly what mistake the
+  programmer made and can output a highly specific error message.
+/ Example: In C or C++, using `=` instead of `==` inside an `if` statement is a
+  common mistake. The compiler writer might add an error production specifically to
+  catch `if ( id = expr )` instead of `if ( id == expr )`. When the parser hits this
+  rule, it successfully parses the code but throws a specific warning/error: "Did you
+  mean '==' instead of '='?"
+/ Pros: Generates incredibly helpful, precise, and human-friendly error messages.
+/ Cons: It complicates the grammar, increases the size of the parser, and requires
+  the compiler designer to know in advance what mistakes are most likely to occur.
+
+== Global Correction
+
+Global correction is largely a theoretical concept and is rarely implemented in
+production compilers due to its high computational cost.
+
+/ How it works: When an input program contains errors, the compiler attempts to find
+  the "closest" valid program. It computes the minimum number of insertions,
+  deletions, and mutations (Minimum Distance Editing) required to turn the globally
+  invalid token stream into a syntactically valid one.
+/ Pros: It theoretically finds the absolute best way to fix the program with the
+  least amount of disruption.
+/ Cons: It is computationally prohibitive. The time and space complexity required to
+  calculate the optimal global correction for a large source file is far too
+  expensive for a practical, fast compiler.
+
+== Errors in Other Compilation Phases
+
+While the techniques above apply mostly to the parsing (syntax) phase, errors are
+handled in other phases as well:
+
+/ Lexical Errors: Occur during tokenization (e.g., illegal characters, unclosed
+  string literals). The Lexer usually deletes the offending character, reports it,
+  and continues scanning the next character.
+/ Semantic Errors: Occur during type-checking and scope resolution (e.g., type
+  mismatches, using undeclared variables, calling a function with the wrong number of
+  arguments). The compiler usually logs the error and assigns a "dummy" or
+  "universal" type (like `any`) to the erroneous variable so it can continue checking
+  the rest of the code without crashing.
 
 #pagebreak()

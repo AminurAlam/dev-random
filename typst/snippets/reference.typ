@@ -21,8 +21,9 @@
 #grid(
   columns: (auto, auto),
   rows: (auto, auto),
-  align: (center, center),
-  gutter: 10pt,
+  align: center,
+  inset: 10pt,
+  stroke: black,
   [grid one], [grid two],
   [grid three], [grid four],
 )

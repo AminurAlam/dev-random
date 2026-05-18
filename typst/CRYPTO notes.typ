@@ -7,7 +7,6 @@
 
 #table(
   columns: (20%, auto, auto),
-  align: (auto, auto, auto),
   [Aspect], [Cryptography], [Cryptanalysis],
 
   [Definition],
@@ -51,7 +50,6 @@
 
 #table(
   columns: 2,
-  align: (auto, auto),
   [AES], [DES],
 
   [AES stands for Advanced Encryption Standard],
@@ -371,7 +369,6 @@ some of the ancient types of cryptography:
 
 #table(
   columns: 6,
-  align: (auto, auto, auto, auto),
   [Feature], [DES], [3DES], [AES], [RSA], [IDEA],
   [Key Size], $64-8=56$, [112 or 168], [128, 192, or 256], [2048, 4096], [128],
   [Block Size], [64], [64], [128], [], [64],
@@ -1448,10 +1445,6 @@ multi-billion-dollar global industry. Some cybercriminal groups operate like
 corporations, complete with customer service departments for their ransomware victims
 and "Cybercrime-as-a-Service" (CaaS) models, where they rent out their hacking tools
 to less-technical criminals.
-
-Are you interested in learning more about how a specific type of cybercrime works
-(like ransomware or phishing), or would you prefer to focus on the defensive
-strategies used to stop them?
 
 #pagebreak()
 

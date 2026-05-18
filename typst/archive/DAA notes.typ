@@ -607,8 +607,7 @@ failure()
 
 #table(
   columns: 2,
-  align: (auto, auto),
-  table.header([Deterministic Algorithm], [Non-deterministic Algorithm]),
+  [Deterministic Algorithm], [Non-deterministic Algorithm],
 
   [A deterministic algorithm is one whose behavior is completely determined by its
     inputs and the sequence of its instructions],

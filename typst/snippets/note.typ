@@ -7,14 +7,35 @@
   // show table: set block(breakable: false)
   // show raw: set block(breakable: false)
   // show par: it => block(breakable: false, it)
-
   set page(margin: 25pt)
   set par(justify: false)
   set text(1.35em)
   set math.mat(delim: "[")
 
+  show raw: it => {
+    if it.block {
+      // Styling for multi-line code blocks (```code ```)
+      block(
+        fill: rgb("#f4f4f5"),
+        inset: 8pt,
+        radius: 4pt,
+        width: 100%,
+        it,
+      )
+    } else {
+      // Styling for inline code (`code`)
+      box(
+        fill: rgb("#f4f4f5"),
+        inset: (x: 3pt, y: 0pt),
+        outset: (y: 3pt),
+        radius: 2pt,
+        it,
+      )
+    }
+  }
+
   v(20pt)
-  align(center)[text(2em, strong(title))]
+  align(center, text(2em, strong(title)))
   outline(depth: depth)
 
   body

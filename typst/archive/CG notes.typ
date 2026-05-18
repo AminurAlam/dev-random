@@ -625,7 +625,7 @@ where the goal is to create an immersive and realistic virtual environment.
   table(
     columns: (16%, auto, auto),
     align: left,
-    table.header([ATTRIBUTE], [PARALLEL PROJECTION], [PERSPECTIVE PROJECTION]),
+    [ATTRIBUTE], [PARALLEL PROJECTION], [PERSPECTIVE PROJECTION],
     [Definition],
     [all projection lines are parallel to each other],
     [projection lines converge to a single point (vanishing point)],
