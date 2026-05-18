@@ -13,12 +13,8 @@
   set text(1.35em)
   set math.mat(delim: "[")
 
-  if title != none {
-    v(20pt)
-    set align(center)
-    text(2em, strong(title))
-  }
-
+  v(20pt)
+  align(center)[text(2em, strong(title))]
   outline(depth: depth)
 
   body
