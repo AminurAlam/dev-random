@@ -1,29 +1,20 @@
 <?php
-function valid($dateString, $format = 'Y-m-d') {
-    $dateTime = DateTime::createFromFormat($format, $dateString);
-    return $dateTime && $dateTime->format($format) === $dateString;
+function valid($d) {
+    $dt = DateTime::createFromFormat('Y-m-d', $d);
+    return $dt->format('Y-m-d') === $d;
 }
 
-function remain($birthdayString) {
+$bd = '2016-05-20';
+
+if (valid($bd)) {
     $now = new DateTime('today');
-    $birthday = new DateTime($birthdayString);
+    $bd = new DateTime($bd);
+    $next = new DateTime($now->format('Y') . '-' . $bd->format('m-d'));
 
-    $nextBirthday = new DateTime($now->format('Y') . '-' . $birthday->format('m-d'));
+    if ($next < $now)
+        $next->modify('+1 year');
 
-    if ($nextBirthday < $now) {
-        $nextBirthday->modify('+1 year');
-    }
-
-    return $now->diff($nextBirthday)->days;
-}
-
-
-$myBirthday = '2016-05-06';
-
-if (valid($myBirthday)) {
-    echo remain($myBirthday) . " days left\n";
-} else {
-    echo "The provided birthday is invalid.\n";
-}
-
+    echo $now->diff($next)->days . " days left";
+} else
+    echo "the date is invalid.";
 ?>

@@ -7,7 +7,7 @@
         <pre>
             <?php
             if(isset($_POST['submit']))
-                echo sqrt($_POST['num']);;
+                echo sqrt($_POST['num']);
             ?>
         </pre>
     </body>
