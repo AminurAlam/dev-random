@@ -6,7 +6,7 @@
         </form>
         <pre>
             <?php
-            if(isset($_POST['submit'])) {
+            if (isset($_POST['submit'])) {
                 $num = $_POST['num'];
                 $sum = 0;
                 while ($num > 0) {

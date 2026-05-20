@@ -6,7 +6,7 @@
         </form>
         <pre>
             <?php
-            if(isset($_POST['submit']))
+            if (isset($_POST['submit']))
                 echo sqrt($_POST['num']);
             ?>
         </pre>

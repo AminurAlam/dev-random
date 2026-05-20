@@ -1,5 +1,6 @@
 <?php
-function valid($d) {
+function valid($d)
+{
     $dt = DateTime::createFromFormat('Y-m-d', $d);
     return $dt->format('Y-m-d') === $d;
 }
@@ -14,7 +15,7 @@ if (valid($bd)) {
     if ($next < $now)
         $next->modify('+1 year');
 
-    echo $now->diff($next)->days . " days left";
+    echo $now->diff($next)->days . ' days left';
 } else
-    echo "the date is invalid.";
+    echo 'the date is invalid.';
 ?>

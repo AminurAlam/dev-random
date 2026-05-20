@@ -1,8 +1,9 @@
 <?php
 if (isset($_POST['upload'])) {
-    $f = $_FILES["file"];
-    echo move_uploaded_file($f["tmp_name"], $f["name"])
-        ? "<h3>Uploaded!</h3>" : "<h3>Failed!</h3>";
+    $f = $_FILES['file'];
+    echo move_uploaded_file($f['tmp_name'], $f['name'])
+        ? '<h3>Uploaded!</h3>'
+        : '<h3>Failed!</h3>';
 }
 ?>
 
@@ -13,7 +14,7 @@ if (isset($_POST['upload'])) {
     </form>
 
     <?php
-    $imgs = glob("*.{jpg,jpeg,png}", GLOB_BRACE);
+    $imgs = glob('*.{jpg,jpeg,png}', GLOB_BRACE);
 
     foreach ($imgs as $img)
         echo "<img src='" . htmlspecialchars($img) . "' width='200px'><br>";

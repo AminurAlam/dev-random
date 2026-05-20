@@ -7,8 +7,8 @@
         </form>
         <pre>
             <?php
-            $array = [0 => "zero", 5 => "five"];
-            if(isset($_POST['submit']))
+            $array = [0 => 'zero', 5 => 'five'];
+            if (isset($_POST['submit']))
                 $array[$_POST['key']] = $_POST['value'];
             print_r($array);
             ?>
