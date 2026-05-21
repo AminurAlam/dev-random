@@ -14,7 +14,6 @@
 
   show raw: it => {
     if it.block {
-      // Styling for multi-line code blocks (```code ```)
       block(
         fill: rgb("#f4f4f5"),
         inset: 8pt,
@@ -23,7 +22,6 @@
         it,
       )
     } else {
-      // Styling for inline code (`code`)
       box(
         fill: rgb("#f4f4f5"),
         inset: (x: 3pt, y: 0pt),

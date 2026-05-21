@@ -7,27 +7,9 @@
 
 #pagebreak()
 
-+ [x] BOTTOM UP PARSING
-+ [x] TOP DOWN PARSING
-+ [ ] CONSTRUCT LR(0)
-+ [x] SLR PARSING TABLE
-+ [x] CODE OPTIMIZATION TECHNIQUE
-+ [x] LOOP CODE OPTIMIZATION TECHNIQUE
-+ [x] INTERMEDIATE CODE GENERATION
-+ [ ] QUADRUPLE AND TRIPLE
-+ [x] LL(1) PARSING TABLE
-+ [x] COMPUTE FIRST AND FOLLOW
-+ [x] CONVERT NFA TO DFA
-+ [ ] SYNTAX DIRECTED TRANSLATIONS
-+ [x] ERROR HANDLING TECHNIQUES IN CD
-+ [x] LEXICAL ANALYZER
-+ [x] EXPLAIN PHASES OF COMPILER WITH DIAGRAM
-
-#pagebreak()
-
 = DIFFERENCE
 
-== Top-down vs Bottom-up Parsers [TODO]
+== Top-down vs Bottom-up Parsers
 
 #table(
   columns: (19%, auto, auto),
@@ -318,34 +300,6 @@ automatically writes the highly optimized C code for the DFA state machine.
         - LALR
 ]
 
-#tidy-tree-graph(
-  draw-node: (stroke: none),
-  draw-edge: (
-    tidy-tree-draws.south-north-draw-edge,
-    (marks: "-"),
-  ),
-)[
-  - S
-    - NP
-      - Det
-        - The #sink(2)
-      - Adj
-        - big #sink(2)
-      - N
-        - dog #sink(2)
-    - VP
-      - V
-        - barked #sink(2)
-      - PP
-        - P
-          - at #sink(1)
-        - NP
-          - Det
-            - the
-          - N
-            - mailman
-]
-
 == LL parsing table
 
 - find first and follow
@@ -616,126 +570,83 @@ powerful (but smallest tables) to most powerful (but largest tables):
   enormous parsing table with too many states, making it impractical for most
   real-world compilers.
 
-
 #pagebreak()
 
 = CODE OPTIMIZATION TECHNIQUES
 
-When a compiler translates your source code into machine code, it doesn't just do a
-direct word-for-word translation. Modern compilers have a complex "middle end"
-dedicated to optimization rewriting your logic behind the scenes so that the final
-program runs faster, uses less memory, or consumes less power, all without changing
-what the program actually does.
+== Data-Flow and Local Optimizations
 
-These optimizations generally fall into a few major categories. Here are the most
-common and powerful code optimization techniques used by compilers:
+These techniques look at small, straight-line sequences of code (called basic blocks)
+to eliminate redundant calculations.
 
-== Local Optimizations (Basic Blocks)
-
-These techniques look at small, straight-line segments of code (where there are no
-jumps, loops, or branches) to find inefficiencies.
-
-/ Constant Folding: If an expression consists entirely of constants, the compiler
-  calculates the result at compile time rather than wasting CPU cycles at runtime.
-  / Before: ```c int seconds_per_day = 60 * 60 * 24;```
-  / After: ```c int seconds_per_day = 86400;```
-
-/ Constant Propagation: If a variable is assigned a constant value and its value
-  doesn't change, the compiler replaces subsequent uses of that variable directly
-  with the constant.
-  / Before: ```c
-    int x = 14;
-    int y = x + 5;```
-  / After: ```c int y = 14 + 5;```
-
+/ Constant Folding: The compiler evaluates constant expressions at compile-time
+  rather than runtime.
+  / Before: `int seconds_per_day = 60 * 60 * 24;`
+  / After: `int seconds_per_day = 86400;`
+/ Constant Propagation: If a variable is assigned a constant value, the compiler
+  replaces later uses of that variable with the constant itself.
+  / Before: `int x = 5; int y = x + 10;`
+  / After: `int y = 5 + 10;` (which then folds to `15`)
 / Common Subexpression Elimination (CSE): If the exact same calculation is performed
-  multiple times, the compiler does it once, stores the result, and reuses it.
-  / Before: ```c
-    a = (x * y) + z;
-    b = (x * y) - 5;```
-  / After: ```c
-    temp = x * y;
-    a = temp + z;
-    b = temp - 5;```
+  multiple times and the variables involved haven't changed, the compiler computes it
+  once and reuses the result.
+  / Before: `a = b + c; d = (b + c)  2;`
+  / After: `temp = b + c; a = temp; d = temp  2;`
+/ Dead Code Elimination: The compiler removes code that will never be executed
+  (unreachable code) or code whose results are never used.
+  / Before: `int x = 10; if (false) { x = 20; } return x;`
+  / After: `return 10;`
+/ Algebraic Simplification: Simplifying math equations using basic algebraic rules.
+  / Examples: `x + 0` becomes `x`. `y * 1` becomes `y`.
 
 == Loop Optimizations
 
-Loops are where programs spend most of their time, so compilers work incredibly hard
-to optimize them.
+see next section
 
-/ Loop-Invariant Code Motion (Hoisting): If a calculation inside a loop yields the
-  same result on every single iteration, the compiler moves it outside the loop so it
-  only runs once.
-  / Before: ```c
-    for (int i = 0; i < 100; i++)
-      a[i] = x * y;```
-  / After: ```c
-    temp = x * y;
-    for (int i = 0; i < 100; i++)
-      a[i] = temp;```
+== Interprocedural Optimizations
 
-/ Loop Unrolling: Loop control instructions (like checking `i < 100` and jumping back
-  up) take time. Unrolling reduces this overhead by executing the loop body multiple
-  times per iteration.
-  / Before: ```c
-    for (int i = 0; i < 4; i++)
-      do_something();```
-  / After: ```c
-    do_something();
-    do_something();
-    do_something();
-    do_something();```
+These optimizations look at the entire program, analyzing how different functions
+call each other.
 
-/ Strength Reduction in Loops: Replacing expensive operations (like multiplication)
-  with cheaper ones (like addition) based on loop counters.
-  / Before: ```c
-    for (int i = 0; i < 10; i++)
-      a[i] = i * 4;```
-  / After: ```c
-    int temp = 0;
-    for (int i = 0; i < 10; i++) {
-      a[i] = temp;
-      temp = temp + 4;
-    }```
+/ Function Inlining: The compiler replaces a function call with the actual body of
+  the function. This eliminates the overhead of jumping to another memory address,
+  pushing variables to the stack, and returning.
+  / Before:
+  ```c
+  int square(int x) { return x * x; }
+  int main() { return square(5); }
+  ```
+  / After:
+  ```c
+  int main() { return 5 * 5; } // Which then folds to 25
+  ```
+/ Tail Call Optimization (TCO): If the very last act of a function is to call another
+  function (or itself recursively), the compiler can reuse the current function's
+  stack frame instead of creating a new one. This prevents stack overflow errors in
+  deep recursion.
 
-== Global and Interprocedural Optimizations
+== Machine-Dependent Optimizations
 
-These techniques analyze the flow of the entire program, looking across loops,
-branches, and even different function calls.
+These occur at the very end of the compilation process and are tailored to the
+specific hardware (CPU architecture) the code is being compiled for (e.g., x86, ARM).
 
-/ Dead Code Elimination: The compiler completely deletes code that can never be
-  reached or variables that are calculated but never used.
-  / Before: ```c
-    int x = 5;
-    if (false)
-      do_something();
-    return x;```
-  / After: ```c
-    return 5;```
+/ Register Allocation: CPU registers are the fastest memory available. The compiler
+  analyzes which variables are used most frequently and attempts to keep them in CPU
+  registers rather than slower RAM.
+/ Instruction Scheduling: Modern CPUs can execute multiple instructions at the same
+  time (Instruction-Level Parallelism). The compiler reorders assembly instructions
+  so that the CPU's pipeline stays full and doesn't stall waiting for memory fetches.
+/ Peephole Optimization: The compiler looks at a tiny, sliding window (a "peephole")
+  of generated assembly code and looks for short sequences that can be replaced by a
+  single, faster instruction unique to that specific CPU.
 
-/ Function Inlining: Calling a function introduces overhead (saving registers,
-  pushing arguments to a stack). For very small functions, the compiler simply pastes
-  the function's code directly into the place where it was called.
-  / Before: ```c
-    int square(int x) {
-      return x * x;
-    }
-    int a = square(5);```
-  / After: ```c int a = 5 * 5;```
+== The Trade-off
 
-== Machine-Dependent Optimizations (Back-end)
-
-Once the compiler starts generating assembly code for a specific CPU architecture
-(like x86 or ARM), it performs lower-level tweaks.
-
-/ Peephole Optimization: The compiler looks at a tiny sliding window ("peephole") of
-  generated assembly instructions and looks for ways to swap them with shorter or
-  faster instructions. For example, replacing a multiplication by 2 with a much
-  faster left bit-shift (`x << 1`).
-/ Register Allocation: CPUs have a limited number of incredibly fast storage
-  locations called registers. The compiler uses complex algorithms (like graph
-  coloring) to figure out which variables should live in registers versus slower RAM
-  at any given moment.
+It is worth noting that compilers usually offer different optimization levels (like
+`-O0`, `-O1`, `-O2`, `-O3` in GCC/Clang). Higher optimization levels result in
+incredibly fast code, but they take much longer to compile and can make the code
+difficult to debug, as the compiled machine code no longer maps cleanly to the
+original source code.
 
 #pagebreak()
 
@@ -1113,16 +1024,6 @@ Pros & Cons:
 
 #pagebreak()
 
-= LL PARSING TABLE
-
-In a recursive­descent parser, the production information is embedded in the
-individual parse functions for each nonterminal and the run­time execution stack is
-keeping track of our progress through the parse. There is another method for
-implementing a predictive parser that uses a table to store that production along
-with an explicit stack to keep track of where we are in the parse.
-
-#pagebreak()
-
 = ERROR HANDLING
 
 In compiler design, error handling is a crucial component that ensures the compiler
@@ -1216,5 +1117,3 @@ handled in other phases as well:
   arguments). The compiler usually logs the error and assigns a "dummy" or
   "universal" type (like `any`) to the erroneous variable so it can continue checking
   the rest of the code without crashing.
-
-#pagebreak()

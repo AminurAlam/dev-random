@@ -1,16 +1,376 @@
 #import "snippets/note.typ": *
+#import "snippets/infobox.typ": infobox
 #show: template.with("PHP and MySql")
 
 #pagebreak()
 
-= Explain HTTP
+= HTTP
 
-= HTML structure
+HTTP stands for HyperText Transfer Protocol. It is the foundational set of rules that
+determines how messages are formatted and transmitted across the internet. Whenever
+you type a URL into your browser, click a link, or stream a video, you are initiating
+an HTTP cycle.
 
-= form
-== Forms example
+== The Client-Server Model
 
-= get vs post
+/ The Client: This is usually your web browser (Chrome, Safari, Firefox), but it can
+  also be a mobile app or a smart device. The client asks for data.
+/ The Server: A computer sitting in a data center somewhere that holds the website's
+  files (HTML, CSS, images). The server responds to the client's request.
+
+== Anatomy
+
+When your browser asks a server for a webpage, it packages a raw text file containing
+specific instructions. A standard request looks like this:
+
+```http
+GET /index.html HTTP/1.1
+Host: www.example.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0)
+Accept-Language: en-US
+```
+
+== A. HTTP Methods (Verbs)
+
+The method tells the server what action the client wants to perform. The four most
+common verbs are:
+
+/ `GET`: "Please give me this resource." (Used when you load a webpage or search for
+  something).
+/ `POST`: "Please accept this data and create something new." (Used when submitting a
+  signup form or uploading a photo).
+/ `PUT` / `PATCH`: "Please update this existing information." (Used when changing
+  your profile settings).
+/ `DELETE`: "Please delete this resource." (Used when deleting a post or canceling an
+  account).
+
+== B. Headers
+
+Headers are key-value pairs that provide metadata about the request. They tell the
+server what browser you are using (`User-Agent`), what language you prefer
+(`Accept-Language`), and what kind of data format you expect back.
+
+== C. Body (Payload)
+
+The body is optional. It contains the actual data being sent. A `GET` request rarely
+has a body, but a `POST` request will include a body containing things like the
+username and password you just typed into a form.
+
+== Anatomy of an HTTP Response
+
+Once the server receives the request, it processes it and sends back a response file:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1254
+
+<!DOCTYPE html>
+<html>...</html>
+```
+
+== A. HTTP Status Codes
+
+The absolute first thing the server sends back is a three-digit status code. These
+numbers tell the client whether the request succeeded, failed, or requires a detour.
+They fall into five main blocks:
+
+#table(
+  columns: (11%, 18%, auto),
+  [STATUS], [MEANING], [FAMOUS EXAMPLE],
+  [1xx], [Informational], [`101 Switching Protocols`],
+  [2xx], [Success], [`200 OK` (Everything went perfectly)],
+  [3xx], [Redirection], [`301 Moved Permanently` (The page is at a new link)],
+  [4xx],
+  [Client Error],
+  [`404 Not Found` (You made a mistake; the page doesn't exist)],
+
+  [5xx],
+  [Server Error],
+  [`500 Internal Server Error` (The server crashed trying to process it)],
+)
+
+== B. Response Body
+
+If the status code indicates success, the response body will contain the actual
+payload whether that is the HTML skeleton of a website, a JPEG picture, or raw JSON
+data.
+
+== Key Characteristics of HTTP
+
+== It is Stateless
+
+By default, HTTP is completely stateless. This means the server treats every single
+request as a brand-new interaction. It has no memory. If you log into a website and
+click a link to a second page, the server forgets who you are instantly.
+
+To fix this flaw, web developers use Cookies and Tokens. These are tiny pieces of
+identification text that your browser automatically attaches to every single HTTP
+request headers, acting like a digital wristband at an amusement park so the server
+remembers you are logged in.
+
+== HTTP vs. HTTPS
+
+Standard HTTP sends all its text data over the wire completely unencrypted. If you
+type a password on an old HTTP site, anyone sniffing data on your Wi-Fi network can
+read it in plain text.
+
+HTTPS (the "S" stands for Secure) wraps the HTTP data inside an encrypted layer
+called TLS/SSL. It scrambles the request and response text before it ever leaves your
+computer, making it impossible for third parties to read your private data. Today,
+HTTPS is mandatory for practically the entire web.
+
+#pagebreak()
+
+= HTML
+
+At its core, HTML (HyperText Markup Language) is a system of instructions that tells
+a web browser how to structure a document. "Hypertext" refers to links that connect
+web pages to one another, while "Markup" means using a special syntax to annotate
+plain text so the computer knows how to handle it.
+
+== The Anatomy of an HTML Element
+
+/ The Tag: Wrapped in angle brackets (`< >`). The opening tag marks where an element
+  begins, and the closing tag (which includes a forward slash `/`) marks where it
+  ends.
+/ The Content: The actual text, image, or media being displayed.
+/ Attributes: Extra pieces of information placed inside the opening tag to change its
+  behavior or provide data. For example, a link tag uses an `href` attribute to tell
+  the browser exactly where to go when clicked.
+
+```html
+<a href="https://www.google.com">Visit Google</a>
+```
+
+== The Standard Document Structure
+
+Every single HTML page follows a strict, predictable skeleton. When a browser loads a
+website, it reads this structure from top to bottom:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My First Web Page</title>
+  </head>
+  <body>
+    <h1>Welcome to My Website</h1>
+    <p>This is a paragraph of text explaining how HTML works.</p>
+  </body>
+</html>
+```
+
+/ `<!DOCTYPE html>`: This tells the browser, "Hey, I am using the modern version of
+  HTML (HTML5). Please render this correctly."
+/ `<html>`: The root element that wraps all the content on the entire page.
+/ `<head>`: This is the "behind-the-scenes" section. Content here doesn't show up on
+  the main page. Instead, it contains metadata, the page title (which appears on your
+  browser tab), and links to external files like CSS or JavaScript.
+/ `<body>`: This is the visible part of the website. Everything written here
+  headings, paragraphs, images, buttons is what the user actually sees and interacts
+  with.
+
+== Semantic HTML: Writing Meaningful Code
+
+In the early days of the web, developers used generic tags for everything. Today,
+modern web development relies heavily on Semantic HTML. Semantic tags clearly
+describe their meaning and purpose to both the browser and the developer.
+
+Instead of wrapping a navigation menu or a footer in a generic container, developers
+use explicit tags:
+
+/ `<nav>`: Specifically for navigation links.
+/ `<article>`: For independent, self-contained pieces of content like a blog post.
+/ `<header>` and `<footer>`: For the top and bottom sections of a page or article.
+/ `<aside>`: For secondary content, like a sidebar.
+
+Using semantic tags is crucial for two reasons: SEO (Search Engine Optimization),
+because search engines use them to understand what your page is actually about, and
+Accessibility, because screen readers rely on these tags to help visually impaired
+users navigate the page.
+
+== The DOM (Document Object Model)
+
+When a browser reads your HTML code, it doesn't just display it instantly. It
+translates the HTML into a tree-like structure called the Document Object Model
+(DOM).
+
+Think of the DOM as a family tree of your code. The `<html>` tag is the parent,
+`<head>` and `<body>` are its children, and the headings or paragraphs inside the
+body are siblings. This tree structure is incredibly important because it allows
+programming languages like JavaScript to target specific branches, dynamically
+changing, adding, or deleting content on the fly without needing to reload the entire
+web page.
+
+== The Frontend Trio
+
+To wrap it up, HTML never works alone in modern web development. It is part of a
+foundational trio:
+
+- HTML builds the house (walls, doors, rooms).
+- CSS paints the house (colors, wallpaper, furniture layout).
+- JavaScript adds the utilities (light switches, smart locks, plumbing).
+
+#pagebreak()
+
+= FORM
+
+An HTML Form is the primary gateway for user interaction on the web. While a standard
+HTML page is passive (users just read it), a form makes it active, allowing users to
+type text, select options, upload files, and send that data over to a server.
+
+Whether you are logging into an account, purchasing a product, or searching for a
+video, you are interacting with an HTML form.
+
+== The Container: The `<form>` Element
+
+Every form must be wrapped inside a `<form>` container. This element acts as the
+manager for all the inputs inside it, defining where the data should go and how it
+should get there using two vital attributes:
+
+/ `action`: Specifies the URL of the server-side script or API endpoint that will
+  process the submitted data. (e.g., `action="/submit-login"`).
+/ `method`: Specifies the HTTP method used to send the data---almost always `GET` or
+  `POST`.
+
+```html
+<!-- A simple form skeleton -->
+<form action="/login" method="POST">
+  <!-- Input elements go here -->
+  <button type="submit">Submit</button>
+</form>
+```
+
+== The Core Building Blocks
+
+Inside a form, you use various interactive elements to collect different types of
+data.
+
+== A. The `<input>` Element
+
+The `<input>` tag is a versatile chameleon. By simply changing its `type` attribute,
+it transforms into entirely different UI controls:
+
+/ `type="text"`: A standard single-line text box.
+/ `type="password"`: A text box that automatically masks the characters you type.
+/ `type="email"` / `type="tel"`: Boxes optimized for specific formats, providing
+  mobile keyboards with shortcuts (like the `@` symbol).
+/ `type="checkbox"`: Square boxes allowing users to select multiple options.
+/ `type="radio"`: Circular buttons grouped together where a user can select only one
+  option from a list.
+
+== B. The Crucial `name` Attribute
+
+An input is completely useless to a server without a `name` attribute. The `name`
+acts as the variable key for the data.
+
+If a user types "Alice" into a text box, the server won't know what "Alice" means
+unless it is paired with a name attribute:
+
+```html
+<input type="text" name="first_name" />
+<!-- When submitted, the server receives: first_name=Alice -->
+```
+
+== C. Labels and Accessibility (`<label>`)
+
+Every input should have a corresponding `<label>`. This tells the user what the input
+is for. By matching the label's `for` attribute with the input's `id`, you link them
+together. This is a crucial feature: clicking the label text will automatically focus
+the cursor on the input field, which drastically improves mobile usability and allows
+screen readers to function properly.
+
+```html
+<label for="user-email">Email Address:</label>
+<input type="email" id="user-email" name="email" />
+```
+
+== Advanced Form Controls
+
+Beyond the basic input tag, HTML offers specialized tags for complex data capture:
+
+/ `<textarea>`: Used for multi-line text entries, like a comment section or a
+  biography box. Unlike `<input>`, it requires a closing tag.
+/ `<select>` and `<option>`: Creates a dropdown menu, saving valuable screen space.
+/ `<input type="file">`: Opens up the user's operating system file picker to allow
+  photo, video, or document uploads.
+
+```html
+<label for="country">Choose a country:</label>
+<select id="country" name="country">
+  <option value="us">United States</option>
+  <option value="ca">Canada</option>
+  <option value="uk">United Kingdom</option>
+</select>
+```
+
+== Built-in Client-Side Validation
+
+Before modern HTML5, checking if a user typed a valid email or left a password field
+blank required writing custom JavaScript. Today, HTML has powerful built-in
+validation attributes that block form submission and prompt the browser to display an
+error message if rules are broken:
+
+/ `required`: Prevents the form from submitting if the field is empty.
+/ `minlength` and `maxlength`: Restricts the text length (e.g., forcing a password to
+  be at least 8 characters).
+/ `min` and `max`: Sets numerical ranges for `type="number"` or `type="date"`.
+/ `pattern`: Uses Regular Expressions (Regex) to enforce strict custom patterns, like
+  formatting a zip code or credit card number.
+
+== How Forms Submit Data
+
+When a user clicks a `<button type="submit">`, the browser halts the page, bundles
+all the values from inputs that have a `name` attribute, and creates an HTTP request.
+
+If the form uses `method="GET"`, the data is appended directly to the URL as
+key-value pairs (a query string):
+https://example.com/search?query=html+forms&sort=recent
+
+If the form uses `method="POST"`, the browser packs the data into the body of the
+request. By default, it formats this body as `application/x-www-form-urlencoded`
+(which looks exactly like a query string, just hidden inside the body).
+
+#infobox[
+  If your form contains an `<input type="file">`, you must add a special attribute to
+  your `<form>` tag: `enctype="multipart/form-data"`. If you forget this, the browser
+  will only send the name of the file to the server instead of the actual file bytes!
+]
+
+#pagebreak()
+
+= GET VS POST
+
+#table(
+  columns: 3,
+  [Feature], [GET Method], [POST Method],
+
+  [Primary Purpose],
+  [Retrieves data from a server.],
+  [Sends data to a server to create/update a resource.],
+
+  [Data Location],
+  [Appended to the URL as a query string.],
+  [Carried inside the HTTP Request Body.],
+
+  [Data Visibility],
+  [Public. Visible in the URL bar, browser history, and server logs.],
+  [Hidden. Not visible in the URL or history logs.],
+
+  [Data Limits],
+  [Restricted by maximum URL length constraints (usually \~2,048 characters).],
+  [No official limit; can handle massive payloads (files, images, videos).],
+
+  [Idempotent],
+  [Yes. Running a GET request 100 times won\'t change the server\'s state.],
+  [No. Running a POST request 100 times will create 100 new entries.],
+
+  [Caching],
+  [Can be cached by browsers and CDN networks to speed up loading.],
+  [Never cached by default.],
+)
+
 == GET
 
 Advantages:
@@ -26,8 +386,11 @@ Disadvantages:
 - Because the GET method assigns data to a server environment variable, the length of
   the URL is limited. So, there is a limitation for the total data to be sent.
 
+#pagebreak()
+
 = MVC
-== diagram
+
+#image("assets/mvc.svg")
 
 #pagebreak()
 
@@ -430,58 +793,26 @@ try {
 
 ```php
 <?php
-// 1. Define credentials
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "my_app_db";
+$mysqli = new mysqli("localhost","my_user","my_password","my_db");
 
-// 2. Create the connection instance
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// 3. Check the connection for errors
-if ($conn->connect_error) {
-    // Stop script execution and print the error
-    die("Connection failed: " . $conn->connect_error);
+// Check connection
+if ($mysqli -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  exit();
 }
 
-echo "Connected successfully using MySQLi!";
+// Perform query
+if ($result = $mysqli -> query("SELECT * FROM Persons")) {
+  echo "Returned rows are: " . $result -> num_rows;
+  // Free result set
+  $result -> free_result();
+}
+
+$mysqli -> close();
 ?>
 ```
 
-== Step 2: Running Queries (A Quick Example)
-
-Once connected, you will likely want to interact with your data. Here is a quick look
-at how you would fetch data safely using the PDO connection we created above.
-
-Notice the use of a prepared statement (`$stmt->prepare()`). This is crucial for
-protecting your database against SQL Injection attacks.
-
-```php
-<?php
-// Assuming $pdo is already connected...
-
-// The ID we want to search for (usually comes from user input, like $_GET['id'])
-$userId = 1;
-
-// Prepare the SQL query with a placeholder (?)
-$stmt = $pdo->prepare("SELECT username, email FROM users WHERE id = ?");
-
-// Execute the query, passing the variable in an array to fill the placeholder
-$stmt->execute([$userId]);
-
-// Fetch the result
-$user = $stmt->fetch();
-
-if ($user) {
-    echo "User found: " . $user['username'] . " (" . $user['email'] . ")";
-} else {
-    echo "No user found with that ID.";
-}
-?>
-```
-
-== 🔒 Best Practice for Real Applications
+== Best Practice
 
 Never hardcode your database credentials directly into the files where you write your
 queries.
@@ -707,7 +1038,6 @@ databases cannot handle this directly, so it requires a workaround.
 
 = FILE HANDLING
 
-
 File handling is a crucial part of web development. It allows your PHP applications
 to read configurations, save logs, generate reports, or process user-uploaded
 documents.
@@ -718,14 +1048,13 @@ Functions.
 
 == Important: File Modes
 
-When opening files using the stream-based approach, you must tell PHP #emph[how] you
-intend to interact with the file. These are called "modes". Here are the most common
-ones:
+When opening files using the stream-based approach, you must tell PHP how you intend
+to interact with the file. These are called "modes". Here are the most common ones:
 
 #table(
   columns: (auto, auto, auto, auto),
-
   [Mode], [Description], [Pointer Start], [What if file doesn't exist?],
+
   [`r`], [Read only.], [Beginning], [Returns `FALSE` (Error).],
   [`w`],
   [Write only. Erases the contents of the file or creates a new one.],
@@ -846,10 +1175,21 @@ if ($fileHandle) {
 == Best Practices and Common Pitfalls
 
 + / File Permissions: If your `file_put_contents()` or `fopen(..., 'w')` is failing,
-  90% of the time it is because the web server (like Apache or Nginx) does not have
-  the correct permissions to write to that specific folder on your server.
+    90% of the time it is because the web server (like Apache or Nginx) does not have
+    the correct permissions to write to that specific folder on your server.
 + / Resource Leaks: If you use `fopen()`, you must use `fclose()`. Leaving files open
-  unnecessarily consumes server memory and can eventually crash your PHP process.
+    unnecessarily consumes server memory and can eventually crash your PHP process.
 + / Sanitize Filenames: If a user is uploading a file or passing a filename via a URL
-  parameter, never trust it directly. Always sanitize it to prevent Directory
-  Traversal attacks (e.g., a user trying to access `../../../../etc/passwd`).
+    parameter, never trust it directly. Always sanitize it to prevent Directory
+    Traversal attacks (e.g., a user trying to access `../../../../etc/passwd`).
+
+#pagebreak()
+
+= STRING MANIPULATION
+
+/ strtoupper(): Converts to uppercase.
+/ strtolower(): Converts to lowercase.
+/ str_replace(search, replace, subject): Replaces string with a replacement
+/ strrev(): reverses a string
+/ trim(): Strips whitespace
+/ strlen(string): Returns the length
