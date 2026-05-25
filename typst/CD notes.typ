@@ -1,6 +1,6 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/tdtr:0.5.5": *
-#import "snippets/note.typ": *
+#import "/typst/snippets/note.typ": *
 #show: template.with("Compiler Design")
 
 #let sink(n) = node-attr(sink: n)

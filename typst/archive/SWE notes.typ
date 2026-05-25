@@ -1,8 +1,9 @@
 #set text(1.35em)
 #set par(justify: false)
 #set page(margin: 25pt)
+#import "/typst/snippets/note.typ": *
 
-#outline(depth: 1)
+#show: template.with[Software Engineering]
 
 #pagebreak()
 
@@ -150,7 +151,7 @@ members.
     perspective, ranging from e-commerce to healthcare. This diversity of experiences
     and opinions enriches the decision-making process.
 
-#figure(image("assets/delphi.svg"))
+#figure(img("assets/delphi.svg"))
 
 #pagebreak()
 
@@ -203,7 +204,7 @@ there under which we can evaluate a design method while considering its abilitie
     also known as run-time errors. The side effects of these errors are constrained
     within the module.
 
-#figure(image("assets/modularity.svg"))
+#figure(img("assets/modularity.svg"))
 
 #pagebreak()
 
@@ -335,7 +336,7 @@ starting a new project today, you would likely use REST APIs, gRPC, or Microserv
 instead. These modern tools do roughly what CORBA did but are much simpler to build,
 easier to pass through firewalls, and better suited for the modern web.
 
-#figure(image("assets/corba.svg", width: auto))
+#figure(img("assets/corba.svg", width: auto))
 
 #pagebreak()
 
@@ -370,8 +371,8 @@ $
 #grid(
   columns: 2,
   gutter: 10pt,
-  image("assets/cocomo_basic_eff.svg", width: 260pt),
-  image("assets/cocomo_basic_dev.svg", width: 250pt),
+  img("assets/cocomo_basic_eff.svg", width: 260pt),
+  img("assets/cocomo_basic_dev.svg", width: 250pt),
 )
 
 From the effort estimation, project cost can be obtained by multiplying the estimated
@@ -443,7 +444,7 @@ project manager.
 / Post-architecture model: This provides cost estimation during detailed design and
   coding stages.
 
-#figure(image("assets/cocomo2.svg", width: auto))
+#figure(img("assets/cocomo2.svg", width: auto))
 
 #pagebreak()
 
@@ -477,7 +478,7 @@ and validation phases.
     are fulfilled and that possible risks are found and eliminated early in the
     development process.
 
-#figure(image("assets/vmodel.svg", width: 80%))
+#figure(img("assets/vmodel.svg", width: 80%))
 
 == V-model vs waterfall model
 
@@ -606,7 +607,7 @@ to log in" is functional, while "the login process must take less than two secon
 is non-functional (performance). Both are necessary in an SRS document, but
 functional requirements represent the core utility of the product.
 
-#figure(image("assets/funcs.svg", width: auto))
+#figure(img("assets/funcs.svg", width: auto))
 
 #pagebreak()
 
@@ -649,7 +650,7 @@ sends email newsletters, it has low cohesion.
 - / Logical: parts do similar things but are actually different
 - / Coincidental: Parts are grouped loosely or randomly
 
-#figure(image("assets/cohesion.svg"))
+#figure(img("assets/cohesion.svg"))
 
 == Coupling
 
@@ -671,7 +672,7 @@ highly coupled
 - / Content: One module directly reaches inside another module to change its
   private data or code.
 
-#figure(image("assets/coupling.svg"))
+#figure(img("assets/coupling.svg"))
 
 #pagebreak()
 
@@ -722,7 +723,7 @@ to completion.
     software.
   ],
 )
-#figure(image("assets/spiral.svg", width: auto))
+#figure(img("assets/spiral.svg", width: auto))
 
 == Advantages
 
@@ -802,7 +803,7 @@ basis for the final product.
     to production after it was developed to support the original version. To reduce
     downtime and prevent major failures, the programmer is run on a regular basis.
 
-#figure(image("assets/prototyping.svg"))
+#figure(img("assets/prototyping.svg"))
 
 == Advantages
 
@@ -889,7 +890,7 @@ $ V (G) = E − N + 2 $
 
 == Example
 
-#figure(image("assets/cfd.svg"))
+#figure(img("assets/cfd.svg"))
 
 $ "Cyclomatic complexity" = 7 − 6 + 2 = 3 $
 
@@ -897,7 +898,7 @@ $ "Cyclomatic complexity" = 7 − 6 + 2 = 3 $
 
 = TESTING
 
-#figure(image("assets/testing.svg"))
+#figure(img("assets/testing.svg"))
 
 == Unit testing
 

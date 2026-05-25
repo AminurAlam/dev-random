@@ -1,5 +1,5 @@
-#import "snippets/note.typ": *
-#show: template.with("GIS")
+#import "/typst/snippets/note.typ": *
+#show: template.with[GIS]
 
 #pagebreak()
 

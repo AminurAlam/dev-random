@@ -1,5 +1,5 @@
-#import "snippets/note.typ": *
-#import "snippets/infobox.typ": infobox
+#import "/typst/snippets/note.typ": *
+#import "/typst/snippets/infobox.typ": infobox
 #show: template.with("PHP and MySql")
 
 #pagebreak()

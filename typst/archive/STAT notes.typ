@@ -1,8 +1,6 @@
-#set text(1.35em)
-#set par(justify: false)
-#set page(margin: 25pt)
+#import "/typst/snippets/note.typ": *
+#show: template.with[Statistics]
 
-#outline()
 #pagebreak()
 
 = STUFF
@@ -57,6 +55,8 @@ $
   integral u v d x & = u integral v d x - integral ((d)/(d x)u integral v d x )d x \
 $
 
+#pagebreak()
+
 = DISCRETE
 $
                    "mean" (mu) & = E(x) \
@@ -85,7 +85,6 @@ $
 - n is large
 - p is very small
 
-
 $
   "pmf" & = f(X=x, lambda = n p) = (e^(-lambda) dot lambda^x)/(x!) \
   \
@@ -94,6 +93,7 @@ $
   "standard deviation" (sigma) & = sqrt(lambda) = sqrt(n p)
 $
 
+#pagebreak()
 
 = CONTINUOUS
 == uniform
@@ -155,9 +155,12 @@ $
   "variance" (sigma^2) & = "Var"(x) = (r)/(lambda^2) \
 $
 
+#pagebreak()
 
 = JOINT DISTRIBUTION
 $ P (a < x < b , c < y < d) = integral_a^b integral_c^d f (x , y) d x $
+
+#pagebreak()
 
 = SKEWNESS
 $ ("mean" - "mode")/"std_dev" $
@@ -192,6 +195,8 @@ $
     beta_2 > 3 "  lepto kurti",
   )
 $
+
+#pagebreak()
 
 = CORRELATION
 

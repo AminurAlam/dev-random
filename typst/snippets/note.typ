@@ -1,4 +1,4 @@
-// #import "snippets/note.typ": *
+// #import "/typst/snippets/note.typ": *
 // #show: template.with("Title")
 
 #let template(title, depth: 2, body) = {

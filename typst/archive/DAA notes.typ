@@ -1,5 +1,5 @@
-#import "snippets/note.typ": *
-#show: template.with("DAA")
+#import "/typst/snippets/note.typ": *
+#show: template.with[DAA]
 
 #pagebreak()
 

@@ -1,5 +1,5 @@
-#import "snippets/note.typ": *
-#show: template.with("Computer Graphics")
+#import "/typst/snippets/note.typ": *
+#show: template.with[Computer Graphics]
 
 #let s1 = $sin theta_1$
 #let s2 = $sin theta_2$

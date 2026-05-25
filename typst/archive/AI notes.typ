@@ -1,5 +1,5 @@
-#import "snippets/note.typ": *
-#show: template.with("AI")
+#import "/typst/snippets/note.typ": *
+#show: template.with[AI]
 
 #pagebreak()
 

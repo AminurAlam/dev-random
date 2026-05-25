@@ -1,4 +1,4 @@
-// #import "snippets/frontpage.typ": starter, index
+// #import "/typst/snippets/frontpage.typ": starter, index
 // #starter([])
 // #index
 

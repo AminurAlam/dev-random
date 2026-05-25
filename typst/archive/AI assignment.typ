@@ -1,4 +1,4 @@
-#import "snippets/frontpage.typ": index, starter
+#import "/typst/snippets/frontpage.typ": index, starter
 
 #starter[
   Comparison of different \

@@ -1,4 +1,4 @@
-#import "snippets/note.typ": *
+#import "/typst/snippets/note.typ": *
 #show: template.with("Research Methodology")
 
 // https://pressbooks.bccampus.ca/jibcresearchmethods/

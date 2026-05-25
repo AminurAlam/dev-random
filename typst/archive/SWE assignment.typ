@@ -1,7 +1,7 @@
 #import "@preview/oxdraw:0.1.0": *
 #import "@preview/meander:0.3.0"
 #import "@preview/zebraw:0.5.5": *
-#import "snippets/frontpage.typ": index, starter
+#import "/typst/snippets/frontpage.typ": index, starter
 
 #starter[software engineering]
 #set text(size: 1.2em)
@@ -314,16 +314,16 @@ service listens on port 5000. Once running, this service provides endpoints like
 than public exposure.
 
 == Setup script
-#zebraw(
-  lang: false,
-  numbering-separator: true,
-  raw(
-    read("assets/start-backend.fish", encoding: "utf8").slice(0, -1),
-    lang: "fish",
-    block: true,
-    tab-size: 2,
-  ),
-)
+// #zebraw(
+//   lang: false,
+//   numbering-separator: true,
+//   raw(
+//     read("assets/start-backend.fish", encoding: "utf8").slice(0, -1),
+//     lang: "fish",
+//     block: true,
+//     tab-size: 2,
+//   ),
+// )
 
 This fish shell script is an automated workflow written to launch a Dockerized Open
 Source Routing Machine (OSRM) server specifically for the Berlin region. It manages

@@ -1,4 +1,4 @@
-#import "snippets/note.typ": *
+#import "/typst/snippets/note.typ": *
 #show: template.with("Crypto")
 
 #pagebreak()

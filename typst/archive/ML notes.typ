@@ -1,5 +1,5 @@
-#import "snippets/note.typ": *
-#show: template.with("Machine Learning")
+#import "/typst/snippets/note.typ": *
+#show: template.with[Machine Learning]
 
 #pagebreak()
 
@@ -124,7 +124,7 @@ $y = beta_0 + beta_1 x_1 + beta_2 x_2 + dots + beta_n x_n + epsilon$
 are the coefficients, $x$ represents the independent variables, and $epsilon$ is the
 error term).
 
-#figure(image("assets/linear.png", width: 70%))
+#figure(img("assets/linear.png", width: 70%))
 
 == Applications
 
@@ -287,7 +287,7 @@ STEPS:
 + take weighted voting of the neighbours
 + assign that class to the data point
 
-#figure(image("assets/knn.webp", width: 80%))
+#figure(img("assets/knn.webp", width: 80%))
 
 #pagebreak()
 
@@ -463,7 +463,7 @@ $ E_D_i = - display(sumin P_i log_2(P_i)) $
 INFORMATION GAIN:
 $ I G(X) & = display(sum_(i=1)^k (abs(D_i)/abs(D) E_D_i) - E_D) $
 
-#box(stroke: 10pt, inset: 10pt, radius: 10pt, image("assets/DT1.png"))
+#box(stroke: 10pt, inset: 10pt, radius: 10pt, img("assets/DT1.png"))
 
 #pagebreak()
 
@@ -486,7 +486,7 @@ clusters. There are two main approaches:
 You then use the resulting dendrogram to visually decide exactly where to "cut" the
 tree to get the number of clusters that makes the most sense for your problem.
 
-#image("assets/hierarchical.webp")
+#img("assets/hierarchical.webp")
 
 == Applications
 
