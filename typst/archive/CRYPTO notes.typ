@@ -428,8 +428,8 @@ some of the ancient types of cryptography:
 
 == Algorithm
 
-#image("assets/des.webp")
-#image("assets/des_depth.webp")
+#img("assets/des.webp")
+#img("assets/des_depth.webp")
 
 #pagebreak()
 
@@ -474,7 +474,7 @@ some of the ancient types of cryptography:
 
 == Algorithm
 
-#image("assets/aes.png")
+#img("assets/aes.png")
 
 #pagebreak()
 
@@ -691,7 +691,7 @@ $P_1, P_2, P_3, "and" P_4$. Each of the 8 rounds takes these four sub-blocks and
 
 #grid(
   columns: 2,
-  image("assets/idea.svg"),
+  img("assets/idea.svg"),
   [
     + Multiply $P_1$ and $K_1$.
     + Add $P_2$ and $K_2$.
@@ -1370,7 +1370,7 @@ and symmetric cryptography.
     use this single shared key (Symmetric Cryptography) to encrypt all the actual
     data like your passwords or credit card numbers for the rest of your visit.
 
-#image("assets/ssl_hs.webp")
+#img("assets/ssl_hs.webp")
 
 == Types of SSL certificates
 

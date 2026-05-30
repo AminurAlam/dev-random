@@ -390,7 +390,7 @@ Disadvantages:
 
 = MVC
 
-#image("assets/mvc.svg")
+#img("assets/mvc.svg")
 
 #pagebreak()
 

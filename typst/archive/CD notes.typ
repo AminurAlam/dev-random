@@ -312,7 +312,7 @@ automatically writes the highly optimized C code for the DFA state machine.
 
 == SLR parsing table
 
-#image("assets/lr0.png")
+#img("assets/lr0.png")
 
 == Check if LL
 

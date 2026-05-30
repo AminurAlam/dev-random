@@ -529,11 +529,11 @@ Common Types of Non-Sampling Error:
   - Present conclusions and suggestions.
 
 #figure(
-  image("assets/rm_steps.png", width: 60%),
+  img("assets/rm_steps.png", width: 60%),
   caption: [Nine-Step Research Process.],
 )
 #figure(
-  image("assets/rm_time.png", width: 60%),
+  img("assets/rm_time.png", width: 60%),
   caption: [Shows the different steps in the research process and the implications of
     past and future research on research processes],
 )
@@ -622,7 +622,7 @@ To summarize, we use sampling when the population is large and we simply do not 
 the time, financial support, and/or ability (i.e. lack of laboratory equipment) to
 reach the entire population.
 
-#image("assets/pop_sapmling.png", width: 80%)
+#img("assets/pop_sapmling.png", width: 80%)
 
 #table(
   columns: 2,
@@ -852,7 +852,7 @@ stratified samples, and cluster samples.
   individuals from each cluster, you randomly select entire clusters. Every member of
   the chosen clusters is included in the study.
 
-#image("assets/cluster.webp")
+#img("assets/cluster.webp")
 
 #table(
   columns: 2,
