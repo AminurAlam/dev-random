@@ -12,6 +12,7 @@
   set text(1.35em)
   set math.mat(delim: "[")
 
+  show link: it => text(fill: blue, underline(it))
   show raw: it => {
     if it.block {
       block(
