@@ -10,26 +10,30 @@ a.out
 *.svg
 *.pdf
 package*.json
+__pycache__
 node_modules/
 node_modules/*
 
-javascript/node_modules/
-javascript/node_modules/*
+/javascript/node_modules/
+/javascript/node_modules/*
 
-latex/attachments/
-latex/*.aux
-latex/*.toc
-latex/*.fdb_latexmk
-latex/*.fls
-latex/*.log
-latex/*.pdf
-latex/*.synctex.gz
-latex/code/*
+/latex/attachments/
+/latex/*.aux
+/latex/*.toc
+/latex/*.fdb_latexmk
+/latex/*.fls
+/latex/*.log
+/latex/*.pdf
+/latex/*.synctex.gz
+/latex/code/*
 
-rust/target/
-rust/target/*
-rust/Cargo.lock
-rust/Cargo.toml
+/python/img/assets/*
+/python/img/src/img
 
-typst/assets/*
+/rust/target/
+/rust/target/*
+/rust/Cargo.lock
+/rust/Cargo.toml
+
+/typst/assets/*
 !/typst/assets/*.mmd

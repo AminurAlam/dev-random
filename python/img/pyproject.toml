@@ -1,0 +1,22 @@
+[project]
+name = "img"
+version = "0.1.0"
+description = "Add your description here"
+authors = [{ name = "AminurAlam", email = "oscorp2004@gmail.com" }]
+requires-python = ">=3.14"
+dependencies = ["opencv-python>=5.0.0.93", "pyqt6>=6.11.0"]
+
+[project.scripts]
+img = "img:main"
+
+[build-system]
+requires = ["uv_build>=0.12.6,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.ty.rules]
+invalid-argument-type = "ignore"
+no-matching-overload = "ignore"
+not-subscriptable = "ignore"
+unresolved-attribute = "ignore"
+unsupported-operator = "ignore"
+unused-ignore-comment = "ignore"
