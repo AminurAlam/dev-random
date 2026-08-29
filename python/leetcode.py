@@ -8,6 +8,13 @@ class ListNode:
         self.next = next
 
 
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:  # 1
         for xi, x in enumerate(nums):
@@ -42,7 +49,14 @@ class Solution:
     def isPalindrome(self, x: int) -> bool:  # 9
         return str(x) == str(x)[::-1]
 
-    def longestCommonPrefix(self, strs: List[str]) -> str:  ### 14
+    def romanToInt(self, s: str) -> int:  # 13
+        val = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+        stack = []
+        for c in s:
+            stack.append(val[c] - 2 * stack[-1] if stack and stack[-1] < val[c] else val[c])
+        return sum(stack)
+
+    def longestCommonPrefix(self, strs: List[str]) -> str:  # 14
         # size = list(map(len, strs))
         # ss = strs[size.index(min(size))]
         # print(list(map(lambda s: s.startswith(substr), strs)))
@@ -55,7 +69,7 @@ class Solution:
 
         return init[:size]
 
-    def threeSum(self, nums: list[int]):  ### 15
+    def threeSum(self, nums: list[int]):  # 15
         sols = set()
         nums.sort()
         for i in nums:
@@ -66,7 +80,45 @@ class Solution:
 
         return list(sols)
 
-    def removeDuplicates(self, nums: List[int]) -> int:  ### 26
+    def isValid(self, s: str) -> bool:  # 20
+        val = {
+            ")": "(",
+            "]": "[",
+            "}": "{",
+        }
+        stack = []
+        for c in s:
+            if c in val.values():
+                stack.append(c)
+            elif stack and c in val.keys() and stack[-1] == val[c]:
+                stack.pop()
+            else:
+                return False
+        return not stack
+
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:  # 21
+        stack = []
+        while list1 and list2:
+            if list1.val < list2.val:
+                stack.append(list1.val)
+                list1 = list1.next
+            else:
+                stack.append(list2.val)
+                list2 = list2.next
+            print(stack)
+        while list1:
+            stack.append(list1.val)
+            list1 = list1.next
+        while list2:
+            stack.append(list2.val)
+            list2 = list2.next
+        print(stack)
+        mix = None
+        for i in stack[::-1]:
+            mix = ListNode(i, mix)
+        return mix
+
+    def removeDuplicates(self, nums: List[int]) -> int:  # 26
         last = -101
         offset = 0
         rem = []
@@ -80,7 +132,7 @@ class Solution:
         print(nums, rem)
         return len(nums)
 
-    def isValidSudoku(self, board: list[list[str]]) -> bool:  ### 36
+    def isValidSudoku(self, board: list[list[str]]) -> bool:  # 36
         def chk(rows) -> bool:
             row = list(filter(lambda x: x.isdigit(), rows))
             return len(row) == len(set(row))
@@ -94,6 +146,27 @@ class Solution:
         if (sum(map(chk, lines))) == 27:
             return True
         return False
+
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:  # 83
+        s = set()
+        while head:
+            s.add(head.val)
+            head = head.next
+        u = None
+        for i in sorted(s, reverse=True):
+            u = ListNode(i, u)
+
+        return u
+
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:  #  94
+        return (self.inorderTraversal(root.left)) + [root.val] + (self.inorderTraversal(root.right)) if root else []
+
+    def shuffle(self, nums: List[int], n: int) -> List[int]:  # 1470
+        out = []
+        for i in range(n):
+            out.append(nums[i])
+            out.append(nums[i + n])
+        return out
 
     def stoneGameVIII(self, stones: List[int]) -> int:  # 1872
 
@@ -201,3 +274,8 @@ if False:
 
     assert s.checkDivisibility(99) == True
     assert s.checkDivisibility(23) == False
+
+    l1 = li2ln([1, 2, 4])
+    l2 = li2ln([1, 3, 4])
+    l3 = [1, 1, 2, 3, 4, 4]
+    assert ln2li(s.mergeTwoLists(l1, l2)) == l3, l3
