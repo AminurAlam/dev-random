@@ -18,4 +18,4 @@ class TreeNode:
 def test(func, cases: list[tuple]):
     for case in cases:
         res = func(*case[:-1])
-        assert res == case[-1], (res, case[-1])
+        assert res == case[-1], f"out: {res}, exp: {case[-1]}"

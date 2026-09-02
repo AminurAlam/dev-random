@@ -1,5 +1,3 @@
-from typing import List, Optional
-import math
 from lc import *
 
 
@@ -29,6 +27,42 @@ class Solution:
         for i in str(ss):
             s = ListNode(int(i), s)
         return s
+
+    def lengthOfLongestSubstring(self, s: str) -> int:  # 3
+        if len(s) < 2:
+            return len(s)
+        print(f"\n\n=== {s}")
+        m = 0
+        start = 0
+        for end in range(1, len(s) + 1):
+            ss = s[start:end]
+            pos = ss.find(ss[-1], 0, -1)
+            if pos > -1:
+                start += pos + 1
+                print(f"->{ss=}")
+            m = max(len(ss) - 1, m)
+            # print(f"{ss} {m=} {start}:{end}")
+        if len(ss) == len(set(ss)):
+            print(f"->{ss} end")
+            m = max(len(ss), m)
+        return m
+
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:  # 4
+        n = len(nums1) + len(nums2)
+        s = []
+
+        n1 = nums1.pop(0) if nums1 else math.inf
+        n2 = nums2.pop(0) if nums2 else math.inf
+
+        for _ in range(n // 2 + 1):
+            if n1 < n2:
+                s.append(n1)
+                n1 = nums1.pop(0) if nums1 else math.inf
+            else:
+                s.append(n2)
+                n2 = nums2.pop(0) if nums2 else math.inf
+
+        return s[-1] if n % 2 else (s[-1] + s[-2]) / 2
 
     def reverse(self, x: int) -> int:  # 7
         x = int(("-" if x < 0 else "") + str(abs(x))[::-1])
@@ -149,6 +183,64 @@ class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:  #  94
         return (self.inorderTraversal(root.left)) + [root.val] + (self.inorderTraversal(root.right)) if root else []
 
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:  # TODO: 101
+        a = []
+
+        def bfs(node: Optional[TreeNode]) -> List[int | None]:
+            if node and (node.left or node.right):
+                return [node.val, node.left.val, node.right.val]
+            elif node:
+                return [node.val]
+            return []
+
+        a.append(bfs(root))
+
+        print(a)
+        return True
+
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:  # TODO: 310
+        # match n:
+        #     case 210:
+        #         return [6]
+        #     case 231:
+        #         return [0, 2]
+        #     case 252:
+        #         return [0]
+        #     case 273:
+        #         return [0]
+
+        def search(nodes: List[int], edges: List[List[int]], depth: int) -> int:
+            print(" -> ".join(map(str, nodes)))
+            node = nodes[-1]
+            # print(f"node: {node} depth: {depth} v_edges: {v_edges}")
+            if len(edges) == 0:
+                return depth
+            results: List[int] = []
+            print(f"{edges}")
+            for edge in edges:
+                if node not in edge:
+                    print(f"skipped: {edge} for not having {node}")
+                    continue
+                sibling = edge[~edge.index(node)]
+                edges.remove(edge)
+                # print(f"{edges=}")
+                n = nodes.copy()
+                n.append(sibling)
+                res = search(n.copy(), edges, depth + 1)
+                results.append(res)
+            # print(f"{node=} {depth=} {results=}")
+            return max(results) if results else depth
+
+        l: list[int] = []
+        for node in range(n):
+            res = search([node], edges.copy(), 0)
+            print(f"{node=} {res=}")
+            l.insert(node, res)
+        m = min(l)
+        ll = [i for i, v in enumerate(l) if v <= m]
+        print(f"{ll=}")
+        return ll
+
     def shuffle(self, nums: List[int], n: int) -> List[int]:  # 1470
         out = []
         for i in range(n):
@@ -190,6 +282,21 @@ class Solution:
         d = sum(d) + math.prod(d)
         return d > 0 and (n % d) == 0
 
+    def uniformArray(self, nums1: list[int]) -> bool:  # 3875
+        n2o = []
+        n2e = []
+
+        for ni, n in enumerate(nums1):
+            p = [n - x if xi != ni else n for xi, x in enumerate(nums1)]
+            n2e.append(any(map(lambda x: x % 2, p)))
+            n2o.append(any(map(lambda x: not x % 2, p)))
+            print(f"{n=} {p=}")
+
+        return any([all(n2e), all(n2o)])
+
+
+# s = Solution()
+# s.isSymmetric( TreeNode( 1, TreeNode( 2, TreeNode(3), TreeNode(4),), TreeNode( 2, TreeNode(4), TreeNode(3),),))
 
 test(
     Solution().reverse,
