@@ -1,12 +1,5 @@
-import cv2 as cv
-import matplotlib.pyplot as plt
+import cv2
 
-im = cv.imread("assets/text.jpg", cv.IMREAD_GRAYSCALE)
-_, im_bin = cv.threshold(im, 150, 255, cv.THRESH_BINARY)
-
-for i, img in enumerate([im, im_bin]):
-    plt.subplot(2, 1, i + 1)
-    plt.imshow(img, cmap="gray")
-    plt.xticks([])
-    plt.yticks([])
-plt.show()
+im = cv2.imread("assets/hana_conv.jpg", cv2.IMREAD_GRAYSCALE)
+_, im_bin = cv2.threshold(im, 110, 255, cv2.THRESH_BINARY)
+cv2.imwrite("2.c.bin.png", im_bin)

@@ -1,23 +1,15 @@
-import cv2 as cv
+import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-im = cv.imread("assets/hana_conv.jpg", cv.IMREAD_GRAYSCALE)
+im = cv2.imread("assets/hana_conv.jpg", cv2.IMREAD_GRAYSCALE)
 
-# log_image = np.array(log_image, dtype=np.uint8)
 c = 255 / np.log(1 + np.max(im))
-img_log = c * np.log(im + 1)
+im_log = c * np.log(im + 1)
 
-fig, ax = plt.subplots(2)
-ax[0].imshow(im, cmap="gray")
-ax[1].imshow(img_log, cmap="gray")
-plt.show()
-
+cv2.imwrite("2.b.log.png", im_log)
 
 fig, ax = plt.subplots(2)
 ax[0].hist(im.ravel(), 50, [0, 256])
-ax[1].hist(img_log.ravel(), 50, [0, 256])
-plt.show()
-
-plt.plot(c * np.log(np.arange(1, 256)))
-plt.show()
+ax[1].hist(im_log.ravel(), 50, [0, 256])
+plt.savefig("2.b.log.plot.svg", bbox_inches="tight")

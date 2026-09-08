@@ -1,9 +1,4 @@
-import cv2 as cv
-import matplotlib.pyplot as plt
+import cv2
 
-im = cv.imread("assets/hana_conv.jpg", cv.IMREAD_COLOR_RGB)
-
-plt.imshow(255 - im)
-plt.xticks([])
-plt.yticks([])
-plt.show()
+im = cv2.imread("assets/hana_conv.jpg", cv2.IMREAD_GRAYSCALE)
+cv2.imwrite("2.a.neg.png", 255 - im)

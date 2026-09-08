@@ -1,11 +1,11 @@
-import cv2 as cv
+import cv2
 import matplotlib.pyplot as plt
 
-im = cv.imread("assets/hana_conv.jpg", cv.IMREAD_COLOR_RGB)
+plt.tight_layout()
+
+im = cv2.imread("assets/hana_conv.jpg", cv2.IMREAD_COLOR_RGB)
 
 for i, c in enumerate(["Reds", "Greens", "Blues"]):
-    plt.subplot(3, 1, i + 1)
     plt.imshow(im[:, :, i], cmap=c)
-    plt.xticks([])
-    plt.yticks([])
-plt.show()
+    plt.axis("off")
+    plt.savefig(f"1.a.{c}.png", bbox_inches="tight")
