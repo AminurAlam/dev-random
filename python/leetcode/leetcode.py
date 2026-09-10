@@ -1,4 +1,4 @@
-from lc import *
+from utils import *
 
 
 class Solution:
@@ -63,6 +63,49 @@ class Solution:
                 n2 = nums2.pop(0) if nums2 else math.inf
 
         return s[-1] if n % 2 else (s[-1] + s[-2]) / 2
+
+    def longestPalindrome(self, s: str) -> str:  # 5
+        n = len(s)
+        # print(f"===== {s}")
+
+        if len(s) == 1:
+            return s
+        if len(s) == 2:
+            if s == s[::-1]:
+                return s
+            else:
+                return s[0]
+
+        def check(start: int, end: int) -> bool:
+            ss = s[start : end + 1]
+            sr = ss[::-1]
+            if (start == end) or (0 > start) or (start >= n) or (0 > end) or (end >= n):
+                return False
+            # print(f"checking {start}:{end} {ss} = {sr}")
+            return ss == sr
+
+        big = 1
+        bigss = s[0]
+        for i in range(n - 1):
+            start, end = i, i + 1
+            while check(start, end):
+                ssn = len(s[start : end + 1])
+                if ssn > big:
+                    big = ssn
+                    bigss = s[start : end + 1]
+                start -= 1
+                end += 1
+
+            start, end = i, i + 2
+            while check(start, end):
+                ssn = len(s[start : end + 1])
+                if ssn > big:
+                    big = ssn
+                    bigss = s[start : end + 1]
+                start -= 1
+                end += 1
+
+        return bigss
 
     def reverse(self, x: int) -> int:  # 7
         x = int(("-" if x < 0 else "") + str(abs(x))[::-1])
@@ -180,15 +223,18 @@ class Solution:
 
         return u
 
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:  #  94
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:  # 94
         return (self.inorderTraversal(root.left)) + [root.val] + (self.inorderTraversal(root.right)) if root else []
+
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:  # TODO: 100
+        return True
 
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:  # TODO: 101
         a = []
 
         def bfs(node: Optional[TreeNode]) -> List[int | None]:
             if node and (node.left or node.right):
-                return [node.val, node.left.val, node.right.val]
+                return []  # [node.val, node.left.val, node.right.val]
             elif node:
                 return [node.val]
             return []
@@ -197,6 +243,21 @@ class Solution:
 
         print(a)
         return True
+
+    def generate(self, numRows: int) -> List[List[int]]:  # 118
+        rows = [[1]]
+        last = [1]
+        for _ in range(numRows - 1):
+            next = [1] + list(map(sum, zip(last[1:], last[:-1]))) + [1]
+            rows.append(next)
+            last = next
+        return rows
+
+    def getRow(self, rowIndex: int) -> List[int]:  # 119
+        row = [1]
+        for _ in range(rowIndex):
+            row = [1] + list(map(sum, zip(row[1:], row[:-1]))) + [1]
+        return row
 
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:  # TODO: 310
         # match n:
@@ -241,6 +302,9 @@ class Solution:
         print(f"{ll=}")
         return ll
 
+    def countBits(self, n: int) -> List[int]:  # TODO: 338
+        return [(bin(i)).count("1") for i in range(n + 1)]
+
     def shuffle(self, nums: List[int], n: int) -> List[int]:  # 1470
         out = []
         for i in range(n):
@@ -282,6 +346,31 @@ class Solution:
         d = sum(d) + math.prod(d)
         return d > 0 and (n % d) == 0
 
+    # def countCommas(self, n: int) -> int:  # 3870
+    #     return 0 if n < 1_000 else n - 999
+
+    def countCommas(self, n: int) -> int:  # 3871
+        def e(n):
+            if n in range(1_000):
+                return 0
+            elif n in range(10**6):
+                c = 10**6 // 1000 - 1
+                return (n - c) * 1 + e(c)
+            elif n in range(10**9):
+                c = 10**9 // 1000 - 1
+                return (n - c) * 2 + e(c)
+            elif n in range(10**12):
+                c = 10**12 // 1000 - 1
+                return (n - c) * 3 + e(c)
+            elif n in range(10**15):
+                c = 10**15 // 1000 - 1
+                return (n - c) * 4 + e(c)
+            elif n in range(10**18):
+                c = 10**18 // 1000 - 1
+                return (n - c) * 5 + e(c)
+
+        return e(n)
+
     def uniformArray(self, nums1: list[int]) -> bool:  # 3875
         n2o = []
         n2e = []
@@ -299,8 +388,14 @@ class Solution:
 # s.isSymmetric( TreeNode( 1, TreeNode( 2, TreeNode(3), TreeNode(4),), TreeNode( 2, TreeNode(4), TreeNode(3),),))
 
 test(
-    Solution().reverse,
+    Solution().longestPalindrome,
     [
-        (1, 1),
+        ("babad", "bab"),
+        ("aba", "aba"),
+        ("a", "a"),
+        ("ac", "a"),
+        ("abcdef", "a"),
+        ("abb", "bb"),
+        ("aab", "aa"),
     ],
 )

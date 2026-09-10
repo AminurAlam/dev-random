@@ -1,5 +1,8 @@
 from typing import List, Optional
 import math
+import sys
+
+sys.tracebacklimit = 0
 
 
 class ListNode:
