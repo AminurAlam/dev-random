@@ -107,9 +107,41 @@ class Solution:
 
         return bigss
 
+    def convert(self, s: str, numRows: int) -> str:  # 6
+        if (numRows == 1) or (numRows > len(s)):
+            return s
+
+        zz: list[list[str]] = [[" " for _ in s] for _ in range(numRows)]
+        x, y = 0, 0
+        line = True
+        zz[0][0] = s[0]
+        for c in s[1:]:
+            if line:
+                x += 1
+            if not line:
+                y += 1
+                x -= 1
+            if x == 0:  # line
+                line = True
+            elif x == numRows - 1:
+                line = False
+            zz[x][y] = c
+        ss = ""
+        for r in zz:
+            ss += "".join(r)
+        ss = ss.replace(" ", "")
+        return ss
+
     def reverse(self, x: int) -> int:  # 7
         x = int(("-" if x < 0 else "") + str(abs(x))[::-1])
         return 0 if x.bit_length() > 31 else x
+
+    def myAtoi(self, s: str) -> int:  # TODO: 8
+        r = re.match(r"^\s*(\+|-)?[0-9]+", s)
+        print(r.group(0) if r else "no match")
+        if r:
+            return max(min(2**31 - 1, int(r.group(0))), -(2**31))
+        return 0
 
     def isPalindrome(self, x: int) -> bool:  # 9
         return str(x) == str(x)[::-1]
@@ -134,7 +166,7 @@ class Solution:
 
         return init[:size]
 
-    def threeSum(self, nums: list[int]):  # 15
+    def threeSum(self, nums: list[int]) -> list[tuple[int, int, int]]:  # 15
         sols = set()
         nums.sort()
         for i in nums:
@@ -144,6 +176,14 @@ class Solution:
                     sols.add((i, j, k))
 
         return list(sols)
+
+    def letterCombinations(self, digits: str) -> list[str]:  #  17
+        d = {2: "abc", 3: "def", 4: "ghi", 5: "jkl", 6: "mno", 7: "pqrs", 8: "tuv", 9: "wxyz"}
+        l = list(d[int(digits[0])])
+        for c in digits[1:]:
+            n = int(c)
+            l = [a + b for a in l for b in d[n]]
+        return l
 
     def isValid(self, s: str) -> bool:  # 20
         val = {
@@ -183,6 +223,18 @@ class Solution:
             mix = ListNode(i, mix)
         return mix
 
+    def generateParenthesis(self, n: int) -> list[str]:  # 22
+        def putp(valids: set[str], n: int) -> set:
+            if n == 0:
+                return valids
+            uh = set()
+            for v in valids:
+                for i in range(len(v)):
+                    uh.add(v[:i] + "()" + v[i:])
+            return putp(uh, n - 1)
+
+        return list(putp({"()"}, n - 1))
+
     def removeDuplicates(self, nums: List[int]) -> int:  # 26
         last = -101
         offset = 0
@@ -214,6 +266,24 @@ class Solution:
 
 
 test(
-    Solution().longestPalindrome,
+    Solution().generateParenthesis,
     [],
 )
+
+"""
+test(
+    Solution().myAtoi,
+    [
+        ("42", 42),
+        ("-042", -42),
+        ("1337c0d3", 1337),
+        ("0-1", 0),
+        ("words and 987", 0),
+        ("-1123u3761867", -1123),
+        ("00000-42a1234", 0),
+        ("-91283472332", -2147483648),
+        ("+-2", 0),
+        ("-115579378e25", -115579378),
+    ],
+)
+"""

@@ -2,6 +2,26 @@ from utils import *
 
 
 class Solution:
+    def mySqrt(self, x: int) -> int:  # 69
+        print(f"=== {x} -> {math.floor(math.sqrt(x))}")
+        if x == 0:
+            return 0
+        if x < 4:
+            return 1
+        low, up = 2, x // 2
+        while low < up:
+            r = (up + low) // 2
+            print((low, up), r)
+            if r * r <= x < (r + 1) * (r + 1):
+                print(f"bound {r}")
+                return r
+            if r * r < x:
+                low = r
+            if r * r > x:
+                up = r
+        print(f"ended {low}")
+        return low
+
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:  # 83
         s = set()
         while head:
@@ -95,6 +115,10 @@ class Solution:
     def countBits(self, n: int) -> List[int]:  # TODO: 338
         return [(bin(i)).count("1") for i in range(n + 1)]
 
+    def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -> bool:  # 836
+        bound = lambda l1, r1, l2, r2: (r1 - l1) + (r2 - l2) > max(r1, r2) - min(l1, l2)
+        return bound(*rec1[::2], *rec2[::2]) and bound(*rec1[1::2], *rec2[1::2])
+
     def shuffle(self, nums: List[int], n: int) -> List[int]:  # 1470
         out = []
         for i in range(n):
@@ -172,3 +196,9 @@ class Solution:
             print(f"{n=} {p=}")
 
         return any([all(n2e), all(n2o)])
+
+
+test(
+    Solution().mySqrt,
+    [],
+)

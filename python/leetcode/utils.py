@@ -1,7 +1,10 @@
+import math
+import re
+import sys
 from types import GeneratorType
 from typing import List, Optional
-import math
-import sys
+
+import numpy as np
 
 sys.tracebacklimit = 0
 
