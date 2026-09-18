@@ -155,6 +155,29 @@ class Solution:
             return 38
         return optim
 
+    def pivotArray(self, nums: list[int], pivot: int) -> list[int]:  # 2161
+        l = []
+        c = []
+        r = []
+        for n in nums:
+            if n < pivot:
+                l.append(n)
+            if n == pivot:
+                c.append(n)
+            if n > pivot:
+                r.append(n)
+        return l + c + r
+
+    def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:  # 2807
+        node = head
+        while node and node.next:
+            node.next = ListNode(math.gcd(node.val, node.next.val), node.next)
+            node = node.next.next
+        return head
+
+    def scoreOfString(self, s: str) -> int:  # 3110
+        return sum(map(lambda x: abs(ord(x[0]) - ord(x[1])), zip(s[:-1], s[1:])))
+
     def checkDivisibility(self, n: int) -> bool:  # 3622
         d = list(map(int, list(str(n))))
         d = sum(d) + math.prod(d)
